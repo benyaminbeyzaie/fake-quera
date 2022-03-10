@@ -11,29 +11,28 @@
 
     <TextView
         android:id="@+id/text_view_id"
+        style="@style/TextAppearance.MaterialComponents.Headline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/app_name"
-        android:textColor="#000000"
-        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/loginpassinput"
+        android:id="@+id/loginPassInput"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="302dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:hint="@string/passwordHint"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginuserinput">
+        app:layout_constraintTop_toBottomOf="@+id/loginUserInput">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -44,11 +43,12 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/loginuserinput"
+        android:id="@+id/loginUserInput"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="302dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
         android:hint="@string/usernameHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,17 +63,13 @@
 
     <Button
         android:id="@+id/loginButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="154dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/component_horizontal_padding"
         android:layout_height="66dp"
-        android:layout_marginTop="35dp"
-        android:backgroundTint="#EA7BFD"
+        android:layout_marginTop="10dp"
         android:text="@string/loginButtonText"
-        android:textColor="#000000"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginpassinput" />
+        app:layout_constraintTop_toBottomOf="@+id/loginPassInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

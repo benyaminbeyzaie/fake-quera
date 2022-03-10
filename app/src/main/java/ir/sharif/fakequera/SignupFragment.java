@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class SignupFragment extends Fragment {
@@ -33,7 +32,7 @@ public class SignupFragment extends Fragment {
         radioGroup = view.findViewById(R.id.radioGroup);
         studentButton = view.findViewById(R.id.studentButton);
         teacherButton = view.findViewById(R.id.teacherButton);
-        textInputLayout = view.findViewById(R.id.signupextrainput);
+        textInputLayout = view.findViewById(R.id.additionalInformationInput);
 
 
         System.out.println(radioGroup.getId());

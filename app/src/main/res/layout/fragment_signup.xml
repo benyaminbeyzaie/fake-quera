@@ -11,23 +11,22 @@
 
     <TextView
         android:id="@+id/text_view_id"
+        style="@style/TextAppearance.MaterialComponents.Headline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/app_name"
-        android:textColor="#000000"
-        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signupuserinput"
+        android:id="@+id/signupUserInput"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="302dp"
+        android:layout_width="match_parent"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:hint="@string/usernameHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,17 +41,17 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signuppassinput"
+        android:id="@+id/signupPassInput"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="302dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
         android:hint="@string/passwordHint"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupuserinput">
+        app:layout_constraintTop_toBottomOf="@+id/signupUserInput">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -67,16 +66,16 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signupnameinput"
+        android:id="@+id/signupNameInput"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="302dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
         android:hint="@string/nameHint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signuppassinput">
+        app:layout_constraintTop_toBottomOf="@+id/signupPassInput">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -88,19 +87,20 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="35dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupnameinput">
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
+        app:layout_constraintTop_toBottomOf="@+id/signupNameInput">
 
 
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp">
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/studentButton"
@@ -119,12 +119,10 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signupextrainput"
+            android:id="@+id/additionalInformationInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="20dp"
             android:hint="@string/studentNumberHint">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -138,14 +136,11 @@
 
     <Button
         android:id="@+id/loginButton2"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="154dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="35dp"
-        android:backgroundTint="#EA7BFD"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="@dimen/component_horizontal_padding"
+        android:layout_marginTop="20dp"
         android:text="@string/signupButtonText"
-        android:textColor="#000000"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />

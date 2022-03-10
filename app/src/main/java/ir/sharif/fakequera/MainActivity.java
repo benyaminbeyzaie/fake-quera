@@ -78,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     LoginFragment loginFragment = new LoginFragment();
                     fragmentTransaction.replace(R.id.frame , loginFragment);
                     fragmentTransaction.commit();
-
-                    Toast.makeText(MainActivity.this, "login", Toast.LENGTH_SHORT).show();
-
                 }else if (tab.getText().equals(getString(R.string.signup))){
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -88,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
                     SignupFragment signupFragment = new SignupFragment();
                     fragmentTransaction.replace(R.id.frame , signupFragment);
                     fragmentTransaction.commit();
-
-                    Toast.makeText(MainActivity.this, "signup", Toast.LENGTH_SHORT).show();
                 }
             }
 
