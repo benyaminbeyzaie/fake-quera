@@ -2,6 +2,8 @@ package ir.sharif.fakequera;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -52,7 +54,15 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(tab.getId());
                 System.out.println(tab.getText());
                 if (Objects.requireNonNull(tab.getText()).equals(getString(R.string.login))){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    LoginFragment loginFragment = new LoginFragment();
+                    fragmentTransaction.add(R.id.frame , loginFragment);
+                    fragmentTransaction.commit();
+
                     Toast.makeText(MainActivity.this, "login", Toast.LENGTH_SHORT).show();
+
                 }else if (tab.getText().equals(getString(R.string.signup))){
                     Toast.makeText(MainActivity.this, "signup", Toast.LENGTH_SHORT).show();
                 }
@@ -68,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
     void showTopSnackBar(String message) {

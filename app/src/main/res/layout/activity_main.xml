@@ -29,5 +29,16 @@
             android:text="@string/login" />
     </com.google.android.material.tabs.TabLayout>
 
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="411dp"
+        android:layout_height="576dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs">
+
+    </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
