@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Fake Quera</string>
-    <string name="label">Username</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="signup">Sign up</string>
+    <string name="signup">Sign Up</string>
+    <string name="login">Log In</string>
 </resources>
