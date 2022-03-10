@@ -6,9 +6,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -23,6 +28,7 @@ import ir.sharif.fakequera.viewModels.UserViewModel;
 public class MainActivity extends AppCompatActivity {
     UserViewModel userViewModel;
     ConstraintLayout layout;
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         layout = findViewById(R.id.main_layout);
+        frameLayout=layout.findViewById(R.id.frame);
+
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         // TODO: delete this line and add sign up page
@@ -47,6 +55,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        LoginFragment loginFragment = new LoginFragment();
+        fragmentTransaction.replace(R.id.frame , loginFragment);
+        fragmentTransaction.commit();
+
+
+
+
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -58,12 +76,19 @@ public class MainActivity extends AppCompatActivity {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                     LoginFragment loginFragment = new LoginFragment();
-                    fragmentTransaction.add(R.id.frame , loginFragment);
+                    fragmentTransaction.replace(R.id.frame , loginFragment);
                     fragmentTransaction.commit();
 
                     Toast.makeText(MainActivity.this, "login", Toast.LENGTH_SHORT).show();
 
                 }else if (tab.getText().equals(getString(R.string.signup))){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    SignupFragment signupFragment = new SignupFragment();
+                    fragmentTransaction.replace(R.id.frame , signupFragment);
+                    fragmentTransaction.commit();
+
                     Toast.makeText(MainActivity.this, "signup", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -90,5 +115,23 @@ public class MainActivity extends AppCompatActivity {
         params.gravity = Gravity.TOP;
         view.setLayoutParams(params);
         snack.show();
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

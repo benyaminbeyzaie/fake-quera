@@ -2,4 +2,13 @@
     <string name="app_name">Fake Quera</string>
     <string name="signup">Sign Up</string>
     <string name="login">Log In</string>
+    <string name="passwordHint">Password</string>
+    <string name="usernameHint">Username</string>
+    <string name="loginButtonText">Log in</string>
+    <string name="nameHint">Your Name</string>
+    <string name="student">Student</string>
+    <string name="teacher">Teacher</string>
+    <string name="studentNumberHint">Your Student Number</string>
+    <string name="universityHint">Your University Name</string>
+    <string name="signupButtonText">Sign Up</string>
 </resources>
