@@ -1,5 +1,6 @@
 package ir.sharif.fakequera.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -24,11 +25,15 @@ public class User {
     @ColumnInfo(name = "password")
     public String password;
 
+    @ColumnInfo(name = "is_current_user")
+    public boolean isCurrentUser = false;
+
     public User(@NotNull String userName, @NotNull String password){
         this.userName = userName;
         this.password = password;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "User{" +
