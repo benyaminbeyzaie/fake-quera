@@ -2,9 +2,11 @@ package ir.sharif.fakequera.database;
 
 import android.content.Context;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.AutoMigrationSpec;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,7 +14,7 @@ import java.util.concurrent.Executors;
 import ir.sharif.fakequera.dao.UserDao;
 import ir.sharif.fakequera.entities.User;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class}, version = 3 )
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
 
@@ -26,11 +28,14 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "app-database")
+                            AppDatabase.class, "app-database").fallbackToDestructiveMigration()
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
+
+    static class MyAutoMigration implements AutoMigrationSpec { }
+
 }

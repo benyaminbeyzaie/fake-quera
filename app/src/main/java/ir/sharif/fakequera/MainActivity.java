@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         // TODO: delete this line and add sign up page
-        userViewModel.insert(new User("ben", "123"));
+        userViewModel.insert(new User("ben", "123" , "Student"));
         userViewModel.getCurrentUser().observe(this, user -> {
             if (user == null) {
                 showTopSnackBar("User authenticated failed");
@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
                     LoginFragment loginFragment = new LoginFragment();
                     fragmentTransaction.replace(R.id.frame , loginFragment);
                     fragmentTransaction.commit();
+
+                    Toast.makeText(MainActivity.this, "login", Toast.LENGTH_SHORT).show();
+
                 }else if (tab.getText().equals(getString(R.string.signup))){
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -85,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                     SignupFragment signupFragment = new SignupFragment();
                     fragmentTransaction.replace(R.id.frame , signupFragment);
                     fragmentTransaction.commit();
+
+                    Toast.makeText(MainActivity.this, "signup", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -101,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     }
 
     void showTopSnackBar(String message) {
@@ -110,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
         params.gravity = Gravity.TOP;
         view.setLayoutParams(params);
         snack.show();
+    }
+
+    public void takeData(String username , String password){
+        userViewModel.authenticate(username , password);
     }
 
 
