@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
-// TODO: make this class abstract and add two type of users!
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)
@@ -28,9 +27,13 @@ public class User {
     @ColumnInfo(name = "is_current_user")
     public boolean isCurrentUser = false;
 
-    public User(@NotNull String userName, @NotNull String password){
+    @ColumnInfo(name = "in_teacher")
+    public boolean isTeacher;
+
+    public User(@NotNull String userName, @NotNull String password, boolean isTeacher){
         this.userName = userName;
         this.password = password;
+        this.isTeacher = isTeacher;
     }
 
     @NonNull
