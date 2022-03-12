@@ -1,16 +1,15 @@
 package ir.sharif.fakequera.entities;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+
+@Entity
 public class Teacher extends User{
+    @ColumnInfo(name = "university_name")
     public String universityName;
-    public Teacher(String userName, String password, String mode) {
-        super(userName, password, mode);
-    }
 
-    public String getUniversityName() {
-        return universityName;
-    }
-
-    public void setUniversityName(String universityName) {
-        this.universityName = universityName;
+    public Teacher(@NonNull String userName, @NonNull String password) {
+        super(userName, password, true);
     }
 }

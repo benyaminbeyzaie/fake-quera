@@ -22,6 +22,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
+import ir.sharif.fakequera.entities.Student;
+import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
@@ -36,33 +38,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         layout = findViewById(R.id.main_layout);
-        frameLayout=layout.findViewById(R.id.frame);
-
-
+        frameLayout = layout.findViewById(R.id.frame);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        // TODO: delete this line and add sign up page
-        userViewModel.insert(new User("ben", "123" , "Student"));
-        userViewModel.getCurrentUser().observe(this, user -> {
-            if (user == null) {
-                showTopSnackBar("User authenticated failed");
-                return;
-            }
-            if (user.isCurrentUser) {
-                showTopSnackBar("User authenticated successfully");
-            } else {
-                showTopSnackBar("User authenticated failed");
-            }
-        });
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         LoginFragment loginFragment = new LoginFragment();
-        fragmentTransaction.replace(R.id.frame , loginFragment);
+        fragmentTransaction.replace(R.id.frame, loginFragment);
         fragmentTransaction.commit();
-
-
 
 
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -71,25 +56,20 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 System.out.println(tab.getId());
                 System.out.println(tab.getText());
-                if (Objects.requireNonNull(tab.getText()).equals(getString(R.string.login))){
+                if (Objects.requireNonNull(tab.getText()).equals(getString(R.string.login))) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                     LoginFragment loginFragment = new LoginFragment();
-                    fragmentTransaction.replace(R.id.frame , loginFragment);
+                    fragmentTransaction.replace(R.id.frame, loginFragment);
                     fragmentTransaction.commit();
-
-                    Toast.makeText(MainActivity.this, "login", Toast.LENGTH_SHORT).show();
-
-                }else if (tab.getText().equals(getString(R.string.signup))){
+                } else if (tab.getText().equals(getString(R.string.signup))) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                     SignupFragment signupFragment = new SignupFragment();
-                    fragmentTransaction.replace(R.id.frame , signupFragment);
+                    fragmentTransaction.replace(R.id.frame, signupFragment);
                     fragmentTransaction.commit();
-
-                    Toast.makeText(MainActivity.this, "signup", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -105,22 +85,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
-    }
-
-    void showTopSnackBar(String message) {
-        Snackbar snack = Snackbar.make(layout, message, Snackbar.LENGTH_LONG);
-        View view = snack.getView();
-        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
-        params.gravity = Gravity.TOP;
-        view.setLayoutParams(params);
-        snack.show();
-    }
-
-    public void takeData(String username , String password){
-        userViewModel.authenticate(username , password);
     }
 
 
@@ -128,16 +92,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if ( v instanceof EditText) {
+            if (v instanceof EditText) {
                 Rect outRect = new Rect();
                 v.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
                     v.clearFocus();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
         }
-        return super.dispatchTouchEvent( event );
+        return super.dispatchTouchEvent(event);
     }
 }

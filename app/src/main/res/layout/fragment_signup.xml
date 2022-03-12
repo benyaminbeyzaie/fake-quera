@@ -135,7 +135,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/signinButton"
+        android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="@dimen/component_horizontal_padding"

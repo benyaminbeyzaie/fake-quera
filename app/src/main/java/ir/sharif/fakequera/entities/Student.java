@@ -1,19 +1,15 @@
 package ir.sharif.fakequera.entities;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 
-public class Student extends User{
+@Entity
+public class Student extends User {
+    @ColumnInfo(name = "student_id")
+    public String studentId;
 
-    public String studentNumber;
-    public Student(String userName, String password, String mode) {
-        super(userName, password, mode);
-    }
-
-    public String getStudentNumber() {
-        return studentNumber;
-    }
-
-    public void setStudentNumber(String studentNumber) {
-        this.studentNumber = studentNumber;
+    public Student(@NonNull String userName, @NonNull String password) {
+        super(userName, password, false);
     }
 }
