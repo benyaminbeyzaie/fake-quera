@@ -8,16 +8,12 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import ir.sharif.fakequera.entities.Student;
+import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM user")
-    List<User> getAll();
-
-    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
-    List<User> loadAllByIds(int[] userIds);
-
     @Query("SELECT * FROM user WHERE user_name LIKE :username")
     User findByUsername(String username);
 
@@ -25,13 +21,7 @@ public interface UserDao {
     User getCurrentUser();
 
     @Insert
-    void insertAll(User... users);
-
-    @Insert
-    void insert(User user);
-
-    @Delete
-    void delete(User user);
+    void insertUser(User user);
 
     @Update
     void updateUser(User user);
