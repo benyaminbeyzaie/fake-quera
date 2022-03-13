@@ -23,7 +23,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/loginPassInput"
+        android:id="@+id/dialogeinput"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginUserInput">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/loginpasstext"
+            android:id="@+id/dialogInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -76,7 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPassInput">
+        app:layout_constraintTop_toBottomOf="@+id/dialogeinput">
 
 
         <RadioGroup
@@ -103,7 +103,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/cancleButton"
         android:layout_width="match_parent"
         android:layout_height="66dp"
         android:layout_marginHorizontal="@dimen/component_horizontal_padding"

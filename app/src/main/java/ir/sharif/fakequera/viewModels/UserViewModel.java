@@ -12,7 +12,7 @@ import ir.sharif.fakequera.repositories.UserRepository;
 
 public class UserViewModel extends AndroidViewModel {
 
-    private final UserRepository repository;
+    public final UserRepository repository;
     private final LiveData<User> currentUser;
 
     public UserViewModel (Application application) {

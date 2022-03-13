@@ -14,7 +14,7 @@ import ir.sharif.fakequera.entities.User;
 
 @Dao
 public interface ClassDao {
-    @Query("SELECT * FROM class WHERE uid LIKE :teacherId")
+    @Query("SELECT * FROM class_table WHERE uid LIKE :teacherId")
     List<Class> getClassesOfTeacher(int teacherId);
 
     @Insert

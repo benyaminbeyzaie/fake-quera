@@ -14,8 +14,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.utils.QueraSnackbar;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
@@ -36,8 +34,8 @@ public class LoginFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_login, container, false);
 
         loginUserInput = view.findViewById(R.id.loginUserInput);
-        loginPassInput = view.findViewById(R.id.loginPassInput);
-        loginButton = view.findViewById(R.id.loginButton);
+        loginPassInput = view.findViewById(R.id.dialogeinput);
+        loginButton = view.findViewById(R.id.cancleButton);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
 
@@ -55,8 +53,12 @@ public class LoginFragment extends Fragment {
             if (user.isCurrentUser) {
                 if (user.isTeacher) {
                     QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as teacher");
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.takeTeacherData();
                 } else {
                     QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as student");
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.takeStudentData();
                 }
             } else {
                 QueraSnackbar.showTopSnackBar(view,"User authenticated failed");

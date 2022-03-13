@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.StudentDao;
 import ir.sharif.fakequera.dao.TeacherDao;
 import ir.sharif.fakequera.dao.UserDao;
@@ -32,7 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "app-database")
+                            AppDatabase.class, "app-database").fallbackToDestructiveMigration()
                             .build();
                 }
             }

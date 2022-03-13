@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mojtaba/AndroidStudioProjects/fake-quera/app/src/main/res/drawable/ic_plus_24.xml" value="0.192" />
+        <entry key="..\:/Users/Mojtaba/AndroidStudioProjects/fake-quera/app/src/main/res/layout/activity_student_main.xml" value="0.8" />
+        <entry key="..\:/Users/Mojtaba/AndroidStudioProjects/fake-quera/app/src/main/res/layout/activity_teacher_main.xml" value="0.264" />
+        <entry key="..\:/Users/Mojtaba/AndroidStudioProjects/fake-quera/app/src/main/res/layout/card_design.xml" value="0.264" />
+        <entry key="..\:/Users/Mojtaba/AndroidStudioProjects/fake-quera/app/src/main/res/layout/fragment_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/Mojtaba/AndroidStudioProjects/fake-quera/app/src/main/res/layout/fragment_login.xml" value="0.14166666666666666" />
+        <entry key="..\:/Users/Mojtaba/AndroidStudioProjects/fake-quera/app/src/main/res/layout/fragment_signup.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Mojtaba/AndroidStudioProjects/fake-quera/app/src/main/res/menu/my_menu.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.17905711695376247" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.20217588395285585" />
