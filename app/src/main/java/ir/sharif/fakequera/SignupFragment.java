@@ -72,18 +72,18 @@ public class SignupFragment extends Fragment {
         });
 
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+            QueraSnackbar.showTopSnackBar(view, userViewModel.getMessage().getValue());
             if (user == null) {
-                QueraSnackbar.showTopSnackBar(view, "User authenticated failed");
                 return;
             }
             if (user.isCurrentUser) {
                 if (user.isTeacher) {
-                    QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as teacher");
+                    // TODO
                 } else {
-                    QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as student");
+                    // TODO
                 }
             } else {
-                QueraSnackbar.showTopSnackBar(view,"User authenticated failed");
+                // TODO
             }
         });
 

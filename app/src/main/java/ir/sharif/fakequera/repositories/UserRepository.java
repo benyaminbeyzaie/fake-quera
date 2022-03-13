@@ -1,11 +1,13 @@
 package ir.sharif.fakequera.repositories;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 import ir.sharif.fakequera.dao.StudentDao;
 import ir.sharif.fakequera.dao.TeacherDao;
@@ -22,6 +24,7 @@ public class UserRepository {
     private final MutableLiveData<User> currentUser;
     private final MutableLiveData<Teacher> currentTeacher;
     private final MutableLiveData<Student> currentStudent;
+    private final MutableLiveData<String> message;
 
     public UserRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -31,10 +34,17 @@ public class UserRepository {
         currentUser = new MutableLiveData<>();
         currentTeacher = new MutableLiveData<>();
         currentStudent = new MutableLiveData<>();
+        message = new MutableLiveData<>("Something went wrong!");
     }
 
     public void insertTeacher(Teacher teacher) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
+            if (userDao.findByUsername(teacher.userName) != null) {
+                message.postValue("This username is already exists!");
+                setCurrentUser(null);
+                return;
+            }
+            message.postValue("User registered as teacher");
             userDao.insertUser(teacher);
             teacherDao.insert(teacher);
             setCurrentUser(teacher);
@@ -43,10 +53,18 @@ public class UserRepository {
 
     public void insertStudent(Student student) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
+            if (userDao.findByUsername(student.userName) != null) {
+                message.postValue("This username is already exists!");
+                setCurrentUser(null);
+                return;
+            }
+            message.postValue("User registered as student");
             userDao.insertUser(student);
-         studentDao.insert(student);
+            studentDao.insert(student);
             setCurrentUser(student);
         });
+
+
     }
 
     public void setCurrentUser(User user) {
@@ -69,11 +87,17 @@ public class UserRepository {
                 return;
             }
             if (!user.password.equals(password)) {
+                message.postValue("Password is incorrect");
                 setCurrentUser(null);
                 return;
             }
+            message.postValue("User signed in successfully");
             setCurrentUser(user);
         });
+    }
+
+    public LiveData<String> getMessage() {
+        return message;
     }
 
     public LiveData<User> getCurrentUser() {
@@ -82,6 +106,7 @@ public class UserRepository {
         }
         return currentUser;
     }
+
 
     public LiveData<Teacher> getCurrentTeacher() {
         if (currentUser == null) {
