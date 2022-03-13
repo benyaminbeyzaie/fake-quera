@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
+    android:layout_margin="10dp"
     tools:context=".LoginFragment">
 
 
@@ -22,7 +23,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/loginPassInput"
+        android:id="@+id/dialogeinput"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -31,10 +32,12 @@
         android:paddingHorizontal="@dimen/component_horizontal_padding"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginUserInput">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialogInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -48,28 +51,68 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
-        android:paddingHorizontal="@dimen/component_horizontal_padding"
         android:hint="@string/usernameHint"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_id">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginusernametext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
-        android:id="@+id/loginButton"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/component_horizontal_padding"
-        android:layout_height="66dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogeinput">
+
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/studentButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/student" />
+
+            <RadioButton
+                android:id="@+id/teacherButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/teacher" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cancleButton"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_marginHorizontal="@dimen/component_horizontal_padding"
+        android:layout_marginTop="10dp"
+
         android:text="@string/loginButtonText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPassInput" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
