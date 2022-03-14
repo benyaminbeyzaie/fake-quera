@@ -93,8 +93,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void takeTeacherData(){
+    public void takeTeacherData(int uid){
         Intent i = new Intent(MainActivity.this , TeacherMainActivity.class);
+        i.putExtra("uid" , uid);
         startActivity(i);
     }
 
@@ -114,4 +115,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(event);
     }
+
 }

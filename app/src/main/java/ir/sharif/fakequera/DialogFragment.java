@@ -47,10 +47,11 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
 
             String input = Objects.requireNonNull(textInputLayout.getEditText()).getText().toString();
             if (input.equals("")){
+                textInputLayout.setErrorEnabled(true);
                 textInputLayout.setError("fill in the blanks");
             }else {
                 ((TeacherMainActivity) getActivity()).takeDate(input);
-                getDialog().dismiss();
+                Objects.requireNonNull(getDialog()).dismiss();
             }
         });
 

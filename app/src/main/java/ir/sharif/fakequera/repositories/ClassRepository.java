@@ -2,6 +2,7 @@ package ir.sharif.fakequera.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,17 +20,17 @@ public class ClassRepository {
 
     private ClassDao classDao;
     private UserRepository userRepository;
-    private MutableLiveData<List<Class>> classes;
-    private MutableLiveData<Teacher> teacher;
+    private LiveData<List<Class>> classes;
+    private LiveData<Teacher> teacher;
+    private int uid;
 
     public ClassRepository(Application application , int uid){
+        Log.d("mym" , "teacher uid is " + uid);
         AppDatabase db = AppDatabase.getDatabase(application);
         userRepository = UserRepository.getInstance(application);
         classDao = db.classDao();
-        teacher = (MutableLiveData<Teacher>) userRepository.getCurrentTeacher();
-        classes = (MutableLiveData<List<Class>>) classDao.getClassesOfTeacher(uid);
-
-
+        this.uid = uid;
+        classes =  classDao.getClassesOfTeacher(this.uid);
     }
 
     public void insert(Class clas){
@@ -54,5 +55,10 @@ public class ClassRepository {
         return classes;
     }
 
+    public void update(int uid){
+        Log.d("mym" , "update uid" + uid);
+        this.uid = uid;
+        classes =  classDao.getClassesOfTeacher(this.uid);
+    }
 
 }

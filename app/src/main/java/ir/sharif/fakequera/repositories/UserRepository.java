@@ -61,7 +61,8 @@ public class UserRepository {
             message.postValue("User registered as teacher");
             userDao.insertUser(teacher);
             teacherDao.insert(teacher);
-            setCurrentUser(teacher);
+//            setCurrentUser(teacher);
+//            setCurrentTeacher(teacher);
         });
     }
 
@@ -75,7 +76,7 @@ public class UserRepository {
             message.postValue("User registered as student");
             userDao.insertUser(student);
             studentDao.insert(student);
-            setCurrentUser(student);
+//            setCurrentUser(student);
         });
 
 
@@ -88,8 +89,20 @@ public class UserRepository {
                 return;
             }
             user.isCurrentUser = true;
-            userDao.updateUser(user);
+//            userDao.updateUser(user);
             currentUser.postValue(user);
+        });
+    }
+
+    public void setCurrentTeacher(Teacher user) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            if (user == null) {
+                currentTeacher.postValue(null);
+                return;
+            }
+            user.isCurrentUser = true;
+            userDao.updateUser(user);
+            currentTeacher.postValue(user);
         });
     }
 
@@ -107,6 +120,11 @@ public class UserRepository {
             }
             message.postValue("User signed in successfully");
             setCurrentUser(user);
+//            getCurrentTeacher();
+//            getCurrentStudent();
+//            if (user.isTeacher){
+//                setCurrentTeacher(user);
+//            }
         });
     }
 
@@ -123,17 +141,25 @@ public class UserRepository {
 
 
     public LiveData<Teacher> getCurrentTeacher() {
-        if (currentUser == null) {
+        if (currentUser.getValue() == null) {
+            Log.d("mym" , "adadad");
             loadCurrentUser();
         }
-        if (currentUser == null) {
+        if (currentUser.getValue() == null) {
+            Log.d("mym" , "1231231231");
             return null;
         }
+
+
+        Log.d("mym" , "ada23d21a3");
+
+
         AppDatabase.databaseWriteExecutor.execute(() -> {
             Teacher teacher;
             teacher = teacherDao.getTeacher(Objects.requireNonNull(currentUser.getValue()).uid);
             currentTeacher.postValue(teacher);
         });
+
         return currentTeacher;
     }
 
@@ -159,7 +185,20 @@ public class UserRepository {
             if (user == null) {
                 return;
             }
+
             currentUser.postValue(user);
         });
+    }
+
+    public void close() {
+        Log.d("mym" , "close");
+        if (currentUser.getValue() == null){
+            return;
+        }
+
+        User value = currentUser.getValue();
+        value.isCurrentUser = false;
+        userDao.updateUser(value);
+        Log.d("mym" , "updated");
     }
 }
