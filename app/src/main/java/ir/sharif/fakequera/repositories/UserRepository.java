@@ -26,6 +26,20 @@ public class UserRepository {
     private final MutableLiveData<Student> currentStudent;
     private final MutableLiveData<String> message;
 
+    private static volatile UserRepository INSTANCE;
+
+    public static UserRepository getInstance(Application application){
+        if (INSTANCE==null){
+            synchronized (UserRepository.class){
+                if (INSTANCE==null) {
+                    INSTANCE = new UserRepository(application);
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+
     public UserRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         userDao = db.userDao();

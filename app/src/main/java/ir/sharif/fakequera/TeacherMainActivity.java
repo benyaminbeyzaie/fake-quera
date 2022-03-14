@@ -3,6 +3,8 @@ package ir.sharif.fakequera;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,13 +18,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import ir.sharif.fakequera.entities.Class;
+import ir.sharif.fakequera.repositories.ClassRepository;
 import ir.sharif.fakequera.utils.ClassAdapter;
+import ir.sharif.fakequera.viewModels.ClassViewModel;
 
 public class TeacherMainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<Class> classes;
     ClassAdapter classAdapter;
+
+    private ClassViewModel classViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +37,16 @@ public class TeacherMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_main);
 
 
+        classViewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication())
+                .create(ClassViewModel.class);
+
+
+        classViewModel.getTeacherClasses().observe(this, new Observer<List<Class>>() {
+            @Override
+            public void onChanged(List<Class> classes) {
+
+            }
+        });
         recyclerView = findViewById(R.id.recylcer);
         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherMainActivity.this));
 
@@ -43,13 +60,13 @@ public class TeacherMainActivity extends AppCompatActivity {
         classes.add(c3);
         classes.add(c4);
 //        classes = (ArrayList<Class>) Arrays.asList(c1,c2,c3,c4);
-        classAdapter = new ClassAdapter(classes ,TeacherMainActivity.this);
+        classAdapter = new ClassAdapter(classes, TeacherMainActivity.this);
         recyclerView.setAdapter(classAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_menu , menu);
+        getMenuInflater().inflate(R.menu.my_menu, menu);
         return true;
     }
 
@@ -59,9 +76,9 @@ public class TeacherMainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.top_menu:
                 Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
-                FragmentManager fragmentManager =getSupportFragmentManager();
-                 DialogFragment dialogFragment = new DialogFragment();
-                 dialogFragment.show(fragmentManager , "DialogFragment");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                DialogFragment dialogFragment = new DialogFragment();
+                dialogFragment.show(fragmentManager, "DialogFragment");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -70,7 +87,7 @@ public class TeacherMainActivity extends AppCompatActivity {
     }
 
 
-    public void takeDate(String name){
+    public void takeDate(String name) {
         Class classs = new Class(name);
         classes.add(classs);
         classAdapter.setClasses(classes);
