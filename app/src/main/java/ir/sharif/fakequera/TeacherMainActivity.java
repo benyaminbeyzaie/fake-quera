@@ -3,12 +3,15 @@ package ir.sharif.fakequera;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -18,17 +21,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import ir.sharif.fakequera.entities.Class;
+import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.repositories.ClassRepository;
+import ir.sharif.fakequera.repositories.UserRepository;
 import ir.sharif.fakequera.utils.ClassAdapter;
 import ir.sharif.fakequera.viewModels.ClassViewModel;
+import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class TeacherMainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList<Class> classes;
-    ClassAdapter classAdapter;
 
     private ClassViewModel classViewModel;
+    private int uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,31 +42,25 @@ public class TeacherMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_main);
 
 
-        classViewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication())
-                .create(ClassViewModel.class);
+        Intent i = getIntent();
+        uid = i.getIntExtra("uid" , 0);
 
-
-        classViewModel.getTeacherClasses().observe(this, new Observer<List<Class>>() {
-            @Override
-            public void onChanged(List<Class> classes) {
-
-            }
-        });
         recyclerView = findViewById(R.id.recylcer);
         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherMainActivity.this));
 
-        Class c1 = new Class("A");
-        Class c2 = new Class("B");
-        Class c3 = new Class("C");
-        Class c4 = new Class("D");
-        classes = new ArrayList<>();
-        classes.add(c1);
-        classes.add(c2);
-        classes.add(c3);
-        classes.add(c4);
-//        classes = (ArrayList<Class>) Arrays.asList(c1,c2,c3,c4);
-        classAdapter = new ClassAdapter(classes, TeacherMainActivity.this);
+        ClassAdapter classAdapter = new ClassAdapter();
+
         recyclerView.setAdapter(classAdapter);
+
+        classViewModel = new ClassViewModel(getApplication() , uid);
+        classViewModel.getTeacherClasses().observe(this, new Observer<List<Class>>() {
+            @Override
+            public void onChanged(List<Class> classes) {
+                Log.d("mym", classes.toString());
+                classAdapter.setClasses(classes);
+            }
+        });
+
     }
 
     @Override
@@ -88,8 +87,9 @@ public class TeacherMainActivity extends AppCompatActivity {
 
 
     public void takeDate(String name) {
-        Class classs = new Class(name);
-        classes.add(classs);
-        classAdapter.setClasses(classes);
+        Class classs = new Class(uid , name);
+        Log.d("mym" , classs.toString());
+        classViewModel.insert(classs);
     }
+
 }

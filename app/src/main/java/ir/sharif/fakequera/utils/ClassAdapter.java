@@ -25,6 +25,10 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         this.context = context;
     }
 
+    public ClassAdapter() {
+        classes = new ArrayList<>();
+    }
+
     public ClassAdapter(Context context) {
         this.context = context;
     }

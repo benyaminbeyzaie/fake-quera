@@ -54,7 +54,7 @@ public class LoginFragment extends Fragment {
                 if (user.isTeacher) {
                     QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as teacher");
                     MainActivity mainActivity = (MainActivity) getActivity();
-                    mainActivity.takeTeacherData();
+                    mainActivity.takeTeacherData(user.uid);
                 } else {
                     QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as student");
                     MainActivity mainActivity = (MainActivity) getActivity();

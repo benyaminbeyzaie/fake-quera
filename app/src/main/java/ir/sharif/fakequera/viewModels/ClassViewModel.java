@@ -1,6 +1,7 @@
 package ir.sharif.fakequera.viewModels;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -8,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.Objects;
 
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Teacher;
@@ -17,16 +19,14 @@ import ir.sharif.fakequera.repositories.UserRepository;
 public class ClassViewModel extends AndroidViewModel {
 
     private ClassRepository classRepository;
-    private UserRepository userRepository;
-    private LiveData<Class> teacherClasses;
-    private MutableLiveData<Teacher> currentTeacher;
+    private LiveData<List<Class>> teacherClasses;
 
-    public ClassViewModel(@NonNull Application application) {
+    public ClassViewModel(@NonNull Application application , int uid) {
         super(application);
-        userRepository = UserRepository.getInstance(application);
-        currentTeacher = (MutableLiveData<Teacher>) userRepository.getCurrentTeacher();
-        classRepository = new ClassRepository(application , currentTeacher.getValue().uid);
 
+//        Log.d("mym" ,currentTeacher.getValue());
+        classRepository = new ClassRepository(application , uid);
+        teacherClasses =classRepository.getClasses();
     }
 
 
@@ -43,6 +43,12 @@ public class ClassViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Class>> getTeacherClasses(){
-        return classRepository.getClasses();
+        return teacherClasses;
     }
+
+    public void update(int uid){
+        classRepository.update(uid);
+        teacherClasses =classRepository.getClasses();
+    }
+
 }

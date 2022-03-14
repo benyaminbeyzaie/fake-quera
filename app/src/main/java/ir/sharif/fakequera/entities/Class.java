@@ -19,6 +19,11 @@ public class Class {
     public Class() {
     }
 
+    public Class(int ownerTeacherId, String className) {
+        this.ownerTeacherId = ownerTeacherId;
+        this.className = className;
+    }
+
     public Class(String className) {
         this.className = className;
     }
@@ -45,5 +50,14 @@ public class Class {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    @Override
+    public String toString() {
+        return "Class{" +
+                "uid=" + uid +
+                ", ownerTeacherId=" + ownerTeacherId +
+                ", className='" + className + '\'' +
+                '}';
     }
 }

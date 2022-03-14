@@ -15,8 +15,11 @@ import ir.sharif.fakequera.entities.User;
 
 @Dao
 public interface ClassDao {
-    @Query("SELECT * FROM class_table WHERE uid LIKE :teacherId")
+    @Query("SELECT * FROM class_table WHERE owner_teacher_id LIKE :teacherId")
     LiveData<List<Class>> getClassesOfTeacher(int teacherId);
+
+//    @Query("SELECT * FROM class_table ORDER BY uid ASC")
+//    LiveData<List<Class>> getClassesOfTeacher();
 
     @Insert
     void insert(Class c);
