@@ -24,41 +24,41 @@ public class ClassRepository {
     private LiveData<Teacher> teacher;
     private int uid;
 
-    public ClassRepository(Application application , int uid){
-        Log.d("mym" , "teacher uid is " + uid);
+    public ClassRepository(Application application, int uid) {
+        Log.d("mym", "teacher uid is " + uid);
         AppDatabase db = AppDatabase.getDatabase(application);
         userRepository = UserRepository.getInstance(application);
         classDao = db.classDao();
         this.uid = uid;
-        classes =  classDao.getClassesOfTeacher(this.uid);
+        classes = classDao.getClassesOfTeacher(this.uid);
     }
 
-    public void insert(Class clas){
+    public void insert(Class clas) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             classDao.insert(clas);
         });
     }
 
-    public void update(Class clas){
+    public void update(Class clas) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             classDao.update(clas);
         });
     }
 
-    public void delete(Class clas){
+    public void delete(Class clas) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             classDao.delete(clas);
         });
     }
 
-    public LiveData<List<Class>> getClasses(){
+    public LiveData<List<Class>> getClasses() {
         return classes;
     }
 
-    public void update(int uid){
-        Log.d("mym" , "update uid" + uid);
+    public void update(int uid) {
+        Log.d("mym", "update uid" + uid);
         this.uid = uid;
-        classes =  classDao.getClassesOfTeacher(this.uid);
+        classes = classDao.getClassesOfTeacher(this.uid);
     }
 
 }

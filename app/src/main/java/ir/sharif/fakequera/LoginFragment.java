@@ -31,7 +31,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         loginUserInput = view.findViewById(R.id.loginUserInput);
         loginPassInput = view.findViewById(R.id.dialogeinput);
@@ -52,16 +52,16 @@ public class LoginFragment extends Fragment {
             }
             if (user.isCurrentUser) {
                 if (user.isTeacher) {
-                    QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as teacher");
+                    QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as teacher");
                     MainActivity mainActivity = (MainActivity) getActivity();
-                    mainActivity.takeTeacherData(user.uid);
+                    Objects.requireNonNull(mainActivity).takeTeacherData(user.uid);
                 } else {
-                    QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as student");
+                    QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as student");
                     MainActivity mainActivity = (MainActivity) getActivity();
-                    mainActivity.takeStudentData();
+                    Objects.requireNonNull(mainActivity).takeStudentData();
                 }
             } else {
-                QueraSnackbar.showTopSnackBar(view,"User authenticated failed");
+                QueraSnackbar.showTopSnackBar(view, "User authenticated failed");
             }
         });
 

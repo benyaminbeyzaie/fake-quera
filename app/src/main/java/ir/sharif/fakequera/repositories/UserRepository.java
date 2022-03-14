@@ -28,10 +28,10 @@ public class UserRepository {
 
     private static volatile UserRepository INSTANCE;
 
-    public static UserRepository getInstance(Application application){
-        if (INSTANCE==null){
-            synchronized (UserRepository.class){
-                if (INSTANCE==null) {
+    public static UserRepository getInstance(Application application) {
+        if (INSTANCE == null) {
+            synchronized (UserRepository.class) {
+                if (INSTANCE == null) {
                     INSTANCE = new UserRepository(application);
                 }
             }
@@ -142,16 +142,16 @@ public class UserRepository {
 
     public LiveData<Teacher> getCurrentTeacher() {
         if (currentUser.getValue() == null) {
-            Log.d("mym" , "adadad");
+            Log.d("mym", "adadad");
             loadCurrentUser();
         }
         if (currentUser.getValue() == null) {
-            Log.d("mym" , "1231231231");
+            Log.d("mym", "1231231231");
             return null;
         }
 
 
-        Log.d("mym" , "ada23d21a3");
+        Log.d("mym", "ada23d21a3");
 
 
         AppDatabase.databaseWriteExecutor.execute(() -> {
@@ -191,14 +191,18 @@ public class UserRepository {
     }
 
     public void close() {
-        Log.d("mym" , "close");
-        if (currentUser.getValue() == null){
+        Log.d("mym", "close");
+        if (currentUser.getValue() == null) {
             return;
         }
 
         User value = currentUser.getValue();
         value.isCurrentUser = false;
         userDao.updateUser(value);
-        Log.d("mym" , "updated");
+        Log.d("mym", "updated");
+    }
+
+    public void signOut() {
+        setCurrentUser(null);
     }
 }

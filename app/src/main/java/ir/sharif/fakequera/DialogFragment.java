@@ -1,17 +1,9 @@
 package ir.sharif.fakequera;
 
-import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -35,7 +27,6 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dialog, container, false);
 
         cancle = view.findViewById(R.id.cancleButton);
@@ -46,18 +37,16 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
         ok.setOnClickListener(view1 -> {
 
             String input = Objects.requireNonNull(textInputLayout.getEditText()).getText().toString();
-            if (input.equals("")){
+            if (input.equals("")) {
                 textInputLayout.setErrorEnabled(true);
                 textInputLayout.setError("fill in the blanks");
-            }else {
+            } else {
                 ((TeacherMainActivity) getActivity()).takeDate(input);
                 Objects.requireNonNull(getDialog()).dismiss();
             }
         });
 
-        cancle.setOnClickListener(view12 -> {
-            Objects.requireNonNull(getDialog()).dismiss();
-        });
+        cancle.setOnClickListener(view12 -> Objects.requireNonNull(getDialog()).dismiss());
 
         return view;
     }

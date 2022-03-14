@@ -55,4 +55,7 @@ public class UserViewModel extends AndroidViewModel {
         repository.close();
     }
 
+    public void signOut() {
+        repository.signOut();
+    }
 }

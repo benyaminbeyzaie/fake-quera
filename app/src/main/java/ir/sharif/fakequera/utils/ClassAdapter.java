@@ -37,7 +37,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
     @Override
     public ClassHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_design , parent , false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_design, parent, false);
 
         return new ClassHolder(view);
 
@@ -49,7 +49,6 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
 
         Class current = classes.get(position);
         holder.textViewTitle.setText(current.className);
-//        holder.textViewDes.setText(current.ownerTeacherId);
     }
 
     @Override
@@ -58,16 +57,16 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
 
     }
 
-    public Class getNote(int position){
+    public Class getNote(int position) {
         return classes.get(position);
     }
 
-    public void setClasses(List<Class> classes){
+    public void setClasses(List<Class> classes) {
         this.classes = classes;
         notifyDataSetChanged();
     }
 
-    class ClassHolder extends RecyclerView.ViewHolder{
+    class ClassHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
         TextView textViewDes;
 

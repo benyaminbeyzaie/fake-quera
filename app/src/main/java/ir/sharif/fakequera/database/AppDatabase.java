@@ -21,16 +21,19 @@ import ir.sharif.fakequera.entities.Student;
 import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 
-@Database(entities = {User.class, Student.class, Teacher.class , Class.class}, version = 2)
+@Database(entities = {User.class, Student.class, Teacher.class, Class.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
+
     public abstract StudentDao studentDao();
+
     public abstract TeacherDao teacherDao();
+
     public abstract ClassDao classDao();
 
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
-    public static final  ExecutorService databaseWriteExecutor =
+    public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static AppDatabase getDatabase(final Context context) {

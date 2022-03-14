@@ -1,31 +1,27 @@
 package ir.sharif.fakequera;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.entities.User;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         layout = findViewById(R.id.main_layout);
@@ -88,15 +83,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void takeStudentData(){
-        Intent i = new Intent(MainActivity.this , StudentMainActivity.class);
+    public void takeStudentData() {
+        Intent i = new Intent(MainActivity.this, StudentMainActivity.class);
         startActivity(i);
     }
 
-    public void takeTeacherData(int uid){
-        Intent i = new Intent(MainActivity.this , TeacherMainActivity.class);
-        i.putExtra("uid" , uid);
-        startActivity(i);
+
+    // TODO startActivityForResult is deprecated;
+    public void takeTeacherData(int uid) {
+        Intent i = new Intent(MainActivity.this, TeacherMainActivity.class);
+        i.putExtra("uid", uid);
+        startActivityForResult(i, 1);
     }
 
     @Override
@@ -116,4 +113,13 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(event);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            userViewModel.signOut();
+            Log.d("mym", "user signout succesfully");
+        }
+    }
 }
