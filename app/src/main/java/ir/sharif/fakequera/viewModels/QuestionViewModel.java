@@ -2,45 +2,97 @@ package ir.sharif.fakequera.viewModels;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import ir.sharif.fakequera.entities.Answer;
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
+import ir.sharif.fakequera.entities.Teacher;
+import ir.sharif.fakequera.repositories.ClassRepository;
 import ir.sharif.fakequera.repositories.QuestionRepository;
 
 public class QuestionViewModel extends AndroidViewModel {
 
-    private final QuestionRepository questionRepository;
-    private LiveData<List<Question>> classQuestions;
-    public QuestionViewModel(@NonNull Application application , int uid) {
-        super(application);
-        questionRepository = new QuestionRepository(application , uid);
-        classQuestions = questionRepository.getQuestions();
+    public final QuestionRepository repository;
+    private  LiveData<List<Question>> questionList;
+    private final LiveData<Teacher> teacherLiveData;
+    private final LiveData<Question> questionLiveData;
+    private final LiveData<Answer> answerLiveData;
+    private final LiveData<String> message;
 
+    public QuestionViewModel(Application application, int uid) {
+        super(application);
+        repository = new QuestionRepository(application, uid);
+        questionList = repository.getQuestionList();
+        teacherLiveData = repository.getTeacherLiveData();
+        questionLiveData = repository.getQuestionLiveData();
+        answerLiveData = repository.getAnswerLiveData();
+        message = repository.getMessage();
+    }
+
+    public LiveData<List<Question>> getQuestionList() {
+        return questionList;
+    }
+
+    public LiveData<Teacher> getTeacherLiveData() {
+        return teacherLiveData;
+    }
+
+    public LiveData<Answer> getAnswerLiveData() {
+        return answerLiveData;
+    }
+
+    public LiveData<String> getMessage() {
+        return message;
+    }
+
+    public void questionList(int classId){
+        repository.questionList(classId);
+    }
+
+    public LiveData<Question> getQuestionLiveData() {
+        return questionLiveData;
+    }
+
+    public void teacher(int teacherId){
+        repository.teacher(teacherId);
+    }
+
+    public void question(int questionId){
+        repository.question(questionId);
+    }
+
+    public void answer(int questionId){
+        repository.answer(questionId);
+    }
+
+    public void addAnswer(int questionId, String answer) {
+        repository.addAnswer(questionId , answer);
     }
 
     public void insert(Question question) {
-        questionRepository.insert(question);
+        repository.insert(question);
     }
 
     public void update(Question question) {
-        questionRepository.update(question);
+        repository.update(question);
     }
 
     public void delete(Question question) {
-        questionRepository.delete(question);
+        repository.delete(question);
     }
 
     public LiveData<List<Question>> getClassQuestions() {
-        return classQuestions;
+        return questionList;
     }
 
     public void update(int uid) {
-        questionRepository.update(uid);
-        classQuestions = questionRepository.getQuestions();
+        repository.update(uid);
+        questionList = repository.getQuestions();
     }
+
 }
+

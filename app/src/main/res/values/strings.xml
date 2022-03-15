@@ -21,4 +21,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="questionName">Enter Question Name</string>
     <string name="questionContent">Enter content of Question</string>
+    <string name="your_answer">Your answer</string>
+    <string name="submit_answer">Submit Answer</string>
 </resources>

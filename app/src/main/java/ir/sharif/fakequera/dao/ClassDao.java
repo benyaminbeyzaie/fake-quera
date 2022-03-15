@@ -21,6 +21,9 @@ public interface ClassDao {
 //    @Query("SELECT * FROM class_table ORDER BY uid ASC")
 //    LiveData<List<Class>> getClassesOfTeacher();
 
+    @Query("SELECT * FROM class_table")
+    List<Class> all();
+
     @Insert
     void insert(Class c);
 
