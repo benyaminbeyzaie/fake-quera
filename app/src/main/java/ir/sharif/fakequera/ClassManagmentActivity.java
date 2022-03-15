@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Objects;
 
+import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.utils.ClassManagmentAdapter;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
@@ -60,15 +62,21 @@ public class ClassManagmentActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-//        if (item.getItemId() == R.id.add_question) {
-//            Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
-////            FragmentManager fragmentManager = getSupportFragmentManager();
-////            DialogFragment dialogFragment = new DialogFragment();
-////            dialogFragment.show(fragmentManager, "DialogFragment");
-//            return true;
-//        }
+        if (item.getItemId() == R.id.add_question) {
+            Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            AddQuesionDialogFragment addQuesionDialogFragment = new AddQuesionDialogFragment();
+            addQuesionDialogFragment.show(fragmentManager , "AddQuesionDialogFragment");
+//            DialogFragment dialogFragment = new DialogFragment();
+//            dialogFragment.show(fragmentManager, "DialogFragment");
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
 
+    public void takeData(String name , String content) {
+        Question question = new Question(classUid , name , content);
+        questionViewModel.insert(question);
     }
 
 }

@@ -17,7 +17,6 @@ public class AddClassDialogFragment extends androidx.fragment.app.DialogFragment
     Button cancle;
     Button ok;
     TextInputLayout textInputLayout;
-    TextInputEditText textInputEditText;
 
     public AddClassDialogFragment() {
         // Required empty public constructor
@@ -32,7 +31,6 @@ public class AddClassDialogFragment extends androidx.fragment.app.DialogFragment
         cancle = view.findViewById(R.id.cancleButton);
         ok = view.findViewById(R.id.addButton);
         textInputLayout = view.findViewById(R.id.dialogeinput);
-        textInputEditText = view.findViewById(R.id.dialogInputText);
 
         ok.setOnClickListener(view1 -> {
 

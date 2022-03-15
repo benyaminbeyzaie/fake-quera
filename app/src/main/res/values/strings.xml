@@ -19,4 +19,6 @@
     <string name="addNewClass">Add new class</string>
     <string name="addNewQuestion">Add new Question</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="questionName">Enter Question Name</string>
+    <string name="questionContent">Enter content of Question</string>
 </resources>
