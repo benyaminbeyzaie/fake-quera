@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="#F8E68B"
-    tools:context=".DialogFragment"
+    tools:context=".AddClassDialogFragment"
     android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout

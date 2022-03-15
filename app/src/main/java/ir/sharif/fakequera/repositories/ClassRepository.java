@@ -21,7 +21,6 @@ public class ClassRepository {
     private ClassDao classDao;
     private UserRepository userRepository;
     private LiveData<List<Class>> classes;
-    private LiveData<Teacher> teacher;
     private int uid;
 
     public ClassRepository(Application application, int uid) {

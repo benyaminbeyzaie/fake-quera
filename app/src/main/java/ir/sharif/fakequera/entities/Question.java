@@ -12,6 +12,9 @@ public class Question {
     @ColumnInfo(name = "ownerClassId")
     public String ownerClassId;
 
+    @ColumnInfo(name = "queston_name")
+    public String questionName;
+
     @ColumnInfo(name = "content")
     public String content;
 }

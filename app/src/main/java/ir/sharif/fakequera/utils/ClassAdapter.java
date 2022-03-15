@@ -1,26 +1,29 @@
 package ir.sharif.fakequera.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.sharif.fakequera.R;
+import ir.sharif.fakequera.TeacherMainActivity;
 import ir.sharif.fakequera.entities.Class;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {
 
     private List<Class> classes;
-    private Context context;
+    private TeacherMainActivity context;
 
-    public ClassAdapter(List<Class> classes, Context context) {
+    public ClassAdapter(List<Class> classes, TeacherMainActivity context) {
         this.classes = classes;
         this.context = context;
     }
@@ -29,8 +32,9 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         classes = new ArrayList<>();
     }
 
-    public ClassAdapter(Context context) {
+    public ClassAdapter(TeacherMainActivity context) {
         this.context = context;
+        classes = new ArrayList<>();
     }
 
     @NonNull
@@ -49,6 +53,12 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
 
         Class current = classes.get(position);
         holder.textViewTitle.setText(current.className);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.goToQuestion(current.uid);
+            }
+        });
     }
 
     @Override
@@ -69,11 +79,13 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
     class ClassHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
         TextView textViewDes;
+        private CardView cardView;
 
         public ClassHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textViewClassName);
             textViewDes = itemView.findViewById(R.id.textViewDetail);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 

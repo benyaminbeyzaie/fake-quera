@@ -40,7 +40,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recylcer);
         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherMainActivity.this));
 
-        ClassAdapter classAdapter = new ClassAdapter();
+        ClassAdapter classAdapter = new ClassAdapter(TeacherMainActivity.this);
 
         recyclerView.setAdapter(classAdapter);
 
@@ -64,12 +64,18 @@ public class TeacherMainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.top_menu) {
             Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            DialogFragment dialogFragment = new DialogFragment();
+            AddClassDialogFragment dialogFragment = new AddClassDialogFragment();
             dialogFragment.show(fragmentManager, "DialogFragment");
             return true;
         }
         return super.onOptionsItemSelected(item);
 
+    }
+    
+    public void goToQuestion(int uid){
+        Intent i2 = new Intent(TeacherMainActivity.this , ClassManagmentActivity.class);
+        i2.putExtra("uid" , uid);
+        startActivity(i2);
     }
 
 

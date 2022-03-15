@@ -12,14 +12,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 
-public class DialogFragment extends androidx.fragment.app.DialogFragment {
+public class AddClassDialogFragment extends androidx.fragment.app.DialogFragment {
 
     Button cancle;
     Button ok;
     TextInputLayout textInputLayout;
     TextInputEditText textInputEditText;
 
-    public DialogFragment() {
+    public AddClassDialogFragment() {
         // Required empty public constructor
     }
 

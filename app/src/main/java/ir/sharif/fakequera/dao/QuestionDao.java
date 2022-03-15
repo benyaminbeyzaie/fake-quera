@@ -1,5 +1,6 @@
 package ir.sharif.fakequera.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -12,8 +13,8 @@ import ir.sharif.fakequera.entities.Question;
 
 @Dao
 public interface QuestionDao {
-    @Query("SELECT * FROM question WHERE uid LIKE :classId")
-    List<Question> getQuestionsOfClass(int classId);
+    @Query("SELECT * FROM question WHERE ownerClassId LIKE :classId")
+    LiveData<List<Question>> getQuestionsOfClass(int classId);
 
     @Insert
     void insert(Question question);
