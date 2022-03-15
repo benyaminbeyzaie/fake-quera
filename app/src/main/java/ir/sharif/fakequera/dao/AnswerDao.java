@@ -12,8 +12,11 @@ import ir.sharif.fakequera.entities.Answer;
 
 @Dao
 public interface AnswerDao {
-    @Query("SELECT * FROM Answer WHERE uid LIKE :questionId")
+    @Query("SELECT * FROM Answer WHERE question_id LIKE :questionId")
     List<Answer> getAnswersOfQuestion(int questionId);
+
+    @Query("SELECT * FROM Answer WHERE question_id = :questionId AND owner_id = :userId ")
+    Answer getAnswersOfQuestion(int questionId , int userId);
 
     @Insert
     void insert(Answer answer);

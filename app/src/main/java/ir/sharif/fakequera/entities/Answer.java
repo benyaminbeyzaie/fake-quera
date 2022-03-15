@@ -20,4 +20,14 @@ public class Answer {
 
     @ColumnInfo(name = "score")
     public double score;
+
+
+    public Answer(int ownerId, int questionId, String content) {
+        this.ownerId = ownerId;
+        this.questionId = questionId;
+        this.content = content;
+        this.score = -1;
+    }
+
+
 }
