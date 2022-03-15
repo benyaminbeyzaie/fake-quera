@@ -17,6 +17,9 @@ public interface ClassDao {
     @Query("SELECT * FROM class_table WHERE uid LIKE :teacherId")
     List<Class> getClassesOfTeacher(int teacherId);
 
+    @Query("SELECT * FROM class_table")
+    List<Class> all();
+
     @Insert
     void insert(Class c);
 

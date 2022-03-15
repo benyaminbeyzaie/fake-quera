@@ -15,4 +15,6 @@
     <string name="dialogOKText">OK</string>
     <string name="inputHint">Input</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_answer">Your answer</string>
+    <string name="submit_answer">Submit Answer</string>
 </resources>
