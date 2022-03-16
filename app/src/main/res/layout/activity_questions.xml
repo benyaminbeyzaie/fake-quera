@@ -6,15 +6,23 @@
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
     tools:context=".QuestionsActivity">
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="@string/join"
+        android:layout_margin="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
     <TextView
         android:id="@+id/txtTeacherName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/joinButton" />
+
 
     <ListView
         android:id="@+id/lv"
@@ -23,6 +31,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teacherName" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTeacherName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
