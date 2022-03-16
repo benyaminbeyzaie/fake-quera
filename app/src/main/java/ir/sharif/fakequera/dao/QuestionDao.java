@@ -21,6 +21,9 @@ public interface QuestionDao {
     @Query("SELECT * FROM question WHERE uid = :questionId")
     Question get(int questionId);
 
+    @Query("SELECT * FROM question WHERE uid = :questionId")
+    LiveData<Question> get2(int questionId);
+
     @Insert
     void insert(Question question);
 

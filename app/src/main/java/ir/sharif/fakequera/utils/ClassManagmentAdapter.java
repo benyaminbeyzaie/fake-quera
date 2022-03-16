@@ -7,23 +7,29 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.sharif.fakequera.ClassManagmentActivity;
 import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Question;
 
 public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentAdapter.QuestionHolder>{
 
     private List<Question> questions;
-    private Context context;
+    private ClassManagmentActivity context;
 
-    public ClassManagmentAdapter(){
+//    public ClassManagmentAdapter(){
+//        questions = new ArrayList<>();
+//    }
+
+    public ClassManagmentAdapter(ClassManagmentActivity context) {
+        this.context = context;
         questions = new ArrayList<>();
     }
-
 
     @NonNull
     @Override
@@ -38,6 +44,12 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
         Question current = questions.get(position);
         holder.textViewTitle.setText(current.questionName);
         holder.textViewDes.setText(current.content);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.gotoQuestion(current.uid);
+            }
+        });
     }
 
     public Question getQuestion(int position){
@@ -57,11 +69,13 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
     class QuestionHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
         TextView textViewDes;
+        CardView cardView;
 
         public QuestionHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textViewUserame);
             textViewDes = itemView.findViewById(R.id.textViewUniversity);
+            cardView = itemView.findViewById(R.id.profilecardView);
         }
     }
 

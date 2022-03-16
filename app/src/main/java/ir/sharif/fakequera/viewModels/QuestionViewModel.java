@@ -8,10 +8,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import ir.sharif.fakequera.entities.Answer;
-import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.repositories.ClassRepository;
 import ir.sharif.fakequera.repositories.QuestionRepository;
 
 public class QuestionViewModel extends AndroidViewModel {
@@ -98,6 +96,10 @@ public class QuestionViewModel extends AndroidViewModel {
     public void update(int uid) {
         repository.update(uid);
         questionList = repository.getQuestions();
+    }
+
+    public LiveData<Question> getQuestion(int uid){
+        return repository.getQuestion(uid);
     }
 
 }

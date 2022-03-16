@@ -40,7 +40,7 @@ public class ClassManagmentActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recylcer2);
         recyclerView.setLayoutManager(new LinearLayoutManager(ClassManagmentActivity.this));
 
-        ClassManagmentAdapter classManagmentAdapter = new ClassManagmentAdapter();
+        ClassManagmentAdapter classManagmentAdapter = new ClassManagmentAdapter(ClassManagmentActivity.this);
         recyclerView.setAdapter(classManagmentAdapter);
 
         questionViewModel = new QuestionViewModel(getApplication(), classUid);
@@ -80,4 +80,9 @@ public class ClassManagmentActivity extends AppCompatActivity {
         questionViewModel.insert(question);
     }
 
+    public void gotoQuestion(int uid) {
+        Intent i3 = new Intent(ClassManagmentActivity.this , AnswerPage.class);
+        i3.putExtra("uid" , uid);
+        startActivity(i3);
+    }
 }

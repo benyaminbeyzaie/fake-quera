@@ -27,4 +27,6 @@
     <string name="profileName">Name</string>
     <string name="profileUniversity">University</string>
     <string name="profileNumberOfClass">Number of classes</string>
+    <string name="question">Question</string>
+    <string name="submits">Submits</string>
 </resources>

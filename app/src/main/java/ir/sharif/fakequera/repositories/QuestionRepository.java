@@ -8,13 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import ir.sharif.fakequera.dao.AnswerDao;
-import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.QuestionDao;
 import ir.sharif.fakequera.dao.TeacherDao;
 import ir.sharif.fakequera.dao.UserDao;
 import ir.sharif.fakequera.database.AppDatabase;
 import ir.sharif.fakequera.entities.Answer;
-import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
@@ -184,5 +182,9 @@ public class QuestionRepository {
     public void update(int classUID) {
         this.classUID = classUID;
         questions = questionDao.getQuestionsOfClass(this.classUID);
+    }
+
+    public LiveData<Question> getQuestion(int uid){
+        return questionDao.get2(uid);
     }
 }
