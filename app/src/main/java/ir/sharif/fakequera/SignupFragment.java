@@ -26,7 +26,7 @@ public class SignupFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton studentButton;
     RadioButton teacherButton;
-    TextInputLayout textInputLayout;
+    TextInputLayout additionalInformation;
     TextInputLayout signupUserInput;
     TextInputLayout signupPassInput;
     Button signupButton;
@@ -44,7 +44,7 @@ public class SignupFragment extends Fragment {
         radioGroup = view.findViewById(R.id.radioGroup);
         studentButton = view.findViewById(R.id.studentButton);
         teacherButton = view.findViewById(R.id.teacherButton);
-        textInputLayout = view.findViewById(R.id.additionalInformationInput);
+        additionalInformation = view.findViewById(R.id.additionalInformationInput);
         signupButton = view.findViewById(R.id.signupButton);
         signupUserInput = view.findViewById(R.id.signupUserInput);
         signupPassInput = view.findViewById(R.id.signupPassInput);
@@ -54,20 +54,22 @@ public class SignupFragment extends Fragment {
         radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == studentButton.getId()) {
                 mode = 0;
-                textInputLayout.setHint(R.string.studentNumberHint);
+                additionalInformation.setHint(R.string.studentNumberHint);
             } else if (i == teacherButton.getId()) {
                 mode = 1;
-                textInputLayout.setHint(R.string.universityHint);
+                additionalInformation.setHint(R.string.universityHint);
             }
         });
 
         signupButton.setOnClickListener(v -> {
             String username = Objects.requireNonNull(signupUserInput.getEditText()).getText().toString();
             String password = Objects.requireNonNull(signupPassInput.getEditText()).getText().toString();
+            String information = Objects.requireNonNull(additionalInformation.getEditText()).getText().toString();
+
             if (mode == 0) {
-                userViewModel.insertStudent(new Student(username, password));
+                userViewModel.insertStudent(new Student(username, password, information));
             } else {
-                userViewModel.insertTeacher(new Teacher(username, password));
+                userViewModel.insertTeacher(new Teacher(username, password, information));
             }
         });
 
