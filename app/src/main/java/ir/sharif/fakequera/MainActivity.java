@@ -25,6 +25,7 @@ import java.util.Objects;
 import ir.sharif.fakequera.entities.Student;
 import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
+import ir.sharif.fakequera.utils.QueraSnackbar;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         layout = findViewById(R.id.main_layout);
         frameLayout = layout.findViewById(R.id.frame);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.authenticateWithSavedCredentials();
+        userViewModel.getCurrentUser().observe(this, (user) -> {
+            QueraSnackbar.showTopSnackBar(layout.getRootView(), user.toString());
+        });
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -13,9 +13,6 @@ import android.widget.Button;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
-
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.utils.QueraSnackbar;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
@@ -62,7 +59,6 @@ public class LoginFragment extends Fragment {
                 QueraSnackbar.showTopSnackBar(view,"User authenticated failed");
             }
         });
-
         return view;
     }
 
