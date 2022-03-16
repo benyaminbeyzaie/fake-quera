@@ -60,8 +60,8 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
 
         public QuestionHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textViewClassName);
-            textViewDes = itemView.findViewById(R.id.textViewDetail);
+            textViewTitle = itemView.findViewById(R.id.textViewUserame);
+            textViewDes = itemView.findViewById(R.id.textViewUniversity);
         }
     }
 

@@ -2,6 +2,7 @@ package ir.sharif.fakequera.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -21,6 +22,7 @@ public class Question {
     public Question() {
     }
 
+    @Ignore
     public Question(int ownerClassId, String questionName, String content) {
         this.ownerClassId = ownerClassId;
         this.questionName = questionName;

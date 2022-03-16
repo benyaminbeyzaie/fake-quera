@@ -26,9 +26,10 @@ public class SignupFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton studentButton;
     RadioButton teacherButton;
-    TextInputLayout textInputLayout;
+    TextInputLayout additional;
     TextInputLayout signupUserInput;
     TextInputLayout signupPassInput;
+    TextInputLayout name;
     Button signupButton;
     UserViewModel userViewModel;
     int mode = 0; // student
@@ -44,7 +45,8 @@ public class SignupFragment extends Fragment {
         radioGroup = view.findViewById(R.id.radioGroup);
         studentButton = view.findViewById(R.id.studentButton);
         teacherButton = view.findViewById(R.id.teacherButton);
-        textInputLayout = view.findViewById(R.id.additionalInformationInput);
+        additional = view.findViewById(R.id.additionalInformationInput);
+        name = view.findViewById(R.id.signupNameInput);
         signupButton = view.findViewById(R.id.signupButton);
         signupUserInput = view.findViewById(R.id.signupUserInput);
         signupPassInput = view.findViewById(R.id.signupPassInput);
@@ -54,20 +56,22 @@ public class SignupFragment extends Fragment {
         radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == studentButton.getId()) {
                 mode = 0;
-                textInputLayout.setHint(R.string.studentNumberHint);
+                additional.setHint(R.string.studentNumberHint);
             } else if (i == teacherButton.getId()) {
                 mode = 1;
-                textInputLayout.setHint(R.string.universityHint);
+                additional.setHint(R.string.universityHint);
             }
         });
 
         signupButton.setOnClickListener(v -> {
             String username = Objects.requireNonNull(signupUserInput.getEditText()).getText().toString();
             String password = Objects.requireNonNull(signupPassInput.getEditText()).getText().toString();
+            String Name = Objects.requireNonNull(name.getEditText()).getText().toString();
+            String addition = Objects.requireNonNull(additional.getEditText()).getText().toString();
             if (mode == 0) {
-                userViewModel.insertStudent(new Student(username, password));
+                userViewModel.insertStudent(new Student(username, password , Name , addition));
             } else {
-                userViewModel.insertTeacher(new Teacher(username, password));
+                userViewModel.insertTeacher(new Teacher(username, password , Name, addition));
             }
         });
 

@@ -47,6 +47,7 @@ public class ClassManagmentActivity extends AppCompatActivity {
         questionViewModel.getClassQuestions().observe(this, new Observer<List<Question>>() {
             @Override
             public void onChanged(List<Question> questions) {
+
                 classManagmentAdapter.setQuestions(questions);
             }
         });

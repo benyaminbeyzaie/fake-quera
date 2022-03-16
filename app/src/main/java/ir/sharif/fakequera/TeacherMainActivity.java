@@ -5,26 +5,38 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
 import ir.sharif.fakequera.entities.Class;
+import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.utils.ClassAdapter;
 import ir.sharif.fakequera.viewModels.ClassViewModel;
+import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class TeacherMainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    CardView cardView;
+    TextView username;
+    TextView university;
+    TextView name;
+    TextView classNumber;
 
     private ClassViewModel classViewModel;
+    private UserViewModel userViewModel;
     private int uid;
 
     @Override
@@ -33,9 +45,31 @@ public class TeacherMainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_teacher_main);
 
-
         Intent i = getIntent();
         uid = i.getIntExtra("uid", 0);
+
+        userViewModel = new UserViewModel(getApplication());
+        cardView = findViewById(R.id.profilecardView);
+        username = cardView.findViewById(R.id.textViewUserame);
+        university = cardView.findViewById(R.id.textViewUniversity);
+        name = cardView.findViewById(R.id.textViewName);
+        classNumber = cardView.findViewById(R.id.textViewClassNumber);
+
+        LiveData<Teacher> data = userViewModel.getTeacherData(uid);
+
+        data.observe(this, new Observer<Teacher>() {
+            @Override
+            public void onChanged(Teacher teacher) {
+                username.setText(teacher.userName);
+                university.setText(teacher.universityName);
+                name.setText(teacher.firstName);
+            }
+        });
+
+
+
+
+
 
         recyclerView = findViewById(R.id.recylcer);
         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherMainActivity.this));
@@ -48,7 +82,12 @@ public class TeacherMainActivity extends AppCompatActivity {
         classViewModel.getTeacherClasses().observe(this, classes -> {
             Log.d("mym", classes.toString());
             classAdapter.setClasses(classes);
+            classNumber.setText("# Of classes : ".concat(classes.size()+"") );
         });
+
+
+
+
 
     }
 

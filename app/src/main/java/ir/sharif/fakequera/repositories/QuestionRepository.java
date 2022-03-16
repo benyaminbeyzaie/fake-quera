@@ -20,20 +20,28 @@ import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 
 public class QuestionRepository {
-    private final QuestionDao questionDao;
-    private final TeacherDao teacherDao;
-    private final AnswerDao answerDao;
-    private final UserDao userDao;
-    private final MutableLiveData<List<Question>> questionList;
-    private final MutableLiveData<Teacher> teacherLiveData;
-    private final MutableLiveData<Question> questionLiveData;
-    private final MutableLiveData<Answer> answerLiveData;
-    private final MutableLiveData<String> message;
+    private QuestionDao questionDao;
+    private TeacherDao teacherDao;
+    private AnswerDao answerDao;
+    private UserDao userDao;
+    private MutableLiveData<List<Question>> questionList;
+    private MutableLiveData<Teacher> teacherLiveData;
+    private MutableLiveData<Question> questionLiveData;
+    private MutableLiveData<Answer> answerLiveData;
+    private MutableLiveData<String> message;
 
     private LiveData<List<Question>> questions;
     private int classUID;
 
-    public QuestionRepository(Application application,int uid) {
+    public QuestionRepository(Application application, int uid) {
+        AppDatabase db = AppDatabase.getDatabase(application);
+        questionDao = db.questionDao();
+        this.classUID = uid;
+        questions = questionDao.getQuestionsOfClass(this.classUID);
+
+    }
+
+    public QuestionRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         questionDao = db.questionDao();
         teacherDao = db.teacherDao();
@@ -45,11 +53,6 @@ public class QuestionRepository {
         questionLiveData = new MutableLiveData<>();
         answerLiveData = new MutableLiveData<>();
         message = new MutableLiveData<>();
-
-
-        this.classUID = uid;
-        questions = questionDao.getQuestionsOfClass(this.classUID);
-
     }
 
 
@@ -66,7 +69,7 @@ public class QuestionRepository {
         });
     }
 
-    public void teacher(int teacherId){
+    public void teacher(int teacherId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
 
             Teacher teacher = teacherDao.getTeacher(teacherId);
@@ -75,7 +78,7 @@ public class QuestionRepository {
         });
     }
 
-    public void question(int questionId){
+    public void question(int questionId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
 
             Question question = questionDao.get(questionId);
@@ -84,20 +87,20 @@ public class QuestionRepository {
         });
     }
 
-    public void answer(int questionId){
+    public void answer(int questionId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
 
             User currentUser = userDao.getCurrentUser();
 
-            if (currentUser == null){
+            if (currentUser == null) {
                 message.postValue("Authentication Failed !");
                 return;
             }
 
-            Answer answer = answerDao.getAnswersOfQuestion( questionId , currentUser.uid);
+            Answer answer = answerDao.getAnswersOfQuestion(questionId, currentUser.uid);
 
 
-            if (answer == null){
+            if (answer == null) {
 //                message.postValue("Answer Not Found !");
                 return;
             }
@@ -111,25 +114,24 @@ public class QuestionRepository {
 
             User currentUser = userDao.getCurrentUser();
 
-            if (currentUser == null){
+            if (currentUser == null) {
                 message.postValue("Authentication Failed !");
                 return;
             }
 
-            Answer answer = answerDao.getAnswersOfQuestion(questionId , currentUser.uid);
+            Answer answer = answerDao.getAnswersOfQuestion(questionId, currentUser.uid);
 
-            if (answer == null){
+            if (answer == null) {
                 answerDao.insert(new Answer(
-                        currentUser.uid ,
-                        questionId ,
+                        currentUser.uid,
+                        questionId,
                         answerContent
                 ));
-            }else {
+            } else {
 
                 answer.content = answerContent;
                 answerDao.update(answer);
             }
-
 
 
             message.postValue("Submit Answer Success !");
@@ -175,11 +177,11 @@ public class QuestionRepository {
         });
     }
 
-    public LiveData<List<Question>> getQuestions(){
+    public LiveData<List<Question>> getQuestions() {
         return questions;
     }
 
-    public void update(int classUID){
+    public void update(int classUID) {
         this.classUID = classUID;
         questions = questionDao.getQuestionsOfClass(this.classUID);
     }

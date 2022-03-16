@@ -43,6 +43,15 @@ public class ClassRepository {
         classes = classDao.getClassesOfTeacher(this.uid);
     }
 
+    public ClassRepository(Application application) {
+        AppDatabase db = AppDatabase.getDatabase(application);
+        classDao = db.classDao();
+        questionDao = db.questionDao();
+        userRepository = UserRepository.getInstance(application);
+        classList = new MutableLiveData<>();
+        message = new MutableLiveData<>();
+    }
+
 
     public void classList() {
         AppDatabase.databaseWriteExecutor.execute(() -> {
@@ -62,6 +71,12 @@ public class ClassRepository {
 
     public MutableLiveData<String> getMessage() {
         return message;
+    }
+
+    public void insert(Class clas){
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            classDao.insert(clas);
+        });
     }
 
     public void update(Class clas) {

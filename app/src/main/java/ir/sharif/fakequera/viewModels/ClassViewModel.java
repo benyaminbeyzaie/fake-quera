@@ -38,6 +38,16 @@ public class ClassViewModel extends AndroidViewModel {
         message = classRepository.getMessage();
     }
 
+    public ClassViewModel(@NonNull Application application) {
+        super(application);
+
+//        Log.d("mym" ,currentTeacher.getValue());
+        classRepository = new ClassRepository(application);
+        teacherClasses = classRepository.getClasses();
+        classList = classRepository.getClassList();
+        message = classRepository.getMessage();
+    }
+
 
     public void insert(Class clas) {
         classRepository.insert(clas);

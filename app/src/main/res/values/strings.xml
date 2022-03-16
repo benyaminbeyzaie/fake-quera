@@ -23,4 +23,8 @@
     <string name="questionContent">Enter content of Question</string>
     <string name="your_answer">Your answer</string>
     <string name="submit_answer">Submit Answer</string>
+    <string name="profileUsername">UserName</string>
+    <string name="profileName">Name</string>
+    <string name="profileUniversity">University</string>
+    <string name="profileNumberOfClass">Number of classes</string>
 </resources>

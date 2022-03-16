@@ -2,6 +2,7 @@ package ir.sharif.fakequera.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "class_table")
@@ -19,11 +20,13 @@ public class Class {
     public Class() {
     }
 
+    @Ignore
     public Class(int ownerTeacherId, String className) {
         this.ownerTeacherId = ownerTeacherId;
         this.className = className;
     }
 
+    @Ignore
     public Class(String className) {
         this.className = className;
     }

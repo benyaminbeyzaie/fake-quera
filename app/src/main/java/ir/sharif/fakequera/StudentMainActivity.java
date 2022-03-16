@@ -1,5 +1,6 @@
 package ir.sharif.fakequera;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -27,6 +28,7 @@ public class StudentMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
+
         viewModel = new ViewModelProvider(this).get(ClassViewModel.class);
 
         initViews();
@@ -70,4 +72,20 @@ public class StudentMainActivity extends AppCompatActivity {
 
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.logoutMessage)
+                .setMessage(R.string.logoutWarning)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
 }

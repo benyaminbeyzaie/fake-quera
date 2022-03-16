@@ -18,14 +18,20 @@ public class QuestionViewModel extends AndroidViewModel {
 
     public final QuestionRepository repository;
     private  LiveData<List<Question>> questionList;
-    private final LiveData<Teacher> teacherLiveData;
-    private final LiveData<Question> questionLiveData;
-    private final LiveData<Answer> answerLiveData;
-    private final LiveData<String> message;
+    private  LiveData<Teacher> teacherLiveData;
+    private  LiveData<Question> questionLiveData;
+    private  LiveData<Answer> answerLiveData;
+    private  LiveData<String> message;
 
     public QuestionViewModel(Application application, int uid) {
         super(application);
         repository = new QuestionRepository(application, uid);
+        questionList = repository.getQuestions();
+    }
+
+    public QuestionViewModel(Application application) {
+        super(application);
+        repository = new QuestionRepository(application);
         questionList = repository.getQuestionList();
         teacherLiveData = repository.getTeacherLiveData();
         questionLiveData = repository.getQuestionLiveData();

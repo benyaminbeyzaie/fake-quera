@@ -61,6 +61,7 @@ public class UserRepository {
             message.postValue("User registered as teacher");
             userDao.insertUser(teacher);
             teacherDao.insert(teacher);
+            setCurrentUser(null);
 //            setCurrentUser(teacher);
 //            setCurrentTeacher(teacher);
         });
@@ -76,6 +77,7 @@ public class UserRepository {
             message.postValue("User registered as student");
             userDao.insertUser(student);
             studentDao.insert(student);
+            setCurrentUser(null);
 //            setCurrentUser(student);
         });
 
@@ -205,4 +207,16 @@ public class UserRepository {
     public void signOut() {
         setCurrentUser(null);
     }
+
+    public String[] getTeacherData(int uid){
+        String[] data = new String[3];
+        AppDatabase.databaseWriteExecutor.execute(() ->{
+            Teacher currentTeacher = teacherDao.getTeacher(uid);
+            data[0] = currentTeacher.userName;
+            data[1] = currentTeacher.universityName;
+            data[2] = currentTeacher.firstName;
+        });
+        return data;
+    }
+
 }
