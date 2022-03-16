@@ -38,16 +38,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
         layout = findViewById(R.id.main_layout);
         frameLayout = layout.findViewById(R.id.frame);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.authenticateWithSavedCredentials();
-        userViewModel.getCurrentUser().observe(this, (user) -> {
-            QueraSnackbar.showTopSnackBar(layout.getRootView(), user.toString());
-        });
+        userViewModel.getCurrentUser().observe(this, (user) -> QueraSnackbar.showTopSnackBar(layout.getRootView(), user.toString()));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

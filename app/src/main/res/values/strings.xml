@@ -17,4 +17,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="your_answer">Your answer</string>
     <string name="submit_answer">Submit Answer</string>
+    <string name="allClasses">All Classes</string>
+    <string name="joinedClasses">Joined Classes</string>
+    <string name="join">Join into the class</string>
+    <string name="not_found_teacher">Teacher Not Found!</string>
 </resources>
