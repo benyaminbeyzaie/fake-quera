@@ -5,16 +5,19 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.AnswerDao;
 import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.QuestionDao;
 import ir.sharif.fakequera.dao.StudentDao;
 import ir.sharif.fakequera.dao.TeacherDao;
 import ir.sharif.fakequera.dao.UserDao;
+import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Answer;
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
@@ -23,6 +26,7 @@ import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 
 @Database(entities = {User.class, Student.class, Teacher.class , Class.class , Question.class , Answer.class}, version = 1)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract StudentDao studentDao();

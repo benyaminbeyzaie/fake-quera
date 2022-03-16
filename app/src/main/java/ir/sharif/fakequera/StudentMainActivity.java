@@ -1,6 +1,8 @@
 package ir.sharif.fakequera;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -9,65 +11,135 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 import ir.sharif.fakequera.entities.Class;
-import ir.sharif.fakequera.utils.QueraSnackbar;
 import ir.sharif.fakequera.viewModels.ClassViewModel;
+import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class StudentMainActivity extends AppCompatActivity {
 
     private ListView lv;
-
+    private TabLayout tabLayout;
     private ClassViewModel viewModel;
-
-    private final ArrayList<Class> classList = new ArrayList<>();
+    private UserViewModel userViewModel;
+    private final ArrayList<Class> allClasses = new ArrayList<>();
+    private final ArrayList<Class> joinedClasses = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
         viewModel = new ViewModelProvider(this).get(ClassViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.authenticateWithSavedCredentials();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
 
         initViews();
         initList();
         listeners();
 
-        viewModel.classList();
-
-        viewModel.getMessage().observe(this , s -> {
-            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-        });
+        viewModel.getMessage().observe(this, s -> Toast.makeText(this, s, Toast.LENGTH_SHORT).show());
     }
 
     private void initViews() {
         lv = findViewById(R.id.lv);
+        lv.setAdapter(adapter);
+        tabLayout = findViewById(R.id.studentTabs);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                initList();
+                listeners();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     private void listeners() {
-        lv.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(this , QuestionsActivity.class);
-            intent.putExtra("class_id" , classList.get(i).uid);
-            intent.putExtra("owner_teacher_id" , classList.get(i).ownerTeacherId);
-            startActivity(intent);
-        });
+        if (tabLayout.getSelectedTabPosition() == 0) {
+            lv.setOnItemClickListener((adapterView, view, i, l) -> {
+                Intent intent = new Intent(this, QuestionsActivity.class);
+                intent.putExtra("class_id", allClasses.get(i).uid);
+                intent.putExtra("owner_teacher_id", allClasses.get(i).ownerTeacherId);
+                intent.putExtra("user_id", Objects.requireNonNull(userViewModel.getCurrentUser().getValue()).uid);
+
+                startActivity(intent);
+            });
+        } else {
+            lv.setOnItemClickListener((adapterView, view, i, l) -> {
+                Intent intent = new Intent(this, QuestionsActivity.class);
+                intent.putExtra("class_id", joinedClasses.get(i).uid);
+                intent.putExtra("owner_teacher_id", joinedClasses.get(i).ownerTeacherId);
+                intent.putExtra("user_id", Objects.requireNonNull(userViewModel.getCurrentUser().getValue()).uid);
+
+                startActivity(intent);
+            });
+        }
+
     }
 
     private void initList() {
-        viewModel.getClassList().observe(this , list -> {
-
-            ArrayList<String> classNames = new ArrayList<>();
-
-            for (int i = 0; i < list.size(); i++) {
-                classNames.add(list.get(i).className);
+        System.out.println(tabLayout.getSelectedTabPosition());
+        if (tabLayout.getSelectedTabPosition() == 0) {
+            if (viewModel.getStudentClasses().hasObservers()) {
+                viewModel.getStudentClasses().removeObservers(this);
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, classNames);
-            lv.setAdapter(adapter);
+            viewModel.getAllClasses().observe(this, list -> {
+                adapter.clear();
 
-            classList.clear();
-            classList.addAll(list);
+                ArrayList<String> classNames = new ArrayList<>();
 
-        });
+                for (int i = 0; i < list.size(); i++) {
+                    classNames.add(list.get(i).className);
+                }
+
+                adapter.addAll(classNames);
+
+                allClasses.clear();
+                allClasses.addAll(list);
+            });
+            viewModel.loadAllClasses();
+        } else if (tabLayout.getSelectedTabPosition() == 1) {
+            if (viewModel.getAllClasses().hasObservers()) {
+                viewModel.getAllClasses().removeObservers(this);
+            }
+
+            viewModel.getStudentClasses().observe(this, list -> {
+                adapter.clear();
+
+                ArrayList<String> classNames = new ArrayList<>();
+
+                for (int i = 0; i < list.size(); i++) {
+                    classNames.add(list.get(i).className);
+                }
+
+                adapter.addAll(classNames);
+
+                joinedClasses.clear();
+                joinedClasses.addAll(list);
+            });
+            if (userViewModel.getCurrentUser().getValue() == null) {
+                System.out.println("User is null");
+                return;
+            }
+            System.out.println(userViewModel.getCurrentUser().getValue());
+            viewModel.loadStudentClasses(userViewModel.getCurrentUser().getValue().uid);
+        }
     }
 }

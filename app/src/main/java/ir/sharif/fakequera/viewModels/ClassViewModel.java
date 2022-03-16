@@ -18,25 +18,49 @@ import ir.sharif.fakequera.repositories.UserRepository;
 public class ClassViewModel extends AndroidViewModel {
 
     public final ClassRepository repository;
-    private final LiveData<List<Class>> classList;
+    private final LiveData<List<Class>> allClasses;
+    private final LiveData<List<Class>> studentClasses;
+    private final LiveData<Boolean> userIsInClass;
     private final LiveData<String> message;
 
     public ClassViewModel(Application application) {
         super(application);
         repository = new ClassRepository(application);
-        classList = repository.getClassList();
+        allClasses = repository.getAllClasses();
+        studentClasses = repository.getStudentClasses();
         message = repository.getMessage();
+        userIsInClass = repository.getUserIsInClass();
+    }
+    public LiveData<List<Class>> getStudentClasses(){
+        return studentClasses;
+    }
+    public LiveData<List<Class>> getAllClasses() {
+        return allClasses;
     }
 
-    public LiveData<List<Class>> getClassList() {
-        return classList;
+
+    public void checkUser(int classId, int userId) {
+        repository.checkUserId(classId, userId);
+    }
+
+    public void addUserToClass(int classId, int userId) {
+        repository.setClassToStudent(userId, classId);
     }
 
     public LiveData<String> getMessage() {
         return message;
     }
 
-    public void classList(){
-        repository.classList();
+    public LiveData<Boolean> getUserIsInClass() {
+        return userIsInClass;
+    }
+
+
+    public void loadStudentClasses(int studentId) {
+        repository.loadStudentClasses(studentId);
+    }
+
+    public void loadAllClasses() {
+        repository.loadAllClasses();
     }
 }

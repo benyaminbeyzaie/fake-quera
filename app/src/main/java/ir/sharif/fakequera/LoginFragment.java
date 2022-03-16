@@ -37,6 +37,7 @@ public class LoginFragment extends Fragment {
         loginPassInput = view.findViewById(R.id.dialogeinput);
         loginButton = view.findViewById(R.id.cancleButton);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.authenticateWithSavedCredentials();
 
 
         loginButton.setOnClickListener(v -> {
@@ -58,6 +59,7 @@ public class LoginFragment extends Fragment {
                 } else {
                     QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as student");
                     MainActivity mainActivity = (MainActivity) getActivity();
+                    assert mainActivity != null;
                     mainActivity.takeStudentData();
                 }
             } else {
