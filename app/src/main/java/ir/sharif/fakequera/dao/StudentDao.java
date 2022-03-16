@@ -3,6 +3,7 @@ package ir.sharif.fakequera.dao;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import ir.sharif.fakequera.entities.Student;
 import ir.sharif.fakequera.entities.Teacher;
@@ -14,4 +15,7 @@ public interface StudentDao {
 
     @Insert
     void insert(Student student);
+
+    @Update
+    void update(Student student);
 }
