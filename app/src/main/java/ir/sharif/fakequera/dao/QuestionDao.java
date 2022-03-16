@@ -12,8 +12,11 @@ import ir.sharif.fakequera.entities.Question;
 
 @Dao
 public interface QuestionDao {
-    @Query("SELECT * FROM question WHERE uid LIKE :classId")
+    @Query("SELECT * FROM question WHERE ownerClassId = :classId")
     List<Question> getQuestionsOfClass(int classId);
+
+    @Query("SELECT * FROM question WHERE uid = :questionId")
+    Question get(int questionId);
 
     @Insert
     void insert(Question question);

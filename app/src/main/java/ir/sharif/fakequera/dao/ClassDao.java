@@ -12,13 +12,16 @@ import ir.sharif.fakequera.entities.Class;
 
 @Dao
 public interface ClassDao {
-    @Query("SELECT * FROM Class WHERE owner_teacher_id LIKE :teacherId")
+    @Query("SELECT * FROM class_table WHERE owner_teacher_id LIKE :teacherId")
     List<Class> getClassesOfTeacher(int teacherId);
 
-    @Query("SELECT * FROM Class WHERE students LIKE '%' || :studentId || '%'")
+    @Query("SELECT * FROM class_table")
+    List<Class> all();
+
+    @Query("SELECT * FROM class_table WHERE students LIKE '%' || :studentId || '%'")
     List<Class> getClassesOfStudent(int studentId);
 
-    @Query("SELECT * FROM Class WHERE uid LIKE :uId")
+    @Query("SELECT * FROM class_table WHERE uid LIKE :uId")
     Class getClassWithUId(int uId);
 
     @Insert

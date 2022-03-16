@@ -11,4 +11,10 @@
     <string name="studentNumberHint">Your Student Number</string>
     <string name="universityHint">Your University Name</string>
     <string name="signupButtonText">Sign Up</string>
+    <string name="dialogeCancleText">Cancle</string>
+    <string name="dialogOKText">OK</string>
+    <string name="inputHint">Input</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_answer">Your answer</string>
+    <string name="submit_answer">Submit Answer</string>
 </resources>

@@ -10,8 +10,14 @@ public class Question {
     public int uid;
 
     @ColumnInfo(name = "ownerClassId")
-    public String ownerClassId;
+    public int ownerClassId;
 
     @ColumnInfo(name = "content")
     public String content;
+
+
+    public Question(int ownerClassId, String content) {
+        this.ownerClassId = ownerClassId;
+        this.content = content;
+    }
 }

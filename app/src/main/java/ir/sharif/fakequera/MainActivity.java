@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         layout = findViewById(R.id.main_layout);
         frameLayout = layout.findViewById(R.id.frame);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
@@ -45,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         userViewModel.getCurrentUser().observe(this, (user) -> {
             QueraSnackbar.showTopSnackBar(layout.getRootView(), user.toString());
         });
-
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -88,10 +90,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
+
+    public void takeStudentData(){
+        Intent i = new Intent(MainActivity.this , StudentMainActivity.class);
+        startActivity(i);
+    }
+
+    public void takeTeacherData(){
+        Intent i = new Intent(MainActivity.this , TeacherMainActivity.class);
+        startActivity(i);
+    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {

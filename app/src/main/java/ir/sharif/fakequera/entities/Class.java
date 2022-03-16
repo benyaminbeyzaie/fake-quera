@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity
+
+@Entity(tableName = "class_table")
 public class Class {
     @PrimaryKey(autoGenerate = true)
     public int uid;
@@ -16,4 +17,7 @@ public class Class {
 
     @ColumnInfo(name = "students")
     public ArrayList<Integer> students;
+
+    @ColumnInfo(name = "class_name")
+    public String className;
 }
