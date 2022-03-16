@@ -20,4 +20,9 @@ public class Class {
 
     @ColumnInfo(name = "class_name")
     public String className;
+
+    public Class(String className, int ownerTeacherId) {
+        this.className = className;
+        this.ownerTeacherId = ownerTeacherId;
+    }
 }
