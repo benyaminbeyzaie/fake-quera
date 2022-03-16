@@ -25,4 +25,7 @@ public interface UserDao {
 
     @Update
     void updateUser(User user);
+
+    @Query("UPDATE user SET is_current_user = 0")
+    void deactivateAllUsers();
 }
