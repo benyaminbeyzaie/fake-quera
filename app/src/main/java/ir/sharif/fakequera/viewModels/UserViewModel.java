@@ -43,4 +43,8 @@ public class UserViewModel extends AndroidViewModel {
     public void authenticate(String username, String password) {
         repository.authenticate(username, password);
     }
+
+    public void authenticateWithSavedCredentials() {
+        repository.loadCurrentUser();
+    }
 }
