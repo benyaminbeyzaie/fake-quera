@@ -5,39 +5,30 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.repositories.ClassRepository;
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.entities.User;
-import ir.sharif.fakequera.repositories.ClassRepository;
-import ir.sharif.fakequera.repositories.UserRepository;
-
 
 
 public class ClassViewModel extends AndroidViewModel {
 
-    private final ClassRepository classRepository;
+    private  ClassRepository classRepository;
     private LiveData<List<Class>> teacherClasses;
-    private final LiveData<List<Class>> classList;
-    private final LiveData<String> message;
+    private  LiveData<List<Class>> classList;
+    private  LiveData<String> message;
 
-    private final LiveData<List<Class>> allClasses;
-    private final LiveData<List<Class>> studentClasses;
-    private final LiveData<Boolean> userIsInClass;
+    private  LiveData<List<Class>> allClasses;
+    private  LiveData<List<Class>> studentClasses;
+    private  LiveData<Boolean> userIsInClass;
 
     public ClassViewModel(@NonNull Application application, int uid) {
         super(application);
 
 //        Log.d("mym" ,currentTeacher.getValue());
         classRepository = new ClassRepository(application, uid);
-        teacherClasses = classRepository.getClasses();
+        teacherClasses = classRepository.getTeacherClasses();
         classList = classRepository.getClassList();
         message = classRepository.getMessage();
     }
@@ -70,7 +61,7 @@ public class ClassViewModel extends AndroidViewModel {
 
     public void update(int uid) {
         classRepository.update(uid);
-        teacherClasses = classRepository.getClasses();
+        teacherClasses = classRepository.getTeacherClasses();
     }
 
     public LiveData<List<Class>> getClassList() {

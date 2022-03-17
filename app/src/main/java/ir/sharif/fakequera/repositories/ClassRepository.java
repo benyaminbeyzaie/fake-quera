@@ -1,9 +1,7 @@
 package ir.sharif.fakequera.repositories;
 
 import android.app.Application;
-import android.service.controls.actions.BooleanAction;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -11,17 +9,12 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.QuestionDao;
 import ir.sharif.fakequera.dao.StudentDao;
 import ir.sharif.fakequera.database.AppDatabase;
 import ir.sharif.fakequera.entities.Class;
-import ir.sharif.fakequera.entities.Question;
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.entities.User;
 
 public class ClassRepository {
     private  ClassDao classDao;
@@ -35,7 +28,7 @@ public class ClassRepository {
 
 
     private UserRepository userRepository;
-    private LiveData<List<Class>> classes;
+    private MutableLiveData<List<Class>> teacherClasses;
     private int uid;
 
 
@@ -47,7 +40,7 @@ public class ClassRepository {
         classList = new MutableLiveData<>();
         message = new MutableLiveData<>();
         this.uid = uid;
-        classes = classDao.getClassesOfTeacher(this.uid);
+        teacherClasses = new MutableLiveData<>();
     }
 
     public ClassRepository(Application application) {
@@ -100,14 +93,23 @@ public class ClassRepository {
         });
     }
 
-    public LiveData<List<Class>> getClasses() {
-        return classes;
+    public LiveData<List<Class>> getTeacherClasses() {
+        loadTeacherClasses(this.uid);
+        return teacherClasses;
     }
 
     public void update(int uid) {
         Log.d("mym", "update uid" + uid);
         this.uid = uid;
-        classes = classDao.getClassesOfTeacher(this.uid);
+        loadTeacherClasses(uid);
+    }
+
+    public void loadTeacherClasses(int teacherUid){
+        AppDatabase.databaseWriteExecutor.execute(() ->{
+            List<Class> classesOfTeacher = classDao.getClassesOfTeacher(teacherUid);
+            teacherClasses.postValue(classesOfTeacher);
+            message.postValue("classes are loaded");
+        });
     }
 
     public void loadStudentClasses(int studentUId) {
@@ -169,11 +171,7 @@ public class ClassRepository {
         return studentClasses;
     }
 
-    public LiveData<String> getMessage() {
-        return message;
-    }
-
-    public LiveData<Boolean> getUserIsInClass() {
+        public LiveData<Boolean> getUserIsInClass() {
         return userIsInClass;
     }
 }
