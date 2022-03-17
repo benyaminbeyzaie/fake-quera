@@ -31,12 +31,13 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view =  inflater.inflate(R.layout.fragment_login, container, false);
 
         loginUserInput = view.findViewById(R.id.loginUserInput);
         loginPassInput = view.findViewById(R.id.dialogeinput);
         loginButton = view.findViewById(R.id.cancleButton);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.authenticateWithSavedCredentials();
 
 
         loginButton.setOnClickListener(v -> {
@@ -52,16 +53,17 @@ public class LoginFragment extends Fragment {
             }
             if (user.isCurrentUser) {
                 if (user.isTeacher) {
-                    QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as teacher");
+                    QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as teacher");
                     MainActivity mainActivity = (MainActivity) getActivity();
                     Objects.requireNonNull(mainActivity).takeTeacherData(user.uid);
                 } else {
-                    QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as student");
+                    QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as student");
                     MainActivity mainActivity = (MainActivity) getActivity();
-                    Objects.requireNonNull(mainActivity).takeStudentData();
+                    assert mainActivity != null;
+                    mainActivity.takeStudentData();
                 }
             } else {
-                QueraSnackbar.showTopSnackBar(view, "User authenticated failed");
+                QueraSnackbar.showTopSnackBar(view,"User authenticated failed");
             }
         });
 

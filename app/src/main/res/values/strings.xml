@@ -29,4 +29,8 @@
     <string name="profileNumberOfClass">Number of classes</string>
     <string name="question">Question</string>
     <string name="submits">Submits</string>
+    <string name="allClasses">All Classes</string>
+    <string name="joinedClasses">Joined Classes</string>
+    <string name="join">Join into the class</string>
+    <string name="not_found_teacher">Teacher Not Found!</string>
 </resources>

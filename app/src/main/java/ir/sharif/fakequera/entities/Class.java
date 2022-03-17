@@ -5,6 +5,9 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+
+
 @Entity(tableName = "class_table")
 public class Class {
     @PrimaryKey(autoGenerate = true)
@@ -12,6 +15,9 @@ public class Class {
 
     @ColumnInfo(name = "owner_teacher_id")
     public int ownerTeacherId;
+
+    @ColumnInfo(name = "students")
+    public ArrayList<Integer> students;
 
     @ColumnInfo(name = "class_name")
     public String className;
@@ -30,6 +36,12 @@ public class Class {
     public Class(String className) {
         this.className = className;
     }
+    public Class(String className, int ownerTeacherId) {
+        this.className = className;
+        this.ownerTeacherId = ownerTeacherId;
+    }
+
+
 
     public int getUid() {
         return uid;

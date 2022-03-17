@@ -3,16 +3,18 @@ package ir.sharif.fakequera;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.viewModels.ClassViewModel;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
@@ -22,50 +24,63 @@ public class QuestionsActivity extends AppCompatActivity {
 
     private ListView lv;
     private TextView txtTeacherName;
+    private Button button;
 
-    private QuestionViewModel viewModel;
+    private QuestionViewModel questionViewModel;
+    private ClassViewModel classViewModel;
+
     private int classId = 0;
     private int ownerTeacherId = 0;
+    private int userId;
     private final ArrayList<Question> questionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
-        viewModel = new ViewModelProvider(this).get(QuestionViewModel.class);
+        questionViewModel = new ViewModelProvider(this).get(QuestionViewModel.class);
+        classViewModel = new ViewModelProvider(this).get(ClassViewModel.class);
 
         initViews();
         checkArguments();
         initList();
         listeners();
 
-        viewModel.questionList(classId);
-        viewModel.teacher(ownerTeacherId);
+        classViewModel.checkUser(classId, userId);
 
-        viewModel.getTeacherLiveData().observe(this , teacher -> {
-            if (teacher == null){
-                txtTeacherName.setText("Teacher Not Found !");
-            }else {
-                txtTeacherName.setText("Teacher Name : " + teacher.firstName + " " + teacher.lastName);
+        classViewModel.getUserIsInClass().observe(this, value -> {
+            if (value) {
+                button.setVisibility(View.GONE);
+            } else {
+                button.setVisibility(View.VISIBLE);
             }
         });
 
-        viewModel.getMessage().observe(this , s -> {
-            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        questionViewModel.questionList(classId);
+        questionViewModel.teacher(ownerTeacherId);
+
+        questionViewModel.getTeacherLiveData().observe(this , teacher -> {
+            if (teacher == null){
+                txtTeacherName.setText(R.string.not_found_teacher);
+            }else {
+                txtTeacherName.setText(new StringBuilder().append("Teacher Name: ").append(teacher.firstName).append(" ").append(teacher.lastName).toString());
+            }
         });
 
-
-
+        questionViewModel.getMessage().observe(this , s -> Toast.makeText(this, s, Toast.LENGTH_SHORT).show());
     }
 
     private void initViews() {
         lv = findViewById(R.id.lv);
         txtTeacherName = findViewById(R.id.txtTeacherName);
+        button = findViewById(R.id.joinButton);
+
     }
 
     private void checkArguments(){
         classId = getIntent().getIntExtra("class_id" , 0);
         ownerTeacherId = getIntent().getIntExtra("owner_teacher_id" , 0);
+        userId = getIntent().getIntExtra("user_id" , 0);
     }
 
     private void listeners() {
@@ -74,10 +89,12 @@ public class QuestionsActivity extends AppCompatActivity {
             intent.putExtra("question_id" , questionList.get(i).uid);
             startActivity(intent);
         });
+
+        button.setOnClickListener(v -> classViewModel.addUserToClass(classId, userId));
     }
 
     private void initList() {
-        viewModel.getQuestionList().observe(this , list -> {
+        questionViewModel.getQuestionList().observe(this , list -> {
 
             ArrayList<String> contents = new ArrayList<>();
 

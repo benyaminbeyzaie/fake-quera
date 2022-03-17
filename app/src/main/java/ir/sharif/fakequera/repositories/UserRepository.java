@@ -90,6 +90,7 @@ public class UserRepository {
                 currentUser.postValue(null);
                 return;
             }
+            userDao.deactivateAllUsers();
             user.isCurrentUser = true;
 //            userDao.updateUser(user);
             currentUser.postValue(user);

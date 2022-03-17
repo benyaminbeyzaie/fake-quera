@@ -19,8 +19,7 @@ public class UserViewModel extends AndroidViewModel {
 
     public UserViewModel(Application application) {
         super(application);
-        repository = UserRepository.getInstance(application);
-//        repository = new UserRepository(application);
+        repository = new UserRepository(application);
         currentUser = repository.getCurrentUser();
         currentTeacher = repository.getCurrentTeacher();
         message = repository.getMessage();
@@ -45,6 +44,10 @@ public class UserViewModel extends AndroidViewModel {
 
     public void authenticate(String username, String password) {
         repository.authenticate(username, password);
+    }
+
+    public void authenticateWithSavedCredentials() {
+        repository.loadCurrentUser();
     }
 
     public LiveData<Teacher> getCurrentTeacher() {

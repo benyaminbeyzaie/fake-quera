@@ -1,6 +1,8 @@
 package ir.sharif.fakequera.repositories;
 
 import android.app.Application;
+import android.service.controls.actions.BooleanAction;
+
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,6 +15,7 @@ import java.util.Objects;
 
 import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.QuestionDao;
+import ir.sharif.fakequera.dao.StudentDao;
 import ir.sharif.fakequera.database.AppDatabase;
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
@@ -21,10 +24,14 @@ import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 
 public class ClassRepository {
-    private final ClassDao classDao;
-    private final QuestionDao questionDao;
-    private final MutableLiveData<List<Class>> classList;
-    private final MutableLiveData<String> message;
+    private  ClassDao classDao;
+    private  QuestionDao questionDao;
+    private  StudentDao studentDao;
+    private  MutableLiveData<List<Class>> allClasses;
+    private  MutableLiveData<List<Class>> studentClasses;
+    private  MutableLiveData<String> message;
+    private  MutableLiveData<Boolean> userIsInClass;
+    private  MutableLiveData<List<Class>> classList;
 
 
     private UserRepository userRepository;
@@ -47,9 +54,11 @@ public class ClassRepository {
         AppDatabase db = AppDatabase.getDatabase(application);
         classDao = db.classDao();
         questionDao = db.questionDao();
-        userRepository = UserRepository.getInstance(application);
-        classList = new MutableLiveData<>();
+        allClasses = new MutableLiveData<>();
         message = new MutableLiveData<>();
+        studentDao = db.studentDao();
+        studentClasses = new MutableLiveData<>();
+        userIsInClass = new MutableLiveData<>();
     }
 
 
@@ -101,4 +110,70 @@ public class ClassRepository {
         classes = classDao.getClassesOfTeacher(this.uid);
     }
 
+    public void loadStudentClasses(int studentUId) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            List<Class> classesList = classDao.getClassesOfStudent(studentUId);
+            studentClasses.postValue(classesList);
+            message.postValue("classes are loaded");
+        });
+    }
+
+    public void setClassToStudent(int studentUId, int classUId) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            Class aClass = classDao.getClassWithUId(classUId);
+            if (aClass.students == null) {
+                aClass.students = new ArrayList<>();
+            }
+            aClass.students.add(studentUId);
+            classDao.update(aClass);
+            message.postValue("class is set to student");
+            loadStudentClasses(studentUId);
+            checkUserId(classUId, studentUId);
+        });
+    }
+
+
+    public void loadAllClasses() {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            List<Class> list = classDao.all();
+            if (list == null || list.isEmpty()) {
+                message.postValue("Class Not Found !");
+                return;
+            }
+            allClasses.postValue(list);
+        });
+    }
+
+    public LiveData<List<Class>> getAllClasses() {
+        loadAllClasses();
+        return allClasses;
+    }
+
+    public void checkUserId(int classId, int userId) {
+        userIsInClass.postValue(false);
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            Class aClass = classDao.getClassWithUId(classId);
+            if (aClass.students == null) {
+                userIsInClass.postValue(false);
+                return;
+            }
+            if (aClass.students.contains(userId)) {
+                userIsInClass.postValue(true);
+                return;
+            }
+            userIsInClass.postValue(false);
+        });
+    }
+
+    public LiveData<List<Class>> getStudentClasses() {
+        return studentClasses;
+    }
+
+    public LiveData<String> getMessage() {
+        return message;
+    }
+
+    public LiveData<Boolean> getUserIsInClass() {
+        return userIsInClass;
+    }
 }

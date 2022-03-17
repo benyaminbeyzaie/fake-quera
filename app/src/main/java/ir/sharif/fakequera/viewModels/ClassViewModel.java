@@ -28,6 +28,10 @@ public class ClassViewModel extends AndroidViewModel {
     private final LiveData<List<Class>> classList;
     private final LiveData<String> message;
 
+    private final LiveData<List<Class>> allClasses;
+    private final LiveData<List<Class>> studentClasses;
+    private final LiveData<Boolean> userIsInClass;
+
     public ClassViewModel(@NonNull Application application, int uid) {
         super(application);
 
@@ -40,12 +44,11 @@ public class ClassViewModel extends AndroidViewModel {
 
     public ClassViewModel(@NonNull Application application) {
         super(application);
-
-//        Log.d("mym" ,currentTeacher.getValue());
         classRepository = new ClassRepository(application);
-        teacherClasses = classRepository.getClasses();
-        classList = classRepository.getClassList();
+        allClasses = classRepository.getAllClasses();
+        studentClasses = classRepository.getStudentClasses();
         message = classRepository.getMessage();
+        userIsInClass = classRepository.getUserIsInClass();
     }
 
 
@@ -82,4 +85,31 @@ public class ClassViewModel extends AndroidViewModel {
         classRepository.classList();
     }
 
+    public LiveData<List<Class>> getStudentClasses(){
+        return studentClasses;
+    }
+    public LiveData<List<Class>> getAllClasses() {
+        return allClasses;
+    }
+
+    public void checkUser(int classId, int userId) {
+        classRepository.checkUserId(classId, userId);
+    }
+
+    public void addUserToClass(int classId, int userId) {
+        classRepository.setClassToStudent(userId, classId);
+    }
+
+    public LiveData<Boolean> getUserIsInClass() {
+        return userIsInClass;
+    }
+
+
+    public void loadStudentClasses(int studentId) {
+        classRepository.loadStudentClasses(studentId);
+    }
+
+    public void loadAllClasses() {
+        classRepository.loadAllClasses();
+    }
 }

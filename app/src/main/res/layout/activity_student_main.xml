@@ -7,12 +7,31 @@
     android:layoutDirection="ltr"
     tools:context=".StudentMainActivity">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/studentTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/allClassesTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/allClasses" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/joinedClassesTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/joinedClasses" />
+    </com.google.android.material.tabs.TabLayout>
+
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/studentTabs"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
