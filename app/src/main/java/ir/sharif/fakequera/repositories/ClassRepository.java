@@ -42,16 +42,16 @@ public class ClassRepository {
         userIsInClass = new MutableLiveData<>();
 
         // fake data
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            if (classDao.all().size() == 0) {
-                for (int i = 0; i < 10; i++) {
-                    classDao.insert(new Class("Class " + i, i));
-                }
-                for (int i = 0; i < 10; i++) {
-                    questionDao.insert(new Question(1, "Question  " + i));
-                }
-            }
-        });
+//        AppDatabase.databaseWriteExecutor.execute(() -> {
+//            if (classDao.all().size() == 0) {
+//                for (int i = 0; i < 10; i++) {
+//                    classDao.insert(new Class("Class " + i, i));
+//                }
+//                for (int i = 0; i < 10; i++) {
+//                    questionDao.insert(new Question(1, "Question  " + i));
+//                }
+//            }
+//        });
     }
 
     public void loadStudentClasses(int studentUId) {
