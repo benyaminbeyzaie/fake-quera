@@ -39,7 +39,7 @@ public class AnswerRepository {
             User currentUser = userDao.getCurrentUser();
 
             if (currentUser == null){
-                message.postValue("Authentication Failed !");
+                message.postValue("Authentication Failed!");
                 return;
             }
 
