@@ -14,21 +14,21 @@ import ir.sharif.fakequera.repositories.ClassRepository;
 
 public class ClassViewModel extends AndroidViewModel {
 
-    private  ClassRepository classRepository;
+    private ClassRepository classRepository;
     private LiveData<List<Class>> teacherClasses;
-    private  LiveData<List<Class>> classList;
-    private  LiveData<String> message;
+    private LiveData<List<Class>> classList;
+    private LiveData<String> message;
 
-    private  LiveData<List<Class>> allClasses;
-    private  LiveData<List<Class>> studentClasses;
-    private  LiveData<Boolean> userIsInClass;
+    private LiveData<List<Class>> allClasses;
+    private LiveData<List<Class>> studentClasses;
+    private LiveData<Boolean> userIsInClass;
 
     public ClassViewModel(@NonNull Application application, int uid) {
         super(application);
 
 //        Log.d("mym" ,currentTeacher.getValue());
         classRepository = new ClassRepository(application, uid);
-        teacherClasses = classRepository.getTeacherClasses();
+        teacherClasses = classRepository.getTeacherClasses(uid);
         classList = classRepository.getClassList();
         message = classRepository.getMessage();
     }
@@ -61,7 +61,7 @@ public class ClassViewModel extends AndroidViewModel {
 
     public void update(int uid) {
         classRepository.update(uid);
-        teacherClasses = classRepository.getTeacherClasses();
+        teacherClasses = classRepository.getTeacherClasses(uid);
     }
 
     public LiveData<List<Class>> getClassList() {
@@ -72,13 +72,14 @@ public class ClassViewModel extends AndroidViewModel {
         return message;
     }
 
-    public void classList(){
+    public void classList() {
         classRepository.classList();
     }
 
-    public LiveData<List<Class>> getStudentClasses(){
+    public LiveData<List<Class>> getStudentClasses() {
         return studentClasses;
     }
+
     public LiveData<List<Class>> getAllClasses() {
         return allClasses;
     }

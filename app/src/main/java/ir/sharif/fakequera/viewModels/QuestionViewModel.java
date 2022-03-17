@@ -4,9 +4,11 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import ir.sharif.fakequera.database.AppDatabase;
 import ir.sharif.fakequera.entities.Answer;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.entities.Teacher;
@@ -100,6 +102,10 @@ public class QuestionViewModel extends AndroidViewModel {
 
     public LiveData<Question> getQuestion(int uid){
         return repository.getQuestion(uid);
+    }
+
+    public LiveData<List<Answer>> getAnswerOfQuestuion(int questionID){
+        return repository.getAnswerOfQuestuion(questionID);
     }
 
 }

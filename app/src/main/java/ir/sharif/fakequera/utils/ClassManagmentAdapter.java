@@ -1,6 +1,5 @@
 package ir.sharif.fakequera.utils;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,9 +72,9 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
 
         public QuestionHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textViewUserame);
-            textViewDes = itemView.findViewById(R.id.textViewUniversity);
-            cardView = itemView.findViewById(R.id.profilecardView);
+            textViewTitle = itemView.findViewById(R.id.textViewStuName);
+            textViewDes = itemView.findViewById(R.id.textViewStuAnswer);
+            cardView = itemView.findViewById(R.id.answerCardView);
         }
     }
 

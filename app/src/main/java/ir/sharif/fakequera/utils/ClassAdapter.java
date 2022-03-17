@@ -1,5 +1,6 @@
 package ir.sharif.fakequera.utils;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,10 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
     }
 
     public void setClasses(List<Class> classes) {
+        Log.d("mym" , "here");
         this.classes = classes;
-        notifyDataSetChanged();
+        notifyItemInserted(classes.size()-1);
+//        notifyDataSetChanged();
     }
 
     class ClassHolder extends RecyclerView.ViewHolder {
@@ -81,9 +84,9 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
 
         public ClassHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textViewUserame);
-            textViewDes = itemView.findViewById(R.id.textViewUniversity);
-            cardView = itemView.findViewById(R.id.profilecardView);
+            textViewTitle = itemView.findViewById(R.id.textViewStuName);
+            textViewDes = itemView.findViewById(R.id.textViewStuAnswer);
+            cardView = itemView.findViewById(R.id.answerCardView);
         }
     }
 

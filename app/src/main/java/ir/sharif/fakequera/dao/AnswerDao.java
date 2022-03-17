@@ -1,5 +1,6 @@
 package ir.sharif.fakequera.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -12,7 +13,7 @@ import ir.sharif.fakequera.entities.Answer;
 
 @Dao
 public interface AnswerDao {
-    @Query("SELECT * FROM Answer WHERE question_id LIKE :questionId")
+    @Query("SELECT * FROM answer WHERE question_id LIKE :questionId")
     List<Answer> getAnswersOfQuestion(int questionId);
 
     @Query("SELECT * FROM Answer WHERE question_id = :questionId AND owner_id = :userId ")

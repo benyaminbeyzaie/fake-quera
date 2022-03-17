@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,10 +49,12 @@ public class TeacherMainActivity extends AppCompatActivity {
         Intent i = getIntent();
         uid = i.getIntExtra("uid", 0);
 
-        userViewModel = new UserViewModel(getApplication());
-        cardView = findViewById(R.id.profilecardView);
-        username = cardView.findViewById(R.id.textViewUserame);
-        university = cardView.findViewById(R.id.textViewUniversity);
+//        userViewModel = new UserViewModel(getApplication());
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.authenticateWithSavedCredentials();
+        cardView = findViewById(R.id.answerCardView);
+        username = cardView.findViewById(R.id.textViewStuName);
+        university = cardView.findViewById(R.id.textViewStuAnswer);
         name = cardView.findViewById(R.id.textViewName);
         classNumber = cardView.findViewById(R.id.textViewClassNumber);
 
@@ -80,6 +83,7 @@ public class TeacherMainActivity extends AppCompatActivity {
 
         classViewModel = new ClassViewModel(getApplication(), uid);
         classViewModel.getTeacherClasses().observe(this, classes -> {
+            Log.d("mym" , "changed");
             Log.d("mym", classes.toString());
             classAdapter.setClasses(classes);
             classNumber.setText("# Of classes : ".concat(classes.size()+"") );

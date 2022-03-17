@@ -6,8 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 import ir.sharif.fakequera.dao.StudentDao;
 import ir.sharif.fakequera.dao.TeacherDao;
@@ -25,6 +25,7 @@ public class UserRepository {
     private final MutableLiveData<Teacher> currentTeacher;
     private final MutableLiveData<Student> currentStudent;
     private final MutableLiveData<String> message;
+    private List<User> all;
 
     private static volatile UserRepository INSTANCE;
 
@@ -49,6 +50,9 @@ public class UserRepository {
         currentTeacher = new MutableLiveData<>();
         currentStudent = new MutableLiveData<>();
         message = new MutableLiveData<>("Something went wrong!");
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+           all = userDao.all();
+        });
     }
 
     public void insertTeacher(Teacher teacher) {
@@ -61,9 +65,10 @@ public class UserRepository {
             message.postValue("User registered as teacher");
             userDao.insertUser(teacher);
             teacherDao.insert(teacher);
-            setCurrentUser(null);
-//            setCurrentUser(teacher);
+//            setCurrentUser(null);
+            setCurrentUser(teacher);
 //            setCurrentTeacher(teacher);
+            all = userDao.all();
         });
     }
 
@@ -77,8 +82,9 @@ public class UserRepository {
             message.postValue("User registered as student");
             userDao.insertUser(student);
             studentDao.insert(student);
-            setCurrentUser(null);
-//            setCurrentUser(student);
+//            setCurrentUser(null);
+            setCurrentUser(student);
+            all = userDao.all();
         });
 
 
@@ -86,14 +92,21 @@ public class UserRepository {
 
     public void setCurrentUser(User user) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
+
+//            if (currentUser.getValue() != null && user == null){
+//                User value = currentUser.getValue();
+//                value.isCurrentUser = false;
+//                userDao.updateUser(value);
+//            }
+            userDao.deactivateAllUsers();
             if (user == null) {
                 currentUser.postValue(null);
                 return;
             }
-            userDao.deactivateAllUsers();
             user.isCurrentUser = true;
-//            userDao.updateUser(user);
+            userDao.updateUser(user);
             currentUser.postValue(user);
+
         });
     }
 
@@ -207,17 +220,28 @@ public class UserRepository {
 
     public void signOut() {
         setCurrentUser(null);
+        AppDatabase.databaseWriteExecutor.execute(userDao::deactivateAllUsers);
     }
 
-    public String[] getTeacherData(int uid){
-        String[] data = new String[3];
+    public MutableLiveData<Teacher> getTeacherData(int uid){
         AppDatabase.databaseWriteExecutor.execute(() ->{
-            Teacher currentTeacher = teacherDao.getTeacher(uid);
-            data[0] = currentTeacher.userName;
-            data[1] = currentTeacher.universityName;
-            data[2] = currentTeacher.firstName;
+
+            Teacher currentTeach = teacherDao.getTeacher(uid);
+            currentTeacher.postValue(currentTeach);
+//            data[0] = currentTeacher.userName;
+//            data[1] = currentTeacher.universityName;
+//            data[2] = currentTeacher.firstName;
         });
-        return data;
+        return currentTeacher;
+    }
+
+    public String getUserName(int id){
+        for (User user : all) {
+            if (user.uid == id){
+                return user.firstName;
+            }
+        }
+        return null;
     }
 
 }

@@ -43,21 +43,15 @@
             android:textSize="20sp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/submitInfo"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/answerRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            tools:listitem="@layout/answer_design" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -34,4 +34,15 @@ public class Answer {
 
     public Answer() {
     }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "uid=" + uid +
+                ", ownerId=" + ownerId +
+                ", questionId=" + questionId +
+                ", content='" + content + '\'' +
+                ", score=" + score +
+                '}';
+    }
 }

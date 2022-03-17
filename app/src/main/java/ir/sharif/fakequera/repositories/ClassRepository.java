@@ -28,7 +28,7 @@ public class ClassRepository {
 
 
     private UserRepository userRepository;
-    private MutableLiveData<List<Class>> teacherClasses;
+    private LiveData<List<Class>> teacherClasses;
     private int uid;
 
 
@@ -40,7 +40,7 @@ public class ClassRepository {
         classList = new MutableLiveData<>();
         message = new MutableLiveData<>();
         this.uid = uid;
-        teacherClasses = new MutableLiveData<>();
+        teacherClasses = classDao.getClassesOfTeacher(uid);
     }
 
     public ClassRepository(Application application) {
@@ -93,8 +93,14 @@ public class ClassRepository {
         });
     }
 
-    public LiveData<List<Class>> getTeacherClasses() {
-        loadTeacherClasses(this.uid);
+    public LiveData<List<Class>> getTeacherClasses(int uid) {
+        AppDatabase.databaseWriteExecutor.execute(() ->{
+            teacherClasses = classDao.getClassesOfTeacher(uid);
+
+//            List<Class> classesOfTeacher = classDao.getClassesOfTeacher(uid);
+//            teacherClasses.postValue(classesOfTeacher);
+            message.postValue("classes are loaded");
+        });
         return teacherClasses;
     }
 
@@ -106,8 +112,8 @@ public class ClassRepository {
 
     public void loadTeacherClasses(int teacherUid){
         AppDatabase.databaseWriteExecutor.execute(() ->{
-            List<Class> classesOfTeacher = classDao.getClassesOfTeacher(teacherUid);
-            teacherClasses.postValue(classesOfTeacher);
+            teacherClasses = classDao.getClassesOfTeacher(teacherUid);
+//            teacherClasses.postValue(classesOfTeacher);
             message.postValue("classes are loaded");
         });
     }

@@ -34,6 +34,7 @@ public class QuestionRepository {
     public QuestionRepository(Application application, int uid) {
         AppDatabase db = AppDatabase.getDatabase(application);
         questionDao = db.questionDao();
+        answerDao = db.answerDao();
         this.classUID = uid;
         questions = questionDao.getQuestionsOfClass(this.classUID);
 
@@ -186,5 +187,16 @@ public class QuestionRepository {
 
     public LiveData<Question> getQuestion(int uid){
         return questionDao.get2(uid);
+    }
+
+    public LiveData<List<Answer>> getAnswerOfQuestuion(int questionID){
+        MutableLiveData<List<Answer>> result = new MutableLiveData<>();
+        AppDatabase.databaseWriteExecutor.execute(() ->{
+//            result.postValue(null);
+//            result = answerDao.getAnswersOfQuestion(questionID);
+            List<Answer> answersOfQuestion = answerDao.getAnswersOfQuestion(questionID);
+            result.postValue(answersOfQuestion);
+        });
+        return result;
     }
 }
