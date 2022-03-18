@@ -19,9 +19,6 @@
             android:name=".AnswerActivity"
             android:exported="false" />
         <activity
-            android:name=".QuestionActivity"
-            android:exported="false" />
-        <activity
             android:name=".QuestionsActivity"
             android:exported="false" />
         <activity

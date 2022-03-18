@@ -2,6 +2,7 @@ package ir.sharif.fakequera;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +18,14 @@ import java.util.List;
 import ir.sharif.fakequera.entities.Answer;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.utils.AnswerAdapter;
+import ir.sharif.fakequera.viewModels.AnswerViewModel;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
 
 public class AnswerPage extends AppCompatActivity {
 
     private int classUid;
     private QuestionViewModel questionViewModel;
+    private AnswerViewModel answerViewModel;
     private TextView questionTitle;
     private EditText questionContent;
     RecyclerView recyclerView;
@@ -49,16 +52,30 @@ public class AnswerPage extends AppCompatActivity {
         answerAdapter = new AnswerAdapter(AnswerPage.this);
         recyclerView.setAdapter(answerAdapter);
 
-        questionViewModel = new QuestionViewModel(getApplication() , this.classUid);
-        questionViewModel.getQuestion(this.classUid).observe(this, new Observer<Question>() {
+
+
+        questionViewModel = new QuestionViewModel(getApplication());
+        answerViewModel = new AnswerViewModel(getApplication());
+//        questionViewModel = new QuestionViewModel(getApplication() , this.classUid);
+
+        questionViewModel.question(this.classUid).observe(this, new Observer<Question>() {
             @Override
             public void onChanged(Question question) {
                 questionTitle.setText(question.questionName);
                 questionContent.setText(question.content);
             }
         });
+//        questionViewModel.getQuestion(this.classUid).observe(this, new Observer<Question>() {
+//            @Override
+//            public void onChanged(Question question) {
+//                questionTitle.setText(question.questionName);
+//                questionContent.setText(question.content);
+//            }
+//        });
 
-        questionViewModel.getAnswerOfQuestuion(this.classUid).observe(this, new Observer<List<Answer>>() {
+        LiveData<List<Answer>> answerOfQuestuion = answerViewModel.getAnswerOfQuestuion();
+
+        answerOfQuestuion.observe(this, new Observer<List<Answer>>() {
             @Override
             public void onChanged(List<Answer> answers) {
                 Log.d("mym" , answers.toString());
@@ -66,17 +83,22 @@ public class AnswerPage extends AppCompatActivity {
             }
         });
 
-
-
-
+        answerViewModel.getAnswerOfQuestuion(this.classUid);
+//        answerViewModel.getAnswerOfQuestuion(this.classUid).observe(this, new Observer<List<Answer>>() {
+//            @Override
+//            public void onChanged(List<Answer> answers) {
+//
+//            }
+//        });
 
     }
 
-    public void giveScore(int position , double previousScore){
+    public void giveScore(int position , Answer answer){
         FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putDouble("score" , previousScore);
+        bundle.putDouble("score" , answer.score);
         bundle.putInt("position" , position);
+        bundle.putString("content" , answer.content);
         ScoreDialoge scoreDialoge = new ScoreDialoge();
 //        scoreDialoge.setPosition(position);
         scoreDialoge.setArguments(bundle);
@@ -85,6 +107,6 @@ public class AnswerPage extends AppCompatActivity {
     public void takeData(double score , int position) {
         Answer answer = answerAdapter.getAnswer(position);
         answer.score = score;
-        questionViewModel.addAnswer(this.classUid , answer);
+        answerViewModel.giveScoreToAnswer(answer);
     }
 }

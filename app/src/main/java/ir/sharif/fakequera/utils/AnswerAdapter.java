@@ -57,7 +57,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.giveScore(position , current.score);
+                context.giveScore(holder.getAdapterPosition() , current);
             }
         });
 
@@ -76,6 +76,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
         this.answers = answers;
 
         Log.d("mym", "changed");
+        notifyDataSetChanged();
 //        notifyDataSetChanged();
     }
 

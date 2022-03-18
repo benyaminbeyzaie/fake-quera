@@ -2,6 +2,7 @@ package ir.sharif.fakequera.repositories;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
@@ -21,11 +22,14 @@ public class AnswerRepository {
     private final UserDao userDao;
     private final MutableLiveData<Answer> answerLiveData;
     private final MutableLiveData<String> message;
+    private final MutableLiveData<List<Answer>> answerToQuestion;
+    private int currentQuestionID;
 
     public AnswerRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         answerDao = db.answerDao();
         userDao = db.userDao();
+        answerToQuestion = new MutableLiveData<>();
 
         answerLiveData = new MutableLiveData<>();
         message = new MutableLiveData<>();
@@ -85,11 +89,34 @@ public class AnswerRepository {
         });
     }
 
+    public void getAnswerOfQuestuion(int questionID){
+        this.currentQuestionID = questionID;
+        MutableLiveData<List<Answer>> result = new MutableLiveData<>();
+        AppDatabase.databaseWriteExecutor.execute(() ->{
+            List<Answer> answersOfQuestion = answerDao.getAnswersOfQuestion(questionID);
+            answerToQuestion.postValue(answersOfQuestion);
+        });
+    }
+
+    public MutableLiveData<List<Answer>> getAnswerToQuestion() {
+        return answerToQuestion;
+    }
+
     public MutableLiveData<Answer> getAnswerLiveData() {
         return answerLiveData;
     }
 
     public MutableLiveData<String> getMessage() {
         return message;
+    }
+
+    public void update(Answer answer){
+        AppDatabase.databaseWriteExecutor.execute(() ->{
+            answerDao.update(answer);
+            if (currentQuestionID != 0){
+                getAnswerOfQuestuion(this.currentQuestionID);
+            }
+
+        });
     }
 }

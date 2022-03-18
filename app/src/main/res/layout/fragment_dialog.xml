@@ -38,7 +38,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/cancleButton"
+            android:id="@+id/renameButton"
             android:layout_width="wrap_content"
             android:layout_height="59dp"
             android:layout_marginHorizontal="@dimen/component_horizontal_padding"

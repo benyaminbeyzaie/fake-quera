@@ -35,7 +35,7 @@ public class LoginFragment extends Fragment {
 
         loginUserInput = view.findViewById(R.id.loginUserInput);
         loginPassInput = view.findViewById(R.id.dialogeinput);
-        loginButton = view.findViewById(R.id.cancleButton);
+        loginButton = view.findViewById(R.id.renameButton);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.authenticateWithSavedCredentials();
 

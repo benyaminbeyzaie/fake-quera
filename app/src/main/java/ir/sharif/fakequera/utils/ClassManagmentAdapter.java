@@ -1,8 +1,10 @@
 package ir.sharif.fakequera.utils;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +35,7 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
     @NonNull
     @Override
     public QuestionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_design, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_design, parent, false);
 
         return new QuestionHolder(view);
     }
@@ -58,6 +60,9 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
     public void setQuestions(List<Question> questions){
         this.questions = questions;
         notifyDataSetChanged();
+//        notifyItemChanged(questions.size()-1);
+//        notifyDataSetChanged();
+        Log.d("mym" , "questionset changed");
     }
 
     @Override
@@ -68,6 +73,7 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
     class QuestionHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
         TextView textViewDes;
+        Button renameButton;
         CardView cardView;
 
         public QuestionHolder(@NonNull View itemView) {
@@ -75,6 +81,13 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
             textViewTitle = itemView.findViewById(R.id.textViewStuName);
             textViewDes = itemView.findViewById(R.id.textViewStuAnswer);
             cardView = itemView.findViewById(R.id.answerCardView);
+            renameButton = itemView.findViewById(R.id.renameButton);
+            renameButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.renameAction(textViewTitle.getText().toString() , getAdapterPosition());
+                }
+            });
         }
     }
 

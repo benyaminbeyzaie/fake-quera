@@ -2,10 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialogeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".AddQuesionDialogFragment">
+    android:layout_gravity="center_horizontal"
+    android:background="#F8E68B"
+    tools:context=".AddClassDialogFragment"
+    android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialogeinput"
@@ -14,36 +17,16 @@
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
-        android:hint="@string/questionName"
+        android:hint="@string/inputHint"
         android:paddingHorizontal="@dimen/component_horizontal_padding"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialogInputText"
             android:layout_width="250dp"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/dialogeinput2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
-        android:hint="@string/questionContent"
-        android:paddingHorizontal="@dimen/component_horizontal_padding"
-        app:errorEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dialogInputText2"
-            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:lines="4" />
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,5 +53,6 @@
 
             android:text="@string/dialogOKText" />
     </LinearLayout>
+
 
 </LinearLayout>

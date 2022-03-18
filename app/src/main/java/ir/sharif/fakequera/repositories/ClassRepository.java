@@ -66,7 +66,7 @@ public class ClassRepository {
                     classDao.insert(new Class("Class " + i, i));
                 }
                 for (int i = 0; i < 10; i++) {
-                    questionDao.insert(new Question(1, "Question  " + i));
+                    questionDao.insert(new Question(1, "Question  " + i , "Question  " + i));
                 }
             }
         });

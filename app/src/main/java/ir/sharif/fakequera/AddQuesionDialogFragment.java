@@ -3,7 +3,6 @@ package ir.sharif.fakequera;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,7 @@ public class AddQuesionDialogFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_quesion_dialog, container, false);
 
-        cancle = view.findViewById(R.id.cancleButton);
+        cancle = view.findViewById(R.id.renameButton);
         ok = view.findViewById(R.id.addButton);
         name = view.findViewById(R.id.dialogeinput);
         content = view.findViewById(R.id.dialogeinput2);
@@ -51,6 +50,7 @@ public class AddQuesionDialogFragment extends DialogFragment {
             }else {
                 ((ClassManagmentActivity)getActivity()).takeData(nameInput , contentInput);
                 Objects.requireNonNull(getDialog()).dismiss();
+//                ((ClassManagmentActivity)getActivity()).recreate();
             }
 
         });

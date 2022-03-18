@@ -3,7 +3,6 @@ package ir.sharif.fakequera;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +24,7 @@ public class ScoreDialoge extends DialogFragment {
 
     int position;
     double previousScore;
+    String answer;
 
     public ScoreDialoge() {
         // Required empty public constructor
@@ -44,7 +44,7 @@ public class ScoreDialoge extends DialogFragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_score_dialoge, container, false);
 
-        cancle = view.findViewById(R.id.cancleButton);
+        cancle = view.findViewById(R.id.renameButton);
         ok = view.findViewById(R.id.addButton);
         textInputLayout = view.findViewById(R.id.dialogeinput2);
         content = view.findViewById(R.id.contentTextView);
@@ -52,8 +52,11 @@ public class ScoreDialoge extends DialogFragment {
         Bundle bundle = getArguments();
         previousScore = bundle.getDouble("score");
         position = bundle.getInt("position");
+        answer = bundle.getString("content");
+
 
         textInputLayout.getEditText().setText(String.valueOf(previousScore));
+        content.setText(answer);
 
         ok.setOnClickListener(view1 -> {
             String Score = Objects.requireNonNull(textInputLayout.getEditText()).getText().toString();
