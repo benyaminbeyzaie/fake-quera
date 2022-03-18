@@ -50,14 +50,11 @@ public class AddQuesionDialogFragment extends DialogFragment {
             }else {
                 ((ClassManagmentActivity)getActivity()).takeData(nameInput , contentInput);
                 Objects.requireNonNull(getDialog()).dismiss();
-//                ((ClassManagmentActivity)getActivity()).recreate();
             }
 
         });
 
-        cancle.setOnClickListener(view12 -> {
-            Objects.requireNonNull(getDialog()).dismiss();
-        });
+        cancle.setOnClickListener(view12 -> Objects.requireNonNull(getDialog()).dismiss());
 
         return view;
     }

@@ -30,14 +30,6 @@ public class ScoreDialoge extends DialogFragment {
         // Required empty public constructor
     }
 
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,12 +42,13 @@ public class ScoreDialoge extends DialogFragment {
         content = view.findViewById(R.id.contentTextView);
 
         Bundle bundle = getArguments();
+        assert bundle != null;
         previousScore = bundle.getDouble("score");
         position = bundle.getInt("position");
         answer = bundle.getString("content");
 
 
-        textInputLayout.getEditText().setText(String.valueOf(previousScore));
+        Objects.requireNonNull(textInputLayout.getEditText()).setText(String.valueOf(previousScore));
         content.setText(answer);
 
         ok.setOnClickListener(view1 -> {

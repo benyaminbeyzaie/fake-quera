@@ -1,22 +1,20 @@
 package ir.sharif.fakequera;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 import ir.sharif.fakequera.entities.Answer;
-import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.utils.AnswerAdapter;
 import ir.sharif.fakequera.viewModels.AnswerViewModel;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
@@ -56,41 +54,21 @@ public class AnswerPage extends AppCompatActivity {
 
         questionViewModel = new QuestionViewModel(getApplication());
         answerViewModel = new AnswerViewModel(getApplication());
-//        questionViewModel = new QuestionViewModel(getApplication() , this.classUid);
 
-        questionViewModel.question(this.classUid).observe(this, new Observer<Question>() {
-            @Override
-            public void onChanged(Question question) {
-                questionTitle.setText(question.questionName);
-                questionContent.setText(question.content);
-            }
+        questionViewModel.question(this.classUid).observe(this, question -> {
+            questionTitle.setText(question.questionName);
+            questionContent.setText(question.content);
         });
-//        questionViewModel.getQuestion(this.classUid).observe(this, new Observer<Question>() {
-//            @Override
-//            public void onChanged(Question question) {
-//                questionTitle.setText(question.questionName);
-//                questionContent.setText(question.content);
-//            }
-//        });
+
 
         LiveData<List<Answer>> answerOfQuestuion = answerViewModel.getAnswerOfQuestuion();
 
-        answerOfQuestuion.observe(this, new Observer<List<Answer>>() {
-            @Override
-            public void onChanged(List<Answer> answers) {
-                Log.d("mym" , answers.toString());
-                answerAdapter.setAnswers(answers);
-            }
+        answerOfQuestuion.observe(this, answers -> {
+            Log.d("mym" , answers.toString());
+            answerAdapter.setAnswers(answers);
         });
 
         answerViewModel.getAnswerOfQuestuion(this.classUid);
-//        answerViewModel.getAnswerOfQuestuion(this.classUid).observe(this, new Observer<List<Answer>>() {
-//            @Override
-//            public void onChanged(List<Answer> answers) {
-//
-//            }
-//        });
-
     }
 
     public void giveScore(int position , Answer answer){
@@ -100,7 +78,6 @@ public class AnswerPage extends AppCompatActivity {
         bundle.putInt("position" , position);
         bundle.putString("content" , answer.content);
         ScoreDialoge scoreDialoge = new ScoreDialoge();
-//        scoreDialoge.setPosition(position);
         scoreDialoge.setArguments(bundle);
         scoreDialoge.show(fragmentManager, "ScoreDialoge");
     }

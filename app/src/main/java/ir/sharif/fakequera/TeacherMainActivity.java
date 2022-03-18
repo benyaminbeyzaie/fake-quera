@@ -49,7 +49,6 @@ public class TeacherMainActivity extends AppCompatActivity {
         Intent i = getIntent();
         uid = i.getIntExtra("uid", 0);
 
-//        userViewModel = new UserViewModel(getApplication());
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.authenticateWithSavedCredentials();
         cardView = findViewById(R.id.answerCardView);
@@ -60,13 +59,10 @@ public class TeacherMainActivity extends AppCompatActivity {
 
         LiveData<Teacher> data = userViewModel.getTeacherData(uid);
 
-        data.observe(this, new Observer<Teacher>() {
-            @Override
-            public void onChanged(Teacher teacher) {
-                username.setText(teacher.userName);
-                university.setText(teacher.universityName);
-                name.setText(teacher.firstName);
-            }
+        data.observe(this, teacher -> {
+            username.setText(teacher.userName);
+            university.setText(teacher.universityName);
+            name.setText(teacher.firstName);
         });
 
 
@@ -88,11 +84,6 @@ public class TeacherMainActivity extends AppCompatActivity {
             classAdapter.setClasses(classes);
             classNumber.setText("# Of classes : ".concat(classes.size()+"") );
         });
-
-
-
-
-
     }
 
     @Override

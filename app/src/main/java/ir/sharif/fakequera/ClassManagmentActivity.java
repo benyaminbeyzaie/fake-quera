@@ -1,14 +1,5 @@
 package ir.sharif.fakequera;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +7,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.Objects;
 
-import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.utils.ClassManagmentAdapter;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
@@ -47,26 +42,14 @@ public class ClassManagmentActivity extends AppCompatActivity {
         recyclerView.setAdapter(classManagmentAdapter);
 
         questionViewModel = new QuestionViewModel(getApplication());
-//        questionViewModel = new QuestionViewModel(getApplication(), classUid);
 
 
-        questionViewModel.getQuestionList().observe(this, new Observer<List<Question>>() {
-            @Override
-            public void onChanged(List<Question> questions) {
-                Log.d("mym" , "set changed");
-                classManagmentAdapter.setQuestions(questions);
-            }
+        questionViewModel.getQuestionList().observe(this, questions -> {
+            Log.d("mym" , "set changed");
+            classManagmentAdapter.setQuestions(questions);
         });
         questionViewModel.getClassQuestions(this.classUid);
 
-//        LiveData<List<Question>> classQuestions = questionViewModel.getClassQuestions(this.classUid);
-//        classQuestions.observe(this, new Observer<List<Question>>() {
-//            @Override
-//            public void onChanged(List<Question> questions) {
-//
-//                classManagmentAdapter.setQuestions(questions);
-//            }
-//        });
     }
 
 
@@ -84,8 +67,6 @@ public class ClassManagmentActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             AddQuesionDialogFragment addQuesionDialogFragment = new AddQuesionDialogFragment();
             addQuesionDialogFragment.show(fragmentManager , "AddQuesionDialogFragment");
-//            DialogFragment dialogFragment = new DialogFragment();
-//            dialogFragment.show(fragmentManager, "DialogFragment");
             return true;
         }
         return super.onOptionsItemSelected(item);

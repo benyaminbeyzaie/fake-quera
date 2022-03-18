@@ -108,18 +108,6 @@ public class SignupFragment extends Fragment {
 
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             QueraSnackbar.showTopSnackBar(view, userViewModel.getMessage().getValue());
-//            if (user == null) {
-//                return;
-//            }
-//            if (user.isCurrentUser) {
-//                if (user.isTeacher) {
-//                    // TODO
-//                } else {
-//                    // TODO
-//                }
-//            } else {
-//                // TODO
-//            }
         });
 
         return view;
