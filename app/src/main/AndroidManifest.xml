@@ -16,6 +16,9 @@
             android:name=".ClassManagmentActivity"
             android:exported="false" />
         <activity
+            android:name=".AnswerActivity"
+            android:exported="false" />
+        <activity
             android:name=".QuestionActivity"
             android:exported="false" />
         <activity

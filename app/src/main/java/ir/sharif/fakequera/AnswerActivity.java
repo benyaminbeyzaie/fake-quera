@@ -8,12 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import ir.sharif.fakequera.utils.QueraSnackbar;
+import ir.sharif.fakequera.viewModels.AnswerViewModel;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
 
-public class QuestionActivity extends AppCompatActivity {
+public class AnswerActivity extends AppCompatActivity {
 
     private LinearLayout linearParent;
     private TextView txtQuestion;
@@ -21,20 +21,22 @@ public class QuestionActivity extends AppCompatActivity {
     private Button btnSubmit;
 
 
-    private QuestionViewModel viewModel;
+    private AnswerViewModel answerViewModel;
+    private QuestionViewModel questionViewModel;
     private int questionId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question);
-        viewModel = new ViewModelProvider(this).get(QuestionViewModel.class);
+        setContentView(R.layout.activity_answer);
+        answerViewModel = new ViewModelProvider(this).get(AnswerViewModel.class);
+        questionViewModel = new ViewModelProvider(this).get(QuestionViewModel.class);
 
         initViews();
         checkArguments();
         listeners();
 
-        viewModel.getQuestionLiveData().observe(this , question -> {
+        questionViewModel.getQuestionLiveData().observe(this , question -> {
             if (question == null){
                 txtQuestion.setText("Question Not Found !");
             }else {
@@ -42,17 +44,17 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getAnswerLiveData().observe(this , answer -> {
+        answerViewModel.getAnswerLiveData().observe(this , answer -> {
             edtAnswer.setText(answer.content);
         });
 
-        viewModel.getMessage().observe(this , s -> {
+        answerViewModel.getMessage().observe(this , s -> {
             QueraSnackbar.showTopSnackBar(linearParent,s);
         });
 
 
-        viewModel.question(questionId);
-        viewModel.answer(questionId);
+        questionViewModel.question(questionId);
+        answerViewModel.answer(questionId);
 
 
     }
@@ -75,7 +77,7 @@ public class QuestionActivity extends AppCompatActivity {
 
             if (answer.isEmpty()) return;
 
-            viewModel.addAnswer(questionId , answer);
+            answerViewModel.addAnswer(questionId , answer);
 
         });
     }

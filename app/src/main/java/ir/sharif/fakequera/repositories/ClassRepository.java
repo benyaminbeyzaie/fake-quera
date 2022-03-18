@@ -1,7 +1,7 @@
 package ir.sharif.fakequera.repositories;
 
 import android.app.Application;
-
+import android.service.controls.actions.BooleanAction;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -9,12 +9,18 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.QuestionDao;
 import ir.sharif.fakequera.dao.StudentDao;
 import ir.sharif.fakequera.database.AppDatabase;
 import ir.sharif.fakequera.entities.Class;
+import ir.sharif.fakequera.entities.Question;
+import ir.sharif.fakequera.entities.Student;
+import ir.sharif.fakequera.entities.Teacher;
+import ir.sharif.fakequera.entities.User;
+import ir.sharif.fakequera.dao.StudentDao;
 
 public class ClassRepository {
     private  ClassDao classDao;
@@ -52,8 +58,19 @@ public class ClassRepository {
         studentDao = db.studentDao();
         studentClasses = new MutableLiveData<>();
         userIsInClass = new MutableLiveData<>();
-    }
 
+        // fake data
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            if (classDao.all().size() == 0) {
+                for (int i = 0; i < 10; i++) {
+                    classDao.insert(new Class("Class " + i, i));
+                }
+                for (int i = 0; i < 10; i++) {
+                    questionDao.insert(new Question(1, "Question  " + i));
+                }
+            }
+        });
+    }
 
     public void classList() {
         AppDatabase.databaseWriteExecutor.execute(() -> {
@@ -69,10 +86,6 @@ public class ClassRepository {
 
     public MutableLiveData<List<Class>> getClassList() {
         return classList;
-    }
-
-    public MutableLiveData<String> getMessage() {
-        return message;
     }
 
     public void insert(Class clas){
@@ -177,7 +190,12 @@ public class ClassRepository {
         return studentClasses;
     }
 
-        public LiveData<Boolean> getUserIsInClass() {
+    public LiveData<String> getMessage() {
+        return message;
+    }
+
+    public LiveData<Boolean> getUserIsInClass() {
         return userIsInClass;
     }
+
 }
