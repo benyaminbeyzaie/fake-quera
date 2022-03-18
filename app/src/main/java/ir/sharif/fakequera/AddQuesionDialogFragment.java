@@ -1,13 +1,12 @@
 package ir.sharif.fakequera;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -47,8 +46,8 @@ public class AddQuesionDialogFragment extends DialogFragment {
                 if (contentInput.equals("")) {
                     content.setError("Enter question Description");
                 }
-            }else {
-                ((ClassManagmentActivity)getActivity()).takeData(nameInput , contentInput);
+            } else {
+                ((ClassManagmentActivity) requireActivity()).takeData(nameInput, contentInput);
                 Objects.requireNonNull(getDialog()).dismiss();
             }
 

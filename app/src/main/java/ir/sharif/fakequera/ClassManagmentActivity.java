@@ -45,7 +45,7 @@ public class ClassManagmentActivity extends AppCompatActivity {
 
 
         questionViewModel.getQuestionList().observe(this, questions -> {
-            Log.d("mym" , "set changed");
+            Log.d("mym", "set changed");
             classManagmentAdapter.setQuestions(questions);
         });
         questionViewModel.getClassQuestions(this.classUid);
@@ -66,20 +66,20 @@ public class ClassManagmentActivity extends AppCompatActivity {
             Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager = getSupportFragmentManager();
             AddQuesionDialogFragment addQuesionDialogFragment = new AddQuesionDialogFragment();
-            addQuesionDialogFragment.show(fragmentManager , "AddQuesionDialogFragment");
+            addQuesionDialogFragment.show(fragmentManager, "AddQuesionDialogFragment");
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void takeData(String name , String content) {
-        Question question = new Question(classUid , name , content);
+    public void takeData(String name, String content) {
+        Question question = new Question(classUid, name, content);
         questionViewModel.insert(question);
     }
 
     public void gotoQuestion(int uid) {
-        Intent i3 = new Intent(ClassManagmentActivity.this , AnswerPage.class);
-        i3.putExtra("uid" , uid);
+        Intent i3 = new Intent(ClassManagmentActivity.this, AnswerPage.class);
+        i3.putExtra("uid", uid);
         startActivity(i3);
     }
 
@@ -88,18 +88,18 @@ public class ClassManagmentActivity extends AppCompatActivity {
         super.recreate();
     }
 
-    public void renameAction(String currentName , int position) {
+    public void renameAction(String currentName, int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putInt("position" , position);
-        bundle.putString("name" , currentName);
+        bundle.putInt("position", position);
+        bundle.putString("name", currentName);
         RenameDialogFragment renameDialogFragment = new RenameDialogFragment();
 //        scoreDialoge.setPosition(position);
         renameDialogFragment.setArguments(bundle);
         renameDialogFragment.show(fragmentManager, "renameDialogFragment");
     }
 
-    public void rename(String input , int position) {
+    public void rename(String input, int position) {
         Question question = classManagmentAdapter.getQuestion(position);
         question.setQuestionName(input);
         questionViewModel.update(question);

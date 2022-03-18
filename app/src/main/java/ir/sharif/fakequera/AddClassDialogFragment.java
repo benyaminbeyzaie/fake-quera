@@ -38,7 +38,7 @@ public class AddClassDialogFragment extends androidx.fragment.app.DialogFragment
                 textInputLayout.setErrorEnabled(true);
                 textInputLayout.setError("fill in the blanks");
             } else {
-                ((TeacherMainActivity) getActivity()).takeDate(input);
+                ((TeacherMainActivity) requireActivity()).takeDate(input);
                 Objects.requireNonNull(getDialog()).dismiss();
             }
         });

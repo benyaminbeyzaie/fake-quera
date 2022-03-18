@@ -20,16 +20,7 @@ import ir.sharif.fakequera.entities.Class;
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {
 
     private List<Class> classes;
-    private TeacherMainActivity context;
-
-    public ClassAdapter(List<Class> classes, TeacherMainActivity context) {
-        this.classes = classes;
-        this.context = context;
-    }
-
-    public ClassAdapter() {
-        classes = new ArrayList<>();
-    }
+    private final TeacherMainActivity context;
 
     public ClassAdapter(TeacherMainActivity context) {
         this.context = context;
@@ -43,8 +34,6 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_design, parent, false);
 
         return new ClassHolder(view);
-
-
     }
 
     @Override
@@ -52,12 +41,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
 
         Class current = classes.get(position);
         holder.textViewTitle.setText(current.className);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.goToQuestion(current.uid);
-            }
-        });
+        holder.cardView.setOnClickListener(view -> context.goToQuestion(current.uid));
     }
 
     @Override
@@ -71,16 +55,15 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
     }
 
     public void setClasses(List<Class> classes) {
-        Log.d("mym" , "here");
+        Log.d("mym", "here");
         this.classes = classes;
-        notifyItemInserted(classes.size()-1);
-//        notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     class ClassHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
         TextView textViewDes;
-        private CardView cardView;
+        private final CardView cardView;
 
         public ClassHolder(@NonNull View itemView) {
             super(itemView);

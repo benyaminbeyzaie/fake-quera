@@ -15,6 +15,7 @@ import ir.sharif.fakequera.entities.Question;
 public interface QuestionDao {
     @Query("SELECT * FROM question WHERE ownerClassId LIKE :classId")
     LiveData<List<Question>> getQuestionsOfClass(int classId);
+
     @Query("SELECT * FROM question WHERE ownerClassId = :classId")
     List<Question> getQuestionsOfClass2(int classId);
 

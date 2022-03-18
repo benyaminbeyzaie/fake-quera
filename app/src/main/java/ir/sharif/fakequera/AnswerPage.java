@@ -21,8 +21,6 @@ import ir.sharif.fakequera.viewModels.QuestionViewModel;
 
 public class AnswerPage extends AppCompatActivity {
 
-    private int classUid;
-    private QuestionViewModel questionViewModel;
     private AnswerViewModel answerViewModel;
     private TextView questionTitle;
     private EditText questionContent;
@@ -36,7 +34,7 @@ public class AnswerPage extends AppCompatActivity {
         setContentView(R.layout.activity_answer_page);
 
         Intent i = getIntent();
-        this.classUid = i.getIntExtra("uid", 0);
+        int classUid = i.getIntExtra("uid", 0);
 
         questionTitle = findViewById(R.id.questionTitle);
         questionContent = findViewById(R.id.questionContent);
@@ -51,11 +49,10 @@ public class AnswerPage extends AppCompatActivity {
         recyclerView.setAdapter(answerAdapter);
 
 
-
-        questionViewModel = new QuestionViewModel(getApplication());
+        QuestionViewModel questionViewModel = new QuestionViewModel(getApplication());
         answerViewModel = new AnswerViewModel(getApplication());
 
-        questionViewModel.question(this.classUid).observe(this, question -> {
+        questionViewModel.question(classUid).observe(this, question -> {
             questionTitle.setText(question.questionName);
             questionContent.setText(question.content);
         });
@@ -64,24 +61,25 @@ public class AnswerPage extends AppCompatActivity {
         LiveData<List<Answer>> answerOfQuestuion = answerViewModel.getAnswerOfQuestuion();
 
         answerOfQuestuion.observe(this, answers -> {
-            Log.d("mym" , answers.toString());
+            Log.d("mym", answers.toString());
             answerAdapter.setAnswers(answers);
         });
 
-        answerViewModel.getAnswerOfQuestuion(this.classUid);
+        answerViewModel.getAnswerOfQuestuion(classUid);
     }
 
-    public void giveScore(int position , Answer answer){
+    public void giveScore(int position, Answer answer) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putDouble("score" , answer.score);
-        bundle.putInt("position" , position);
-        bundle.putString("content" , answer.content);
+        bundle.putDouble("score", answer.score);
+        bundle.putInt("position", position);
+        bundle.putString("content", answer.content);
         ScoreDialoge scoreDialoge = new ScoreDialoge();
         scoreDialoge.setArguments(bundle);
         scoreDialoge.show(fragmentManager, "ScoreDialoge");
     }
-    public void takeData(double score , int position) {
+
+    public void takeData(double score, int position) {
         Answer answer = answerAdapter.getAnswer(position);
         answer.score = score;
         answerViewModel.giveScoreToAnswer(answer);

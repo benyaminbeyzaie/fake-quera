@@ -6,7 +6,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
 
 @Dao
 public interface StudentDao {

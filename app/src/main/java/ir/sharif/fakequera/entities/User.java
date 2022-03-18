@@ -33,7 +33,7 @@ public class User {
     public User() {
     }
 
-    public User(@NotNull String userName, @NotNull String password, boolean isTeacher , String name){
+    public User(@NotNull String userName, @NotNull String password, boolean isTeacher, String name) {
         this.userName = userName;
         this.password = password;
         this.isTeacher = isTeacher;
@@ -58,21 +58,6 @@ public class User {
         this.uid = uid;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getUserName() {
         return userName;
@@ -88,14 +73,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isCurrentUser() {
-        return isCurrentUser;
-    }
-
-    public void setCurrentUser(boolean currentUser) {
-        isCurrentUser = currentUser;
     }
 
     public boolean isTeacher() {

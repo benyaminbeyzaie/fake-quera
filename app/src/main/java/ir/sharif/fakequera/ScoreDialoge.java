@@ -1,14 +1,13 @@
 package ir.sharif.fakequera;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -34,7 +33,7 @@ public class ScoreDialoge extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_score_dialoge, container, false);
+        View view = inflater.inflate(R.layout.fragment_score_dialoge, container, false);
 
         cancle = view.findViewById(R.id.renameButton);
         ok = view.findViewById(R.id.addButton);
@@ -53,19 +52,17 @@ public class ScoreDialoge extends DialogFragment {
 
         ok.setOnClickListener(view1 -> {
             String Score = Objects.requireNonNull(textInputLayout.getEditText()).getText().toString();
-            if (Score.equals("") ) {
-                    textInputLayout.setError("Enter question title");
-            }else {
+            if (Score.equals("")) {
+                textInputLayout.setError("Enter question title");
+            } else {
                 double score = Double.parseDouble(Score);
-                ((AnswerPage)getActivity()).takeData(score , position);
+                ((AnswerPage) requireActivity()).takeData(score, position);
                 Objects.requireNonNull(getDialog()).dismiss();
             }
 
         });
 
-        cancle.setOnClickListener(view12 -> {
-            Objects.requireNonNull(getDialog()).dismiss();
-        });
+        cancle.setOnClickListener(view12 -> Objects.requireNonNull(getDialog()).dismiss());
 
         return view;
     }

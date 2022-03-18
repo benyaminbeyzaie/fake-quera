@@ -1,17 +1,12 @@
 package ir.sharif.fakequera.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
-import java.util.Map;
 
-import ir.sharif.fakequera.entities.Class;
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 
 @Dao

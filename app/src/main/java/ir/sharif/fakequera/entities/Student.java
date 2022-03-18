@@ -11,8 +11,8 @@ public class Student extends User {
     public String studentId;
 
     @Ignore
-    public Student(@NonNull String userName, @NonNull String password , String name , String studentId) {
-        super(userName, password, false , name);
+    public Student(@NonNull String userName, @NonNull String password, String name, String studentId) {
+        super(userName, password, false, name);
         this.studentId = studentId;
     }
 

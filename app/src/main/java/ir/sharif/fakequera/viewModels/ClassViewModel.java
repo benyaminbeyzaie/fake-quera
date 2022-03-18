@@ -14,10 +14,10 @@ import ir.sharif.fakequera.repositories.ClassRepository;
 
 public class ClassViewModel extends AndroidViewModel {
 
-    private ClassRepository classRepository;
+    private final ClassRepository classRepository;
     private LiveData<List<Class>> teacherClasses;
     private LiveData<List<Class>> classList;
-    private LiveData<String> message;
+    private final LiveData<String> message;
 
     private LiveData<List<Class>> allClasses;
     private LiveData<List<Class>> studentClasses;
@@ -26,7 +26,6 @@ public class ClassViewModel extends AndroidViewModel {
     public ClassViewModel(@NonNull Application application, int uid) {
         super(application);
 
-//        Log.d("mym" ,currentTeacher.getValue());
         classRepository = new ClassRepository(application, uid);
         teacherClasses = classRepository.getTeacherClasses(uid);
         classList = classRepository.getClassList();

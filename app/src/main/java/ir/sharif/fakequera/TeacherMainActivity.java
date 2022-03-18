@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +36,6 @@ public class TeacherMainActivity extends AppCompatActivity {
     TextView classNumber;
 
     private ClassViewModel classViewModel;
-    private UserViewModel userViewModel;
     private int uid;
 
     @Override
@@ -49,7 +47,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         Intent i = getIntent();
         uid = i.getIntExtra("uid", 0);
 
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.authenticateWithSavedCredentials();
         cardView = findViewById(R.id.answerCardView);
         username = cardView.findViewById(R.id.textViewStuName);
@@ -66,10 +64,6 @@ public class TeacherMainActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
         recyclerView = findViewById(R.id.recylcer);
         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherMainActivity.this));
 
@@ -79,10 +73,10 @@ public class TeacherMainActivity extends AppCompatActivity {
 
         classViewModel = new ClassViewModel(getApplication(), uid);
         classViewModel.getTeacherClasses().observe(this, classes -> {
-            Log.d("mym" , "changed");
+            Log.d("mym", "changed");
             Log.d("mym", classes.toString());
             classAdapter.setClasses(classes);
-            classNumber.setText("# Of classes : ".concat(classes.size()+"") );
+            classNumber.setText("# Of classes : ".concat(classes.size() + ""));
         });
     }
 
@@ -105,10 +99,10 @@ public class TeacherMainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
-    
-    public void goToQuestion(int uid){
-        Intent i2 = new Intent(TeacherMainActivity.this , ClassManagmentActivity.class);
-        i2.putExtra("uid" , uid);
+
+    public void goToQuestion(int uid) {
+        Intent i2 = new Intent(TeacherMainActivity.this, ClassManagmentActivity.class);
+        i2.putExtra("uid", uid);
         startActivity(i2);
     }
 

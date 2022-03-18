@@ -6,13 +6,13 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 
 @Entity
-public class Teacher extends User{
+public class Teacher extends User {
     @ColumnInfo(name = "university_name")
     public String universityName;
 
     @Ignore
-    public Teacher(@NonNull String userName, @NonNull String password , String name , String universityName) {
-        super(userName, password, true , name );
+    public Teacher(@NonNull String userName, @NonNull String password, String name, String universityName) {
+        super(userName, password, true, name);
         this.universityName = universityName;
     }
 

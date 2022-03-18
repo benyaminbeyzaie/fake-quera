@@ -1,5 +1,6 @@
 package ir.sharif.fakequera.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -36,11 +37,12 @@ public class Class {
     public Class(String className) {
         this.className = className;
     }
+
+    @Ignore
     public Class(String className, int ownerTeacherId) {
         this.className = className;
         this.ownerTeacherId = ownerTeacherId;
     }
-
 
 
     public int getUid() {
@@ -67,6 +69,7 @@ public class Class {
         this.className = className;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Class{" +

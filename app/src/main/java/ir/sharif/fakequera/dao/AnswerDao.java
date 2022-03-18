@@ -1,6 +1,5 @@
 package ir.sharif.fakequera.dao;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,7 +16,7 @@ public interface AnswerDao {
     List<Answer> getAnswersOfQuestion(int questionId);
 
     @Query("SELECT * FROM Answer WHERE question_id = :questionId AND owner_id = :userId ")
-    Answer getAnswersOfQuestion(int questionId , int userId);
+    Answer getAnswersOfQuestion(int questionId, int userId);
 
     @Insert
     void insert(Answer answer);

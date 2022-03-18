@@ -18,14 +18,11 @@ import ir.sharif.fakequera.ClassManagmentActivity;
 import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Question;
 
-public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentAdapter.QuestionHolder>{
+public class ClassManagmentAdapter extends RecyclerView.Adapter<ClassManagmentAdapter.QuestionHolder> {
 
     private List<Question> questions;
-    private ClassManagmentActivity context;
+    private final ClassManagmentActivity context;
 
-//    public ClassManagmentAdapter(){
-//        questions = new ArrayList<>();
-//    }
 
     public ClassManagmentAdapter(ClassManagmentActivity context) {
         this.context = context;
@@ -45,24 +42,17 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
         Question current = questions.get(position);
         holder.textViewTitle.setText(current.questionName);
         holder.textViewDes.setText(current.content);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.gotoQuestion(current.uid);
-            }
-        });
+        holder.cardView.setOnClickListener(view -> context.gotoQuestion(current.uid));
     }
 
-    public Question getQuestion(int position){
+    public Question getQuestion(int position) {
         return questions.get(position);
     }
 
-    public void setQuestions(List<Question> questions){
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
         notifyDataSetChanged();
-//        notifyItemChanged(questions.size()-1);
-//        notifyDataSetChanged();
-        Log.d("mym" , "questionset changed");
+        Log.d("mym", "questionset changed");
     }
 
     @Override
@@ -82,12 +72,7 @@ public class ClassManagmentAdapter  extends RecyclerView.Adapter<ClassManagmentA
             textViewDes = itemView.findViewById(R.id.textViewStuAnswer);
             cardView = itemView.findViewById(R.id.answerCardView);
             renameButton = itemView.findViewById(R.id.renameButton);
-            renameButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    context.renameAction(textViewTitle.getText().toString() , getAdapterPosition());
-                }
-            });
+            renameButton.setOnClickListener(view -> context.renameAction(textViewTitle.getText().toString(), getAdapterPosition()));
         }
     }
 

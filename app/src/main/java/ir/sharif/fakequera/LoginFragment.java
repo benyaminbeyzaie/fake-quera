@@ -1,14 +1,13 @@
 package ir.sharif.fakequera;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -31,7 +30,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         loginUserInput = view.findViewById(R.id.loginUserInput);
         loginPassInput = view.findViewById(R.id.dialogeinput);
@@ -47,16 +46,16 @@ public class LoginFragment extends Fragment {
                 if (username.equals("")) {
                     loginUserInput.setErrorEnabled(true);
                     loginUserInput.setError(getString(R.string.emptyWarning));
-                }else {
+                } else {
                     loginUserInput.setErrorEnabled(false);
                 }
                 if (password.equals("")) {
                     loginPassInput.setErrorEnabled(true);
                     loginPassInput.setError(getString(R.string.emptyWarning));
-                }else {
+                } else {
                     loginPassInput.setErrorEnabled(false);
                 }
-            }else {
+            } else {
                 userViewModel.authenticate(username, password);
             }
         });
@@ -68,17 +67,17 @@ public class LoginFragment extends Fragment {
             }
             if (user.isCurrentUser) {
                 if (user.isTeacher) {
-                    QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as teacher");
+                    QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as teacher");
                     MainActivity mainActivity = (MainActivity) getActivity();
                     Objects.requireNonNull(mainActivity).takeTeacherData(user.uid);
                 } else {
-                    QueraSnackbar.showTopSnackBar(view,"User authenticated successfully as student");
+                    QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as student");
                     MainActivity mainActivity = (MainActivity) getActivity();
                     assert mainActivity != null;
                     mainActivity.takeStudentData();
                 }
             } else {
-                QueraSnackbar.showTopSnackBar(view,"User authenticated failed");
+                QueraSnackbar.showTopSnackBar(view, "User authenticated failed");
             }
         });
 

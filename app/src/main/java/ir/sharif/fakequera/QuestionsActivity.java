@@ -1,8 +1,5 @@
 package ir.sharif.fakequera;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 
@@ -58,15 +58,15 @@ public class QuestionsActivity extends AppCompatActivity {
         questionViewModel.questionList(classId);
         questionViewModel.teacher(ownerTeacherId);
 
-        questionViewModel.getTeacherLiveData().observe(this , teacher -> {
-            if (teacher == null){
+        questionViewModel.getTeacherLiveData().observe(this, teacher -> {
+            if (teacher == null) {
                 txtTeacherName.setText(R.string.not_found_teacher);
-            }else {
-                txtTeacherName.setText(new StringBuilder().append("Teacher Name: ").append(teacher.firstName).append(" ").append(teacher.lastName).toString());
+            } else {
+                txtTeacherName.setText(new StringBuilder().append("Teacher Name: ").append(teacher.firstName).append(" ").toString());
             }
         });
 
-        questionViewModel.getMessage().observe(this , s -> Toast.makeText(this, s, Toast.LENGTH_SHORT).show());
+        questionViewModel.getMessage().observe(this, s -> Toast.makeText(this, s, Toast.LENGTH_SHORT).show());
     }
 
     private void initViews() {
@@ -76,16 +76,16 @@ public class QuestionsActivity extends AppCompatActivity {
 
     }
 
-    private void checkArguments(){
-        classId = getIntent().getIntExtra("class_id" , 0);
-        ownerTeacherId = getIntent().getIntExtra("owner_teacher_id" , 0);
-        userId = getIntent().getIntExtra("user_id" , 0);
+    private void checkArguments() {
+        classId = getIntent().getIntExtra("class_id", 0);
+        ownerTeacherId = getIntent().getIntExtra("owner_teacher_id", 0);
+        userId = getIntent().getIntExtra("user_id", 0);
     }
 
     private void listeners() {
         lv.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(this , AnswerActivity.class);
-            intent.putExtra("question_id" , questionList.get(i).uid);
+            Intent intent = new Intent(this, AnswerActivity.class);
+            intent.putExtra("question_id", questionList.get(i).uid);
             startActivity(intent);
         });
 
@@ -93,7 +93,7 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     private void initList() {
-        questionViewModel.getQuestionList().observe(this , list -> {
+        questionViewModel.getQuestionList().observe(this, list -> {
 
             ArrayList<String> contents = new ArrayList<>();
 

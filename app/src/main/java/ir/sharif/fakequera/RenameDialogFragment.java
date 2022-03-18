@@ -1,13 +1,12 @@
 package ir.sharif.fakequera;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -29,7 +28,7 @@ public class RenameDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_rename_dialog, container, false);
+        View view = inflater.inflate(R.layout.fragment_rename_dialog, container, false);
         cancle = view.findViewById(R.id.renameButton);
         ok = view.findViewById(R.id.addButton);
         textInputLayout = view.findViewById(R.id.dialogeinput);
@@ -48,7 +47,7 @@ public class RenameDialogFragment extends DialogFragment {
                 textInputLayout.setErrorEnabled(true);
                 textInputLayout.setError("fill in the blanks");
             } else {
-                ((ClassManagmentActivity) getActivity()).rename(input , position);
+                ((ClassManagmentActivity) requireActivity()).rename(input, position);
                 Objects.requireNonNull(getDialog()).dismiss();
             }
         });

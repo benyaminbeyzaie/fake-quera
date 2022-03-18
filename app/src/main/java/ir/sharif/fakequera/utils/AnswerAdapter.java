@@ -16,27 +16,18 @@ import java.util.List;
 import ir.sharif.fakequera.AnswerPage;
 import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Answer;
-import ir.sharif.fakequera.viewModels.QuestionViewModel;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHolder> {
 
     private List<Answer> answers;
-    private AnswerPage context;
-    private QuestionViewModel questionViewModel;
-    private UserViewModel userViewModel;
+    private final AnswerPage context;
+    private final UserViewModel userViewModel;
 
-    public AnswerAdapter(List<Answer> asnwers, AnswerPage context) {
-        this.answers = asnwers;
-        this.context = context;
-        questionViewModel = new QuestionViewModel(context.getApplication());
-        userViewModel = new UserViewModel(context.getApplication());
-    }
 
     public AnswerAdapter(AnswerPage context) {
         this.context = context;
         this.answers = new ArrayList<>();
-        questionViewModel = new QuestionViewModel(context.getApplication());
         userViewModel = new UserViewModel(context.getApplication());
     }
 
@@ -53,13 +44,8 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
         Answer current = answers.get(position);
         holder.textViewTitle.setText(userViewModel.getUserName(current.ownerId));
         holder.textViewDes.setText(current.content);
-        holder.scoreView.setText("".concat(current.score+""));
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.giveScore(holder.getAdapterPosition() , current);
-            }
-        });
+        holder.scoreView.setText("".concat(current.score + ""));
+        holder.cardView.setOnClickListener(view -> context.giveScore(holder.getAdapterPosition(), current));
 
     }
 
@@ -84,14 +70,13 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
         TextView textViewTitle;
         TextView textViewDes;
         TextView scoreView;
-        private CardView cardView;
+        private final CardView cardView;
 
         public AnswerHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.textViewStuName);
             textViewDes = itemView.findViewById(R.id.textViewStuAnswer);
             scoreView = itemView.findViewById(R.id.textViewScore2);
-//            scoreView = itemView.findViewById(R.id.textViewScore);
             cardView = itemView.findViewById(R.id.answerCardView);
             Log.d("mym", "score is".concat(String.valueOf(scoreView == null)));
             Log.d("mym", "des is".concat(String.valueOf(textViewDes == null)));

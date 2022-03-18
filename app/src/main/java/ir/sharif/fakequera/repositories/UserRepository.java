@@ -50,9 +50,7 @@ public class UserRepository {
         currentTeacher = new MutableLiveData<>();
         currentStudent = new MutableLiveData<>();
         message = new MutableLiveData<>("Something went wrong!");
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-           all = userDao.all();
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> all = userDao.all());
     }
 
     public void insertTeacher(Teacher teacher) {
@@ -65,9 +63,7 @@ public class UserRepository {
             message.postValue("User registered as teacher");
             userDao.insertUser(teacher);
             teacherDao.insert(teacher);
-//            setCurrentUser(null);
             setCurrentUser(teacher);
-//            setCurrentTeacher(teacher);
             all = userDao.all();
         });
     }
@@ -93,11 +89,6 @@ public class UserRepository {
     public void setCurrentUser(User user) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
 
-//            if (currentUser.getValue() != null && user == null){
-//                User value = currentUser.getValue();
-//                value.isCurrentUser = false;
-//                userDao.updateUser(value);
-//            }
             userDao.deactivateAllUsers();
             if (user == null) {
                 currentUser.postValue(null);
@@ -136,11 +127,6 @@ public class UserRepository {
             }
             message.postValue("User signed in successfully");
             setCurrentUser(user);
-//            getCurrentTeacher();
-//            getCurrentStudent();
-//            if (user.isTeacher){
-//                setCurrentTeacher(user);
-//            }
         });
     }
 
@@ -228,9 +214,6 @@ public class UserRepository {
 
             Teacher currentTeach = teacherDao.getTeacher(uid);
             currentTeacher.postValue(currentTeach);
-//            data[0] = currentTeacher.userName;
-//            data[1] = currentTeacher.universityName;
-//            data[2] = currentTeacher.firstName;
         });
         return currentTeacher;
     }

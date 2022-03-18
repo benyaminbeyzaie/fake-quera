@@ -1,7 +1,6 @@
 package ir.sharif.fakequera.repositories;
 
 import android.app.Application;
-import android.service.controls.actions.BooleanAction;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -9,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.QuestionDao;
@@ -17,20 +15,16 @@ import ir.sharif.fakequera.dao.StudentDao;
 import ir.sharif.fakequera.database.AppDatabase;
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.entities.User;
-import ir.sharif.fakequera.dao.StudentDao;
 
 public class ClassRepository {
-    private  ClassDao classDao;
-    private  QuestionDao questionDao;
-    private  StudentDao studentDao;
-    private  MutableLiveData<List<Class>> allClasses;
-    private  MutableLiveData<List<Class>> studentClasses;
-    private  MutableLiveData<String> message;
-    private  MutableLiveData<Boolean> userIsInClass;
-    private  MutableLiveData<List<Class>> classList;
+    private ClassDao classDao;
+    private QuestionDao questionDao;
+    private StudentDao studentDao;
+    private MutableLiveData<List<Class>> allClasses;
+    private MutableLiveData<List<Class>> studentClasses;
+    private MutableLiveData<String> message;
+    private MutableLiveData<Boolean> userIsInClass;
+    private MutableLiveData<List<Class>> classList;
 
 
     private UserRepository userRepository;
@@ -38,7 +32,7 @@ public class ClassRepository {
     private int uid;
 
 
-    public ClassRepository(Application application , int uid) {
+    public ClassRepository(Application application, int uid) {
         AppDatabase db = AppDatabase.getDatabase(application);
         classDao = db.classDao();
         questionDao = db.questionDao();
@@ -66,7 +60,7 @@ public class ClassRepository {
                     classDao.insert(new Class("Class " + i, i));
                 }
                 for (int i = 0; i < 10; i++) {
-                    questionDao.insert(new Question(1, "Question  " + i , "Question  " + i));
+                    questionDao.insert(new Question(1, "Question  " + i, "Question  " + i));
                 }
             }
         });
@@ -88,30 +82,21 @@ public class ClassRepository {
         return classList;
     }
 
-    public void insert(Class clas){
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            classDao.insert(clas);
-        });
+    public void insert(Class clas) {
+        AppDatabase.databaseWriteExecutor.execute(() -> classDao.insert(clas));
     }
 
     public void update(Class clas) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            classDao.update(clas);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> classDao.update(clas));
     }
 
     public void delete(Class clas) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            classDao.delete(clas);
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> classDao.delete(clas));
     }
 
     public LiveData<List<Class>> getTeacherClasses(int uid) {
-        AppDatabase.databaseWriteExecutor.execute(() ->{
+        AppDatabase.databaseWriteExecutor.execute(() -> {
             teacherClasses = classDao.getClassesOfTeacher(uid);
-
-//            List<Class> classesOfTeacher = classDao.getClassesOfTeacher(uid);
-//            teacherClasses.postValue(classesOfTeacher);
             message.postValue("classes are loaded");
         });
         return teacherClasses;
@@ -123,8 +108,8 @@ public class ClassRepository {
         loadTeacherClasses(uid);
     }
 
-    public void loadTeacherClasses(int teacherUid){
-        AppDatabase.databaseWriteExecutor.execute(() ->{
+    public void loadTeacherClasses(int teacherUid) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
             teacherClasses = classDao.getClassesOfTeacher(teacherUid);
 //            teacherClasses.postValue(classesOfTeacher);
             message.postValue("classes are loaded");

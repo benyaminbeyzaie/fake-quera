@@ -41,7 +41,7 @@ public class QuestionViewModel extends AndroidViewModel {
         return message;
     }
 
-    public void questionList(int classId){
+    public void questionList(int classId) {
         repository.questionList(classId);
     }
 
@@ -49,15 +49,15 @@ public class QuestionViewModel extends AndroidViewModel {
         return questionLiveData;
     }
 
-    public void teacher(int teacherId){
+    public void teacher(int teacherId) {
         repository.teacher(teacherId);
     }
 
-    public MutableLiveData<Question> question(int questionId){
+    public MutableLiveData<Question> question(int questionId) {
         return repository.question(questionId);
     }
 
-    public void getClassQuestions(int classID){
+    public void getClassQuestions(int classID) {
         repository.questionList(classID);
         questionList = repository.getQuestionList();
     }

@@ -4,9 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import ir.sharif.fakequera.entities.Student;
 import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.entities.User;
 
 @Dao
 public interface TeacherDao {

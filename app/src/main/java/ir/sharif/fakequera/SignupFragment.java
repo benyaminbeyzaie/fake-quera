@@ -1,10 +1,6 @@
 package ir.sharif.fakequera;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -76,39 +75,37 @@ public class SignupFragment extends Fragment {
                 if (username.equals("")) {
                     signupUserInput.setErrorEnabled(true);
                     signupUserInput.setError(getString(R.string.emptyWarning));
-                }else {
+                } else {
                     signupUserInput.setErrorEnabled(false);
                 }
                 if (password.equals("")) {
                     signupPassInput.setErrorEnabled(true);
                     signupPassInput.setError(getString(R.string.emptyWarning));
-                }else {
+                } else {
                     signupPassInput.setErrorEnabled(false);
                 }
-                if (Name.equals("")){
+                if (Name.equals("")) {
                     name.setErrorEnabled(true);
                     name.setError(getString(R.string.emptyWarning));
-                }else {
+                } else {
                     name.setErrorEnabled(false);
                 }
-                if (addition.equals("")){
+                if (addition.equals("")) {
                     additional.setErrorEnabled(true);
                     additional.setError(getString(R.string.emptyWarning));
-                }else {
+                } else {
                     additional.setErrorEnabled(false);
                 }
-            }else {
+            } else {
                 if (mode == 0) {
-                    userViewModel.insertStudent(new Student(username, password , Name , addition));
+                    userViewModel.insertStudent(new Student(username, password, Name, addition));
                 } else {
-                    userViewModel.insertTeacher(new Teacher(username, password , Name, addition));
+                    userViewModel.insertTeacher(new Teacher(username, password, Name, addition));
                 }
             }
         });
 
-        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-            QueraSnackbar.showTopSnackBar(view, userViewModel.getMessage().getValue());
-        });
+        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> QueraSnackbar.showTopSnackBar(view, userViewModel.getMessage().getValue()));
 
         return view;
     }
