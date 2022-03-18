@@ -17,6 +17,7 @@ public class AnswerActivity extends AppCompatActivity {
 
     private LinearLayout linearParent;
     private TextView txtQuestion;
+    private TextView txtScore;
     private EditText edtAnswer;
     private Button btnSubmit;
 
@@ -46,6 +47,12 @@ public class AnswerActivity extends AppCompatActivity {
 
         answerViewModel.getAnswerLiveData().observe(this , answer -> {
             edtAnswer.setText(answer.content);
+
+            if (answer.score == -1){
+                txtScore.setText("Score :  Not Registered");
+            }else {
+                txtScore.setText("Score : " + answer.score);
+            }
         });
 
         answerViewModel.getMessage().observe(this , s -> {
@@ -62,6 +69,7 @@ public class AnswerActivity extends AppCompatActivity {
     private void initViews() {
         linearParent = findViewById(R.id.linearParent);
         txtQuestion = findViewById(R.id.txtQuestion);
+        txtScore = findViewById(R.id.txtScore);
         edtAnswer = findViewById(R.id.edtAnswer);
         btnSubmit = findViewById(R.id.btnSubmit);
     }
