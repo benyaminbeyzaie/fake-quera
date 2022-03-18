@@ -3,7 +3,6 @@ package ir.sharif.fakequera;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -85,7 +84,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     private void listeners() {
         lv.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(this , QuestionActivity.class);
+            Intent intent = new Intent(this , AnswerActivity.class);
             intent.putExtra("question_id" , questionList.get(i).uid);
             startActivity(intent);
         });

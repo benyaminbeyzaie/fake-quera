@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/linearParent"
     android:orientation="vertical"
-    tools:context=".QuestionActivity">
+    tools:context=".AnswerActivity">
 
     <TextView
         android:id="@+id/txtQuestion"

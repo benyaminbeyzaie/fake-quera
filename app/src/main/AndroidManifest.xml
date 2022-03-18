@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".QuestionActivity"
+            android:name=".AnswerActivity"
             android:exported="false" />
         <activity
             android:name=".QuestionsActivity"

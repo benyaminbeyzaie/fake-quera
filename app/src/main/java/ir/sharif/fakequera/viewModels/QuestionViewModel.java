@@ -20,7 +20,6 @@ public class QuestionViewModel extends AndroidViewModel {
     private final LiveData<List<Question>> questionList;
     private final LiveData<Teacher> teacherLiveData;
     private final LiveData<Question> questionLiveData;
-    private final LiveData<Answer> answerLiveData;
     private final LiveData<String> message;
 
     public QuestionViewModel(Application application) {
@@ -29,7 +28,6 @@ public class QuestionViewModel extends AndroidViewModel {
         questionList = repository.getQuestionList();
         teacherLiveData = repository.getTeacherLiveData();
         questionLiveData = repository.getQuestionLiveData();
-        answerLiveData = repository.getAnswerLiveData();
         message = repository.getMessage();
     }
 
@@ -39,10 +37,6 @@ public class QuestionViewModel extends AndroidViewModel {
 
     public LiveData<Teacher> getTeacherLiveData() {
         return teacherLiveData;
-    }
-
-    public LiveData<Answer> getAnswerLiveData() {
-        return answerLiveData;
     }
 
     public LiveData<String> getMessage() {
@@ -65,12 +59,5 @@ public class QuestionViewModel extends AndroidViewModel {
         repository.question(questionId);
     }
 
-    public void answer(int questionId){
-        repository.answer(questionId);
-    }
-
-    public void addAnswer(int questionId, String answer) {
-        repository.addAnswer(questionId , answer);
-    }
 }
 
