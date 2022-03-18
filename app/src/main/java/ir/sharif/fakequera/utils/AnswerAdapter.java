@@ -54,6 +54,13 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
         holder.textViewTitle.setText(userViewModel.getUserName(current.ownerId));
         holder.textViewDes.setText(current.content);
         holder.scoreView.setText("".concat(current.score+""));
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.giveScore(position , current.score);
+            }
+        });
+
     }
 
     @Override

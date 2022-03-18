@@ -33,4 +33,5 @@
     <string name="joinedClasses">Joined Classes</string>
     <string name="join">Join into the class</string>
     <string name="not_found_teacher">Teacher Not Found!</string>
+    <string name="scoreHint">Your Score</string>
 </resources>

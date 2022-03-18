@@ -35,9 +35,10 @@ public class QuestionRepository {
         AppDatabase db = AppDatabase.getDatabase(application);
         questionDao = db.questionDao();
         answerDao = db.answerDao();
+        userDao = db.userDao();
         this.classUID = uid;
         questions = questionDao.getQuestionsOfClass(this.classUID);
-
+        message = new MutableLiveData<>();
     }
 
     public QuestionRepository(Application application) {
@@ -136,6 +137,31 @@ public class QuestionRepository {
             message.postValue("Submit Answer Success !");
         });
     }
+
+    public void addAnswer(int questionId, Answer ans) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            answerDao.update(ans);
+
+//            User currentUser = userDao.getCurrentUser();
+//
+//            if (currentUser == null) {
+//                message.postValue("Authentication Failed !");
+//                return;
+//            }
+//
+//            Answer answer = answerDao.getAnswersOfQuestion(questionId, currentUser.uid);
+//
+//            if (answer == null) {
+//                answerDao.insert(ans);
+//            } else {
+//                answerDao.update(ans);
+//            }
+
+
+            message.postValue("Submit Answer Success !");
+        });
+    }
+
 
     public MutableLiveData<List<Question>> getQuestionList() {
         return questionList;

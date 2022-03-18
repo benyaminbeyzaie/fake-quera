@@ -1,6 +1,7 @@
 package ir.sharif.fakequera;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ public class AnswerPage extends AppCompatActivity {
     private TextView questionTitle;
     private EditText questionContent;
     RecyclerView recyclerView;
+    AnswerAdapter answerAdapter;
 
 
     @Override
@@ -44,7 +46,7 @@ public class AnswerPage extends AppCompatActivity {
         recyclerView = findViewById(R.id.answerRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(AnswerPage.this));
 
-        AnswerAdapter answerAdapter = new AnswerAdapter(AnswerPage.this);
+        answerAdapter = new AnswerAdapter(AnswerPage.this);
         recyclerView.setAdapter(answerAdapter);
 
         questionViewModel = new QuestionViewModel(getApplication() , this.classUid);
@@ -68,5 +70,21 @@ public class AnswerPage extends AppCompatActivity {
 
 
 
+    }
+
+    public void giveScore(int position , double previousScore){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putDouble("score" , previousScore);
+        bundle.putInt("position" , position);
+        ScoreDialoge scoreDialoge = new ScoreDialoge();
+//        scoreDialoge.setPosition(position);
+        scoreDialoge.setArguments(bundle);
+        scoreDialoge.show(fragmentManager, "ScoreDialoge");
+    }
+    public void takeData(double score , int position) {
+        Answer answer = answerAdapter.getAnswer(position);
+        answer.score = score;
+        questionViewModel.addAnswer(this.classUid , answer);
     }
 }

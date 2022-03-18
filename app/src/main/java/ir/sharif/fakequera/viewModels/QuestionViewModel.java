@@ -79,6 +79,11 @@ public class QuestionViewModel extends AndroidViewModel {
         repository.addAnswer(questionId , answer);
     }
 
+    public void addAnswer(int questionId, Answer answer){
+        repository.addAnswer(questionId , answer);
+
+    }
+
     public void insert(Question question) {
         repository.insert(question);
     }
@@ -86,6 +91,7 @@ public class QuestionViewModel extends AndroidViewModel {
     public void update(Question question) {
         repository.update(question);
     }
+
 
     public void delete(Question question) {
         repository.delete(question);

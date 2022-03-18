@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".AddQuesionDialogFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialogeinput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center|center_vertical"
+        android:hint="@string/questionName"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
+        app:errorEnabled="true">
+
+        <TextView
+            android:id="@+id/contentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialogeinput2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:hint="@string/scoreHint"
+        android:paddingHorizontal="@dimen/component_horizontal_padding"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/scoreDialogeInput"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center|top"
+            android:inputType="number"
+            android:lines="4" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="59dp"
+            android:layout_marginHorizontal="@dimen/component_horizontal_padding"
+
+            android:text="@string/dialogeCancleText" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="59dp"
+            android:layout_marginHorizontal="@dimen/component_horizontal_padding"
+
+            android:text="@string/dialogOKText" />
+    </LinearLayout>
+
+</LinearLayout>
