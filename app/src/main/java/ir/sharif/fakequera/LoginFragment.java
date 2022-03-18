@@ -43,7 +43,22 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(v -> {
             String username = Objects.requireNonNull(loginUserInput.getEditText()).getText().toString();
             String password = Objects.requireNonNull(loginPassInput.getEditText()).getText().toString();
-            userViewModel.authenticate(username, password);
+            if (username.equals("") || password.equals("")) {
+                if (username.equals("")) {
+                    loginUserInput.setErrorEnabled(true);
+                    loginUserInput.setError(getString(R.string.emptyWarning));
+                }else {
+                    loginUserInput.setErrorEnabled(false);
+                }
+                if (password.equals("")) {
+                    loginPassInput.setErrorEnabled(true);
+                    loginPassInput.setError(getString(R.string.emptyWarning));
+                }else {
+                    loginPassInput.setErrorEnabled(false);
+                }
+            }else {
+                userViewModel.authenticate(username, password);
+            }
         });
 
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {

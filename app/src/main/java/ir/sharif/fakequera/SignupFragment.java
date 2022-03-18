@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +58,10 @@ public class SignupFragment extends Fragment {
             if (i == studentButton.getId()) {
                 mode = 0;
                 additional.setHint(R.string.studentNumberHint);
+                Objects.requireNonNull(additional.getEditText()).setInputType(InputType.TYPE_CLASS_NUMBER);
             } else if (i == teacherButton.getId()) {
                 mode = 1;
+                Objects.requireNonNull(additional.getEditText()).setInputType(InputType.TYPE_CLASS_TEXT);
                 additional.setHint(R.string.universityHint);
             }
         });
@@ -68,27 +71,55 @@ public class SignupFragment extends Fragment {
             String password = Objects.requireNonNull(signupPassInput.getEditText()).getText().toString();
             String Name = Objects.requireNonNull(name.getEditText()).getText().toString();
             String addition = Objects.requireNonNull(additional.getEditText()).getText().toString();
-            if (mode == 0) {
-                userViewModel.insertStudent(new Student(username, password , Name , addition));
-            } else {
-                userViewModel.insertTeacher(new Teacher(username, password , Name, addition));
+
+            if (username.equals("") || password.equals("") || Name.equals("") || addition.equals("")) {
+                if (username.equals("")) {
+                    signupUserInput.setErrorEnabled(true);
+                    signupUserInput.setError(getString(R.string.emptyWarning));
+                }else {
+                    signupUserInput.setErrorEnabled(false);
+                }
+                if (password.equals("")) {
+                    signupPassInput.setErrorEnabled(true);
+                    signupPassInput.setError(getString(R.string.emptyWarning));
+                }else {
+                    signupPassInput.setErrorEnabled(false);
+                }
+                if (Name.equals("")){
+                    name.setErrorEnabled(true);
+                    name.setError(getString(R.string.emptyWarning));
+                }else {
+                    name.setErrorEnabled(false);
+                }
+                if (addition.equals("")){
+                    additional.setErrorEnabled(true);
+                    additional.setError(getString(R.string.emptyWarning));
+                }else {
+                    additional.setErrorEnabled(false);
+                }
+            }else {
+                if (mode == 0) {
+                    userViewModel.insertStudent(new Student(username, password , Name , addition));
+                } else {
+                    userViewModel.insertTeacher(new Teacher(username, password , Name, addition));
+                }
             }
         });
 
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             QueraSnackbar.showTopSnackBar(view, userViewModel.getMessage().getValue());
-            if (user == null) {
-                return;
-            }
-            if (user.isCurrentUser) {
-                if (user.isTeacher) {
-                    // TODO
-                } else {
-                    // TODO
-                }
-            } else {
-                // TODO
-            }
+//            if (user == null) {
+//                return;
+//            }
+//            if (user.isCurrentUser) {
+//                if (user.isTeacher) {
+//                    // TODO
+//                } else {
+//                    // TODO
+//                }
+//            } else {
+//                // TODO
+//            }
         });
 
         return view;
