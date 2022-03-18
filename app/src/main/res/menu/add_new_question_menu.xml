@@ -4,10 +4,9 @@
 
 
     <item
-        android:id="@+id/top_menu"
-        android:title="@string/addNewClass"
+        android:id="@+id/add_question"
+        android:title="@string/addNewQuestion"
         app:showAsAction="always">
 
     </item>
-
 </menu>

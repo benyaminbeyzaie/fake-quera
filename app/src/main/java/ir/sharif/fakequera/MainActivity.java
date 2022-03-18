@@ -1,32 +1,31 @@
 package ir.sharif.fakequera;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.entities.User;
-import ir.sharif.fakequera.utils.QueraSnackbar;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         layout = findViewById(R.id.main_layout);
         frameLayout = layout.findViewById(R.id.frame);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.authenticateWithSavedCredentials();
-        userViewModel.getCurrentUser().observe(this, (user) -> QueraSnackbar.showTopSnackBar(layout.getRootView(), user.toString()));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -88,15 +87,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void takeStudentData(){
-        Intent i = new Intent(MainActivity.this , StudentMainActivity.class);
+    public void takeStudentData() {
+        Intent i = new Intent(MainActivity.this, StudentMainActivity.class);
         startActivity(i);
     }
 
-    public void takeTeacherData(){
-        Intent i = new Intent(MainActivity.this , TeacherMainActivity.class);
-        startActivity(i);
+
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        userViewModel.signOut();
+                        Log.d("mym", "user signout succesfully");
+                    }
+                }
+            });
+
+
+    public void takeTeacherData(int uid) {
+        Intent i = new Intent(MainActivity.this, TeacherMainActivity.class);
+        i.putExtra("uid", uid);
+//        startActivityForResult(i, 1);
+        launcher.launch(i);
     }
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
@@ -114,4 +130,14 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(event);
     }
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 1 && resultCode == RESULT_OK) {
+//            userViewModel.signOut();
+//            Log.d("mym", "user signout succesfully");
+//        }
+//    }
 }

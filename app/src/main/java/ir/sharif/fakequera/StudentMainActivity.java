@@ -1,15 +1,14 @@
 package ir.sharif.fakequera;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -34,6 +33,7 @@ public class StudentMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
+
         viewModel = new ViewModelProvider(this).get(ClassViewModel.class);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.authenticateWithSavedCredentials();
@@ -142,4 +142,20 @@ public class StudentMainActivity extends AppCompatActivity {
             viewModel.loadStudentClasses(userViewModel.getCurrentUser().getValue().uid);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.logoutMessage)
+                .setMessage(R.string.logoutWarning)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
 }

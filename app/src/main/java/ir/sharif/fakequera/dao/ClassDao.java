@@ -1,5 +1,6 @@
 package ir.sharif.fakequera.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,7 +14,8 @@ import ir.sharif.fakequera.entities.Class;
 @Dao
 public interface ClassDao {
     @Query("SELECT * FROM class_table WHERE owner_teacher_id LIKE :teacherId")
-    List<Class> getClassesOfTeacher(int teacherId);
+    LiveData<List<Class>> getClassesOfTeacher(int teacherId);
+
 
     @Query("SELECT * FROM class_table")
     List<Class> all();
@@ -32,4 +34,5 @@ public interface ClassDao {
 
     @Update
     void update(Class c);
+
 }

@@ -4,20 +4,18 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import ir.sharif.fakequera.entities.Answer;
-import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.repositories.ClassRepository;
 import ir.sharif.fakequera.repositories.QuestionRepository;
 
 public class QuestionViewModel extends AndroidViewModel {
 
     public final QuestionRepository repository;
-    private final LiveData<List<Question>> questionList;
+    private LiveData<List<Question>> questionList;
     private final LiveData<Teacher> teacherLiveData;
     private final LiveData<Question> questionLiveData;
     private final LiveData<String> message;
@@ -43,7 +41,7 @@ public class QuestionViewModel extends AndroidViewModel {
         return message;
     }
 
-    public void questionList(int classId){
+    public void questionList(int classId) {
         repository.questionList(classId);
     }
 
@@ -51,12 +49,30 @@ public class QuestionViewModel extends AndroidViewModel {
         return questionLiveData;
     }
 
-    public void teacher(int teacherId){
+    public void teacher(int teacherId) {
         repository.teacher(teacherId);
     }
 
-    public void question(int questionId){
-        repository.question(questionId);
+    public MutableLiveData<Question> question(int questionId) {
+        return repository.question(questionId);
+    }
+
+    public void getClassQuestions(int classID) {
+        repository.questionList(classID);
+        questionList = repository.getQuestionList();
+    }
+
+    public void insert(Question question) {
+        repository.insert(question);
+    }
+
+    public void update(Question question) {
+        repository.update(question);
+    }
+
+
+    public void delete(Question question) {
+        repository.delete(question);
     }
 
 }

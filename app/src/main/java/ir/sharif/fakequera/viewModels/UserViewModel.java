@@ -14,12 +14,14 @@ public class UserViewModel extends AndroidViewModel {
 
     public final UserRepository repository;
     private final LiveData<User> currentUser;
+    private final LiveData<Teacher> currentTeacher;
     private final LiveData<String> message;
 
     public UserViewModel(Application application) {
         super(application);
         repository = new UserRepository(application);
         currentUser = repository.getCurrentUser();
+        currentTeacher = repository.getCurrentTeacher();
         message = repository.getMessage();
     }
 
@@ -46,5 +48,25 @@ public class UserViewModel extends AndroidViewModel {
 
     public void authenticateWithSavedCredentials() {
         repository.loadCurrentUser();
+    }
+
+    public LiveData<Teacher> getCurrentTeacher() {
+        return currentTeacher;
+    }
+
+    public void close() {
+        repository.close();
+    }
+
+    public void signOut() {
+        repository.signOut();
+    }
+
+    public LiveData<Teacher> getTeacherData(int uid) {
+        return repository.getTeacherData(uid);
+    }
+
+    public String getUserName(int uid) {
+        return repository.getUserName(uid);
     }
 }

@@ -6,33 +6,25 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import ir.sharif.fakequera.dao.AnswerDao;
-import ir.sharif.fakequera.dao.ClassDao;
 import ir.sharif.fakequera.dao.QuestionDao;
 import ir.sharif.fakequera.dao.TeacherDao;
-import ir.sharif.fakequera.dao.UserDao;
 import ir.sharif.fakequera.database.AppDatabase;
-import ir.sharif.fakequera.entities.Answer;
-import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.entities.Teacher;
-import ir.sharif.fakequera.entities.User;
 
 public class QuestionRepository {
     private final QuestionDao questionDao;
     private final TeacherDao teacherDao;
-    private final UserDao userDao;
     private final MutableLiveData<List<Question>> questionList;
     private final MutableLiveData<Teacher> teacherLiveData;
     private final MutableLiveData<Question> questionLiveData;
     private final MutableLiveData<String> message;
+    private int currentClassID;
 
     public QuestionRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         questionDao = db.questionDao();
         teacherDao = db.teacherDao();
-        userDao = db.userDao();
-
         questionList = new MutableLiveData<>();
         teacherLiveData = new MutableLiveData<>();
         questionLiveData = new MutableLiveData<>();
@@ -42,19 +34,19 @@ public class QuestionRepository {
 
 
     public void questionList(int classId) {
+        currentClassID = classId;
         AppDatabase.databaseWriteExecutor.execute(() -> {
-
-            List<Question> list = questionDao.getQuestionsOfClass(classId);
+            List<Question> list = questionDao.getQuestionsOfClass2(classId);
             if (list == null || list.isEmpty()) {
                 message.postValue("Question Not Found In This Class !");
                 return;
             }
-
             questionList.postValue(list);
         });
     }
 
-    public void teacher(int teacherId){
+
+    public void teacher(int teacherId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
 
             Teacher teacher = teacherDao.getTeacher(teacherId);
@@ -63,13 +55,14 @@ public class QuestionRepository {
         });
     }
 
-    public void question(int questionId){
+    public MutableLiveData<Question> question(int questionId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
 
             Question question = questionDao.get(questionId);
 
             questionLiveData.postValue(question);
         });
+        return questionLiveData;
     }
 
 
@@ -88,4 +81,28 @@ public class QuestionRepository {
     public MutableLiveData<String> getMessage() {
         return message;
     }
+
+    public void insert(Question question) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            questionDao.insert(question);
+            if (currentClassID != 0) {
+                questionList(currentClassID);
+            }
+        });
+    }
+
+
+    public void update(Question question) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            questionDao.update(question);
+            if (currentClassID != 0) {
+                questionList(currentClassID);
+            }
+        });
+    }
+
+    public void delete(Question question) {
+        AppDatabase.databaseWriteExecutor.execute(() -> questionDao.update(question));
+    }
+
 }

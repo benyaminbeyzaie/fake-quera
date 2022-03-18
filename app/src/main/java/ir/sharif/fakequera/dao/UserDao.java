@@ -1,15 +1,12 @@
 package ir.sharif.fakequera.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
 
-import ir.sharif.fakequera.entities.Student;
-import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 
 @Dao
@@ -19,6 +16,12 @@ public interface UserDao {
 
     @Query("SELECT * FROM user WHERE is_current_user")
     User getCurrentUser();
+
+    @Query("SELECT * FROM user WHERE uid LIKE :id")
+    User findByUsername(int id);
+
+    @Query("SELECT * FROM user ORDER BY uid ASC")
+    List<User> all();
 
     @Insert
     void insertUser(User user);

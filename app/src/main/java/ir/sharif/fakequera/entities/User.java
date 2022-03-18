@@ -30,10 +30,14 @@ public class User {
     @ColumnInfo(name = "in_teacher")
     public boolean isTeacher;
 
-    public User(@NotNull String userName, @NotNull String password, boolean isTeacher){
+    public User() {
+    }
+
+    public User(@NotNull String userName, @NotNull String password, boolean isTeacher, String name) {
         this.userName = userName;
         this.password = password;
         this.isTeacher = isTeacher;
+        this.firstName = name;
     }
 
     @NonNull
@@ -44,5 +48,38 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isTeacher() {
+        return isTeacher;
+    }
+
+    public void setTeacher(boolean teacher) {
+        isTeacher = teacher;
     }
 }

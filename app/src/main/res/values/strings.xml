@@ -14,11 +14,26 @@
     <string name="dialogeCancleText">Cancle</string>
     <string name="dialogOKText">OK</string>
     <string name="inputHint">Input</string>
+    <string name="logoutMessage">Logging Out</string>
+    <string name="logoutWarning">Do you want to log out ?</string>
+    <string name="addNewClass">Add new class</string>
+    <string name="addNewQuestion">Add new Question</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="questionName">Enter Question Name</string>
+    <string name="questionContent">Enter content of Question</string>
     <string name="your_answer">Your answer</string>
     <string name="submit_answer">Submit Answer</string>
+    <string name="profileUsername">UserName</string>
+    <string name="profileName">Name</string>
+    <string name="profileUniversity">University</string>
+    <string name="profileNumberOfClass">Number of classes</string>
+    <string name="question">Question</string>
+    <string name="submits">Submits</string>
     <string name="allClasses">All Classes</string>
     <string name="joinedClasses">Joined Classes</string>
     <string name="join">Join into the class</string>
     <string name="not_found_teacher">Teacher Not Found!</string>
+    <string name="scoreHint">Your Score</string>
+    <string name="rename">Rename</string>
+    <string name="emptyWarning">Should not be empty.</string>
 </resources>
