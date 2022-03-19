@@ -75,8 +75,6 @@ public class TeacherMainActivity extends AppCompatActivity {
 
         classViewModel = new ClassViewModel(getApplication(), uid);
         classViewModel.getTeacherClasses().observe(this, classes -> {
-            Log.d("mym", "changed");
-            Log.d("mym", classes.toString());
             classAdapter.setClasses(classes);
             classNumber.setText("# Of classes : ".concat(classes.size() + ""));
         });
