@@ -1,11 +1,10 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.activities;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -26,6 +25,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
+import ir.sharif.fakequera.Fragments.LoginFragment;
+import ir.sharif.fakequera.R;
+import ir.sharif.fakequera.Fragments.SignupFragment;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -87,9 +89,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void takeStudentData() {
+    public void takeStudentData(int uid) {
         Intent i = new Intent(MainActivity.this, StudentMainActivity.class);
-        startActivity(i);
+        i.putExtra("uid", uid);
+        launcher.launch(i);
     }
 
 
@@ -100,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         userViewModel.signOut();
-                        Log.d("mym", "user signout succesfully");
                     }
                 }
             });
@@ -109,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
     public void takeTeacherData(int uid) {
         Intent i = new Intent(MainActivity.this, TeacherMainActivity.class);
         i.putExtra("uid", uid);
-//        startActivityForResult(i, 1);
         launcher.launch(i);
     }
 
@@ -130,14 +131,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(event);
     }
-
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 1 && resultCode == RESULT_OK) {
-//            userViewModel.signOut();
-//            Log.d("mym", "user signout succesfully");
-//        }
-//    }
 }

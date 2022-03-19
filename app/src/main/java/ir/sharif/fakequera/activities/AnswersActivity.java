@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ir.sharif.fakequera.R;
+import ir.sharif.fakequera.Fragments.ScoreDialog;
 import ir.sharif.fakequera.entities.Answer;
 import ir.sharif.fakequera.utils.AnswerAdapter;
 import ir.sharif.fakequera.viewModels.AnswerViewModel;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
 
-public class AnswerPage extends AppCompatActivity {
+public class AnswersActivity extends AppCompatActivity {
 
     private AnswerViewModel answerViewModel;
     private TextView questionTitle;
@@ -43,9 +45,9 @@ public class AnswerPage extends AppCompatActivity {
         questionContent.setCursorVisible(false);
 
         recyclerView = findViewById(R.id.answerRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(AnswerPage.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(AnswersActivity.this));
 
-        answerAdapter = new AnswerAdapter(AnswerPage.this);
+        answerAdapter = new AnswerAdapter(AnswersActivity.this);
         recyclerView.setAdapter(answerAdapter);
 
 
@@ -74,9 +76,9 @@ public class AnswerPage extends AppCompatActivity {
         bundle.putDouble("score", answer.score);
         bundle.putInt("position", position);
         bundle.putString("content", answer.content);
-        ScoreDialoge scoreDialoge = new ScoreDialoge();
-        scoreDialoge.setArguments(bundle);
-        scoreDialoge.show(fragmentManager, "ScoreDialoge");
+        ScoreDialog scoreDialog = new ScoreDialog();
+        scoreDialog.setArguments(bundle);
+        scoreDialog.show(fragmentManager, "ScoreDialoge");
     }
 
     public void takeData(double score, int position) {

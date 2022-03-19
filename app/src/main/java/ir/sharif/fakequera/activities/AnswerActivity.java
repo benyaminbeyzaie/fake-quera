@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.utils.QueraSnackbar;
 import ir.sharif.fakequera.viewModels.AnswerViewModel;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;

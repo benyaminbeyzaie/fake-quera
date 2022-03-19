@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.sharif.fakequera.ClassManagmentActivity;
+import ir.sharif.fakequera.activities.ClassManagmentActivity;
 import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Question;
 

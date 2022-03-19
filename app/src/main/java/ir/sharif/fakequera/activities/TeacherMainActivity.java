@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
+import ir.sharif.fakequera.Fragments.AddClassDialogFragment;
+import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.utils.ClassAdapter;
@@ -58,6 +59,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         LiveData<Teacher> data = userViewModel.getTeacherData(uid);
 
         data.observe(this, teacher -> {
+            if (teacher == null) return;
             username.setText(teacher.userName);
             university.setText(teacher.universityName);
             name.setText(teacher.firstName);
@@ -88,16 +90,13 @@ public class TeacherMainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (item.getItemId() == R.id.top_menu) {
-            Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager = getSupportFragmentManager();
             AddClassDialogFragment dialogFragment = new AddClassDialogFragment();
             dialogFragment.show(fragmentManager, "DialogFragment");
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     public void goToQuestion(int uid) {
@@ -124,9 +123,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     finish();
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton("Just exit", (dialog, which) -> finishAffinity())
                 .show();
     }
-
-
 }

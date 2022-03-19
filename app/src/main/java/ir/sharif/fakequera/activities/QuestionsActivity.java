@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 
+import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.viewModels.ClassViewModel;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;

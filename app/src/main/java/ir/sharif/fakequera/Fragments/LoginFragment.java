@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
+import ir.sharif.fakequera.R;
+import ir.sharif.fakequera.activities.MainActivity;
 import ir.sharif.fakequera.utils.QueraSnackbar;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
@@ -74,7 +76,7 @@ public class LoginFragment extends Fragment {
                     QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as student");
                     MainActivity mainActivity = (MainActivity) getActivity();
                     assert mainActivity != null;
-                    mainActivity.takeStudentData();
+                    mainActivity.takeStudentData(user.uid);
                 }
             } else {
                 QueraSnackbar.showTopSnackBar(view, "User authenticated failed");

@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,15 +12,18 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
+import ir.sharif.fakequera.R;
+import ir.sharif.fakequera.activities.ClassManagmentActivity;
 
-public class AddQuesionDialogFragment extends DialogFragment {
 
-    Button cancle;
+public class AddQuestionDialogFragment extends DialogFragment {
+
+    Button cancel;
     Button ok;
     TextInputLayout name;
     TextInputLayout content;
 
-    public AddQuesionDialogFragment() {
+    public AddQuestionDialogFragment() {
         // Required empty public constructor
     }
 
@@ -28,10 +31,9 @@ public class AddQuesionDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_quesion_dialog, container, false);
 
-        cancle = view.findViewById(R.id.renameButton);
+        cancel = view.findViewById(R.id.renameButton);
         ok = view.findViewById(R.id.addButton);
         name = view.findViewById(R.id.dialogeinput);
         content = view.findViewById(R.id.dialogeinput2);
@@ -53,7 +55,7 @@ public class AddQuesionDialogFragment extends DialogFragment {
 
         });
 
-        cancle.setOnClickListener(view12 -> Objects.requireNonNull(getDialog()).dismiss());
+        cancel.setOnClickListener(view12 -> Objects.requireNonNull(getDialog()).dismiss());
 
         return view;
     }

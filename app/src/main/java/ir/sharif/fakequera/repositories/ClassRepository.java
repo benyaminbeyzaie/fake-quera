@@ -52,25 +52,13 @@ public class ClassRepository {
         studentDao = db.studentDao();
         studentClasses = new MutableLiveData<>();
         userIsInClass = new MutableLiveData<>();
-
-        // fake data
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            if (classDao.all().size() == 0) {
-                for (int i = 0; i < 10; i++) {
-                    classDao.insert(new Class("Class " + i, i));
-                }
-                for (int i = 0; i < 10; i++) {
-                    questionDao.insert(new Question(1, "Question  " + i, "Question  " + i));
-                }
-            }
-        });
     }
 
     public void classList() {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             List<Class> list = classDao.all();
             if (list == null || list.isEmpty()) {
-                message.postValue("Class Not Found !");
+                message.postValue("Class Not Found!");
                 return;
             }
 
@@ -82,16 +70,16 @@ public class ClassRepository {
         return classList;
     }
 
-    public void insert(Class clas) {
-        AppDatabase.databaseWriteExecutor.execute(() -> classDao.insert(clas));
+    public void insert(Class c) {
+        AppDatabase.databaseWriteExecutor.execute(() -> classDao.insert(c));
     }
 
-    public void update(Class clas) {
-        AppDatabase.databaseWriteExecutor.execute(() -> classDao.update(clas));
+    public void update(Class c) {
+        AppDatabase.databaseWriteExecutor.execute(() -> classDao.update(c));
     }
 
-    public void delete(Class clas) {
-        AppDatabase.databaseWriteExecutor.execute(() -> classDao.delete(clas));
+    public void delete(Class c) {
+        AppDatabase.databaseWriteExecutor.execute(() -> classDao.delete(c));
     }
 
     public LiveData<List<Class>> getTeacherClasses(int uid) {
@@ -103,7 +91,6 @@ public class ClassRepository {
     }
 
     public void update(int uid) {
-        Log.d("mym", "update uid" + uid);
         this.uid = uid;
         loadTeacherClasses(uid);
     }
@@ -111,7 +98,6 @@ public class ClassRepository {
     public void loadTeacherClasses(int teacherUid) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             teacherClasses = classDao.getClassesOfTeacher(teacherUid);
-//            teacherClasses.postValue(classesOfTeacher);
             message.postValue("classes are loaded");
         });
     }
@@ -143,7 +129,7 @@ public class ClassRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             List<Class> list = classDao.all();
             if (list == null || list.isEmpty()) {
-                message.postValue("Class Not Found !");
+                message.postValue("Class Not Found!");
                 return;
             }
             allClasses.postValue(list);

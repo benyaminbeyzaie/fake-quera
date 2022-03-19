@@ -1,6 +1,5 @@
 package ir.sharif.fakequera.utils;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.sharif.fakequera.AnswerPage;
+import ir.sharif.fakequera.activities.AnswersActivity;
 import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Answer;
 import ir.sharif.fakequera.viewModels.UserViewModel;
@@ -21,11 +20,11 @@ import ir.sharif.fakequera.viewModels.UserViewModel;
 public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHolder> {
 
     private List<Answer> answers;
-    private final AnswerPage context;
+    private final AnswersActivity context;
     private final UserViewModel userViewModel;
 
 
-    public AnswerAdapter(AnswerPage context) {
+    public AnswerAdapter(AnswersActivity context) {
         this.context = context;
         this.answers = new ArrayList<>();
         userViewModel = new UserViewModel(context.getApplication());
@@ -60,8 +59,6 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
-
-        Log.d("mym", "changed");
         notifyDataSetChanged();
 //        notifyDataSetChanged();
     }
@@ -78,8 +75,6 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
             textViewDes = itemView.findViewById(R.id.textViewStuAnswer);
             scoreView = itemView.findViewById(R.id.textViewScore2);
             cardView = itemView.findViewById(R.id.answerCardView);
-            Log.d("mym", "score is".concat(String.valueOf(scoreView == null)));
-            Log.d("mym", "des is".concat(String.valueOf(textViewDes == null)));
         }
     }
 }

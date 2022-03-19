@@ -11,11 +11,11 @@
     <string name="studentNumberHint">Your Student Number</string>
     <string name="universityHint">Your University Name</string>
     <string name="signupButtonText">Sign Up</string>
-    <string name="dialogeCancleText">Cancle</string>
+    <string name="dialogCancelText">Cancel</string>
     <string name="dialogOKText">OK</string>
     <string name="inputHint">Input</string>
     <string name="logoutMessage">Logging Out</string>
-    <string name="logoutWarning">Do you want to log out ?</string>
+    <string name="logoutWarning">Do you want to log out?</string>
     <string name="addNewClass">Add new class</string>
     <string name="addNewQuestion">Add new Question</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -5,8 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:id="@+id/main_layout">
+    tools:context=".activities.MainActivity"
+    android:id="@+id/main_layout"
+    android:windowSoftInputMode="adjustResize">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"

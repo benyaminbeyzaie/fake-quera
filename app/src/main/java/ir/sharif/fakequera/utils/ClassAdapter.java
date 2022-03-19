@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.sharif.fakequera.R;
-import ir.sharif.fakequera.TeacherMainActivity;
+import ir.sharif.fakequera.activities.TeacherMainActivity;
 import ir.sharif.fakequera.entities.Class;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder> {

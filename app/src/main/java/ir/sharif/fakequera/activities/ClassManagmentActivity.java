@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
+import ir.sharif.fakequera.Fragments.AddQuestionDialogFragment;
+import ir.sharif.fakequera.R;
+import ir.sharif.fakequera.Fragments.RenameDialogFragment;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.utils.ClassManagmentAdapter;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
@@ -65,8 +68,8 @@ public class ClassManagmentActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.add_question) {
             Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            AddQuesionDialogFragment addQuesionDialogFragment = new AddQuesionDialogFragment();
-            addQuesionDialogFragment.show(fragmentManager, "AddQuesionDialogFragment");
+            AddQuestionDialogFragment addQuestionDialogFragment = new AddQuestionDialogFragment();
+            addQuestionDialogFragment.show(fragmentManager, "AddQuesionDialogFragment");
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -78,7 +81,7 @@ public class ClassManagmentActivity extends AppCompatActivity {
     }
 
     public void gotoQuestion(int uid) {
-        Intent i3 = new Intent(ClassManagmentActivity.this, AnswerPage.class);
+        Intent i3 = new Intent(ClassManagmentActivity.this, AnswersActivity.class);
         i3.putExtra("uid", uid);
         startActivity(i3);
     }

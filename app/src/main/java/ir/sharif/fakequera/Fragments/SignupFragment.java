@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.Fragments;
 
 import android.os.Bundle;
 import android.text.InputType;
@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
+import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Student;
 import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.utils.QueraSnackbar;

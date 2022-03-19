@@ -1,4 +1,4 @@
-package ir.sharif.fakequera;
+package ir.sharif.fakequera.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.viewModels.ClassViewModel;
 import ir.sharif.fakequera.viewModels.UserViewModel;
@@ -135,13 +136,12 @@ public class StudentMainActivity extends AppCompatActivity {
                 joinedClasses.addAll(list);
             });
             if (userViewModel.getCurrentUser().getValue() == null) {
-                System.out.println("User is null");
                 return;
             }
-            System.out.println(userViewModel.getCurrentUser().getValue());
             viewModel.loadStudentClasses(userViewModel.getCurrentUser().getValue().uid);
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -154,7 +154,7 @@ public class StudentMainActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     finish();
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton("Just exit", (dialog, which) -> finishAffinity())
                 .show();
     }
 

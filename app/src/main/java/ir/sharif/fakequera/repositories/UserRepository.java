@@ -78,7 +78,6 @@ public class UserRepository {
             message.postValue("User registered as student");
             userDao.insertUser(student);
             studentDao.insert(student);
-//            setCurrentUser(null);
             setCurrentUser(student);
             all = userDao.all();
         });
@@ -88,7 +87,6 @@ public class UserRepository {
 
     public void setCurrentUser(User user) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-
             userDao.deactivateAllUsers();
             if (user == null) {
                 currentUser.postValue(null);
@@ -98,18 +96,6 @@ public class UserRepository {
             userDao.updateUser(user);
             currentUser.postValue(user);
 
-        });
-    }
-
-    public void setCurrentTeacher(Teacher user) {
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            if (user == null) {
-                currentTeacher.postValue(null);
-                return;
-            }
-            user.isCurrentUser = true;
-            userDao.updateUser(user);
-            currentTeacher.postValue(user);
         });
     }
 
@@ -144,17 +130,11 @@ public class UserRepository {
 
     public LiveData<Teacher> getCurrentTeacher() {
         if (currentUser.getValue() == null) {
-            Log.d("mym", "adadad");
             loadCurrentUser();
         }
         if (currentUser.getValue() == null) {
-            Log.d("mym", "1231231231");
             return null;
         }
-
-
-        Log.d("mym", "ada23d21a3");
-
 
         AppDatabase.databaseWriteExecutor.execute(() -> {
             Teacher teacher;
@@ -187,21 +167,8 @@ public class UserRepository {
             if (user == null) {
                 return;
             }
-
             currentUser.postValue(user);
         });
-    }
-
-    public void close() {
-        Log.d("mym", "close");
-        if (currentUser.getValue() == null) {
-            return;
-        }
-
-        User value = currentUser.getValue();
-        value.isCurrentUser = false;
-        userDao.updateUser(value);
-        Log.d("mym", "updated");
     }
 
     public void signOut() {

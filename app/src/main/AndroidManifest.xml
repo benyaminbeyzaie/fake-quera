@@ -10,27 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AnswerPage"
+            android:name=".activities.AnswersActivity"
             android:exported="false" />
         <activity
-            android:name=".ClassManagmentActivity"
+            android:name=".activities.ClassManagmentActivity"
             android:exported="false" />
         <activity
-            android:name=".AnswerActivity"
+            android:name=".activities.AnswerActivity"
             android:exported="false" />
         <activity
-            android:name=".QuestionsActivity"
+            android:name=".activities.QuestionsActivity"
             android:exported="false" />
         <activity
-            android:name=".TeacherMainActivity"
+            android:name=".activities.TeacherMainActivity"
             android:exported="false" />
         <activity
-            android:name=".StudentMainActivity"
+            android:name=".activities.StudentMainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
+            android:name=".activities.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

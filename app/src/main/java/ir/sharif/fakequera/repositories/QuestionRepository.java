@@ -29,7 +29,6 @@ public class QuestionRepository {
         teacherLiveData = new MutableLiveData<>();
         questionLiveData = new MutableLiveData<>();
         message = new MutableLiveData<>();
-
     }
 
 
@@ -48,18 +47,14 @@ public class QuestionRepository {
 
     public void teacher(int teacherId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-
             Teacher teacher = teacherDao.getTeacher(teacherId);
-
             teacherLiveData.postValue(teacher);
         });
     }
 
     public MutableLiveData<Question> question(int questionId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-
             Question question = questionDao.get(questionId);
-
             questionLiveData.postValue(question);
         });
         return questionLiveData;
