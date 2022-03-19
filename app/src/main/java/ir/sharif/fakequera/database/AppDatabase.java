@@ -23,7 +23,7 @@ import ir.sharif.fakequera.entities.Student;
 import ir.sharif.fakequera.entities.Teacher;
 import ir.sharif.fakequera.entities.User;
 
-@Database(entities = {User.class, Student.class, Teacher.class, Class.class, Question.class, Answer.class}, version = 1)
+@Database(entities = {User.class, Student.class, Teacher.class, Class.class, Question.class, Answer.class}, version = 2)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();

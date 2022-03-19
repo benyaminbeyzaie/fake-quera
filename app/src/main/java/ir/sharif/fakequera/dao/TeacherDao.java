@@ -11,6 +11,9 @@ public interface TeacherDao {
     @Query("SELECT * FROM teacher WHERE uid LIKE :id")
     Teacher getTeacher(int id);
 
+    @Query("SELECT * FROM teacher WHERE user_name LIKE :username")
+    Teacher getTeacher2(String username);
+
     @Insert
     void insert(Teacher teacher);
 }

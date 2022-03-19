@@ -63,7 +63,7 @@ public class QuestionsActivity extends AppCompatActivity {
             if (teacher == null) {
                 txtTeacherName.setText(R.string.not_found_teacher);
             } else {
-                txtTeacherName.setText(new StringBuilder().append("Teacher Name: ").append(teacher.firstName).append(" ").toString());
+                txtTeacherName.setText("Teacher Name: ".concat(""+teacher.firstName+" "));
             }
         });
 
@@ -99,7 +99,7 @@ public class QuestionsActivity extends AppCompatActivity {
             ArrayList<String> contents = new ArrayList<>();
 
             for (int i = 0; i < list.size(); i++) {
-                contents.add(list.get(i).content);
+                contents.add(list.get(i).questionName);
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contents);

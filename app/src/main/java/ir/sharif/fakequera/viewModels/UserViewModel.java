@@ -52,6 +52,10 @@ public class UserViewModel extends AndroidViewModel {
         repository.signOut();
     }
 
+    public void requestTeacher(int uid){
+        repository.requestTeacher(uid);
+    }
+
     public LiveData<Teacher> getTeacherData(int uid) {
         return repository.getTeacherData(uid);
     }

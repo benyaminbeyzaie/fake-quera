@@ -92,8 +92,20 @@ public class MainActivity extends AppCompatActivity {
     public void takeStudentData(int uid) {
         Intent i = new Intent(MainActivity.this, StudentMainActivity.class);
         i.putExtra("uid", uid);
-        launcher.launch(i);
+        launcher2.launch(i);
     }
+
+    ActivityResultLauncher<Intent> launcher2 = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        userViewModel.signOut();
+                    }
+                }
+            });
+
 
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(
