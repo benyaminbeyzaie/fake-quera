@@ -60,14 +60,14 @@ public class AnswersActivity extends AppCompatActivity {
         });
 
 
-        LiveData<List<Answer>> answerOfQuestuion = answerViewModel.getAnswerOfQuestuion();
+        LiveData<List<Answer>> answerOfQuestion = answerViewModel.getAnswerOfQuestuion();
 
-        answerOfQuestuion.observe(this, answers -> {
+        answerOfQuestion.observe(this, answers -> {
             Log.d("mym", answers.toString());
             answerAdapter.setAnswers(answers);
         });
 
-        answerViewModel.getAnswerOfQuestuion(classUid);
+        answerViewModel.getAnswerOfQuestion(classUid);
     }
 
     public void giveScore(int position, Answer answer) {

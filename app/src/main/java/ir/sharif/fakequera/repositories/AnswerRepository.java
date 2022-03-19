@@ -7,14 +7,19 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import ir.sharif.fakequera.dao.AnswerDao;
+import ir.sharif.fakequera.dao.ClassDao;
+import ir.sharif.fakequera.dao.QuestionDao;
 import ir.sharif.fakequera.dao.UserDao;
 import ir.sharif.fakequera.database.AppDatabase;
 import ir.sharif.fakequera.entities.Answer;
+import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.entities.User;
 
 public class AnswerRepository {
     private final AnswerDao answerDao;
     private final UserDao userDao;
+    private final ClassDao classDao;
+    private final QuestionDao questionDao;
     private final MutableLiveData<Answer> answerLiveData;
     private final MutableLiveData<String> message;
     private final MutableLiveData<List<Answer>> answerToQuestion;
@@ -24,6 +29,8 @@ public class AnswerRepository {
         AppDatabase db = AppDatabase.getDatabase(application);
         answerDao = db.answerDao();
         userDao = db.userDao();
+        classDao = db.classDao();
+        questionDao = db.questionDao();
         answerToQuestion = new MutableLiveData<>();
 
         answerLiveData = new MutableLiveData<>();
@@ -64,6 +71,19 @@ public class AnswerRepository {
                 return;
             }
 
+            Question question = questionDao.get(questionId);
+
+
+            if (question == null) {
+                message.postValue("Question Not Found!");
+                return;
+            }
+
+            if (!classDao.existStudentInClass(question.ownerClassId, currentUser.uid)) {
+                message.postValue("You are not a member of this class!");
+                return;
+            }
+
             Answer answer = answerDao.getAnswersOfQuestion(questionId, currentUser.uid);
 
             if (answer == null) {
@@ -83,8 +103,9 @@ public class AnswerRepository {
         });
     }
 
-    public void getAnswerOfQuestuion(int questionID) {
+    public void getAnswerOfQuestion(int questionID) {
         this.currentQuestionID = questionID;
+        MutableLiveData<List<Answer>> result = new MutableLiveData<>();
         AppDatabase.databaseWriteExecutor.execute(() -> {
             List<Answer> answersOfQuestion = answerDao.getAnswersOfQuestion(questionID);
             answerToQuestion.postValue(answersOfQuestion);
@@ -107,7 +128,7 @@ public class AnswerRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             answerDao.update(answer);
             if (currentQuestionID != 0) {
-                getAnswerOfQuestuion(this.currentQuestionID);
+                getAnswerOfQuestion(this.currentQuestionID);
             }
 
         });
