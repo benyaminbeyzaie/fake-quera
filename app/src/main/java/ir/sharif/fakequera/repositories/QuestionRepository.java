@@ -8,13 +8,16 @@ import java.util.List;
 
 import ir.sharif.fakequera.dao.QuestionDao;
 import ir.sharif.fakequera.dao.TeacherDao;
+import ir.sharif.fakequera.dao.UserDao;
 import ir.sharif.fakequera.database.AppDatabase;
 import ir.sharif.fakequera.entities.Question;
 import ir.sharif.fakequera.entities.Teacher;
+import ir.sharif.fakequera.entities.User;
 
 public class QuestionRepository {
     private final QuestionDao questionDao;
     private final TeacherDao teacherDao;
+    private final UserDao userDao;
     private final MutableLiveData<List<Question>> questionList;
     private final MutableLiveData<Teacher> teacherLiveData;
     private final MutableLiveData<Question> questionLiveData;
@@ -25,6 +28,7 @@ public class QuestionRepository {
         AppDatabase db = AppDatabase.getDatabase(application);
         questionDao = db.questionDao();
         teacherDao = db.teacherDao();
+        userDao = db.userDao();
         questionList = new MutableLiveData<>();
         teacherLiveData = new MutableLiveData<>();
         questionLiveData = new MutableLiveData<>();
@@ -47,7 +51,10 @@ public class QuestionRepository {
 
     public void teacher(int teacherId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            Teacher teacher = teacherDao.getTeacher(teacherId);
+            System.out.println(teacherId);
+            User user =userDao.findByUsername(teacherId);
+            Teacher teacher = teacherDao.getTeacher2(user.userName);
+            System.out.println(teacher);
             teacherLiveData.postValue(teacher);
         });
     }

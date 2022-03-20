@@ -59,6 +59,8 @@ public class LoginFragment extends Fragment {
                 }
             } else {
                 userViewModel.authenticate(username, password);
+                loginUserInput.setErrorEnabled(false);
+                loginPassInput.setErrorEnabled(false);
             }
         });
 
@@ -69,14 +71,18 @@ public class LoginFragment extends Fragment {
             }
             if (user.isCurrentUser) {
                 if (user.isTeacher) {
+
                     QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as teacher");
                     MainActivity mainActivity = (MainActivity) getActivity();
                     Objects.requireNonNull(mainActivity).takeTeacherData(user.uid);
+                    refresh();
                 } else {
+
                     QueraSnackbar.showTopSnackBar(view, "User authenticated successfully as student");
                     MainActivity mainActivity = (MainActivity) getActivity();
                     assert mainActivity != null;
                     mainActivity.takeStudentData(user.uid);
+                    refresh();
                 }
             } else {
                 QueraSnackbar.showTopSnackBar(view, "User authenticated failed");
@@ -86,5 +92,12 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
+
+    public void refresh(){
+        loginUserInput.setErrorEnabled(false);
+        loginPassInput.setErrorEnabled(false);
+        Objects.requireNonNull(loginUserInput.getEditText()).setText("");
+        Objects.requireNonNull(loginPassInput.getEditText()).setText("");
+    }
 
 }
