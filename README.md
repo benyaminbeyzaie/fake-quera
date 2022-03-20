@@ -1,5 +1,10 @@
 # fake-quera
 Fake Quera is an android app like quera.ir website. First assignment of Mobile programming, Sharif University of Technology.
+Login            |  Sign up
+:-------------------------:|:-------------------------:
+![login](/screenshots/login.png) |  ![sign up](/screenshots/sign_up.png)
+
+
 
 - Project architecture is based on MVVM 
 - We use Room for data base
