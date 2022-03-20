@@ -26,6 +26,9 @@ public interface ClassDao {
     @Query("SELECT * FROM class_table WHERE uid LIKE :uId")
     Class getClassWithUId(int uId);
 
+    @Query("SELECT EXISTS(SELECT * FROM class_table WHERE uid = :classId AND students LIKE '%' || :studentId || '%')")
+    boolean existStudentInClass(int classId , int studentId);
+
     @Insert
     void insert(Class c);
 

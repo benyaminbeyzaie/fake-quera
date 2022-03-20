@@ -138,7 +138,8 @@ public class UserRepository {
 
         AppDatabase.databaseWriteExecutor.execute(() -> {
             Teacher teacher;
-            teacher = teacherDao.getTeacher(Objects.requireNonNull(currentUser.getValue()).uid);
+
+            teacher = teacherDao.getTeacher2(Objects.requireNonNull(currentUser.getValue()).getUserName());
             currentTeacher.postValue(teacher);
         });
 
@@ -154,7 +155,7 @@ public class UserRepository {
         }
         AppDatabase.databaseWriteExecutor.execute(() -> {
             Student student;
-            student = studentDao.getStudent(Objects.requireNonNull(currentUser.getValue()).uid);
+            student = studentDao.getStudent2(Objects.requireNonNull(currentUser.getValue()).userName);
             currentStudent.postValue(student);
         });
         return currentStudent;
@@ -178,8 +179,8 @@ public class UserRepository {
 
     public MutableLiveData<Teacher> getTeacherData(int uid){
         AppDatabase.databaseWriteExecutor.execute(() ->{
-
-            Teacher currentTeach = teacherDao.getTeacher(uid);
+            User user = userDao.findByUsername(uid);
+            Teacher currentTeach = teacherDao.getTeacher2(user.getUserName());
             currentTeacher.postValue(currentTeach);
         });
         return currentTeacher;
@@ -194,4 +195,13 @@ public class UserRepository {
         return null;
     }
 
+    public void requestTeacher(int uid) {
+        System.out.println("user id is : " + uid);
+        AppDatabase.databaseWriteExecutor.execute(() ->{
+            User user = userDao.findByUsername(uid);
+            Teacher currentTeach = teacherDao.getTeacher2(user.getUserName());
+            System.out.println(currentTeach);
+            currentTeacher.postValue(currentTeach);
+        });
+    }
 }

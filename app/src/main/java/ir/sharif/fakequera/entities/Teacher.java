@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
-@Entity
+@Entity(tableName = "teacher")
 public class Teacher extends User {
     @ColumnInfo(name = "university_name")
     public String universityName;

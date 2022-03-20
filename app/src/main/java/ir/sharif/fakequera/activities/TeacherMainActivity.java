@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import ir.sharif.fakequera.Fragments.AddClassDialogFragment;
 import ir.sharif.fakequera.R;
@@ -37,6 +39,7 @@ public class TeacherMainActivity extends AppCompatActivity {
     TextView classNumber;
 
     private ClassViewModel classViewModel;
+    UserViewModel userViewModel;
     private int uid;
 
     @Override
@@ -48,7 +51,8 @@ public class TeacherMainActivity extends AppCompatActivity {
         Intent i = getIntent();
         uid = i.getIntExtra("uid", 0);
 
-        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel = new UserViewModel(getApplication());
+//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.authenticateWithSavedCredentials();
         cardView = findViewById(R.id.answerCardView);
         username = cardView.findViewById(R.id.textViewStuName);
@@ -56,10 +60,12 @@ public class TeacherMainActivity extends AppCompatActivity {
         name = cardView.findViewById(R.id.textViewName);
         classNumber = cardView.findViewById(R.id.textViewClassNumber);
 
+        userViewModel.requestTeacher(uid);
         LiveData<Teacher> data = userViewModel.getTeacherData(uid);
 
         data.observe(this, teacher -> {
             if (teacher == null) return;
+
             username.setText(teacher.userName);
             university.setText(teacher.universityName);
             name.setText(teacher.firstName);
@@ -108,6 +114,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         Class classs = new Class(uid, name);
         Log.d("mym", classs.toString());
         classViewModel.insert(classs);
+        userViewModel.requestTeacher(uid);
     }
 
     @Override

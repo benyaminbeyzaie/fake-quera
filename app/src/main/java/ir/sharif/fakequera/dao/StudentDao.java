@@ -12,6 +12,9 @@ public interface StudentDao {
     @Query("SELECT * FROM student WHERE uid LIKE :id")
     Student getStudent(int id);
 
+    @Query("SELECT * FROM student WHERE user_name LIKE :username")
+    Student getStudent2(String username);
+
     @Insert
     void insert(Student student);
 

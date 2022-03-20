@@ -39,8 +39,8 @@ public class AnswerViewModel extends AndroidViewModel {
         repository.addAnswer(questionId, answer);
     }
 
-    public void getAnswerOfQuestuion(int questionID) {
-        repository.getAnswerOfQuestuion(questionID);
+    public void getAnswerOfQuestion(int questionID) {
+        repository.getAnswerOfQuestion(questionID);
     }
 
     public LiveData<List<Answer>> getAnswerOfQuestuion() {
