@@ -58,9 +58,11 @@ public class SignupFragment extends Fragment {
             if (i == studentButton.getId()) {
                 mode = 0;
                 additional.setHint(R.string.studentNumberHint);
+                Objects.requireNonNull(additional.getEditText()).setText("");
                 Objects.requireNonNull(additional.getEditText()).setInputType(InputType.TYPE_CLASS_NUMBER);
             } else if (i == teacherButton.getId()) {
                 mode = 1;
+                Objects.requireNonNull(additional.getEditText()).setText("");
                 Objects.requireNonNull(additional.getEditText()).setInputType(InputType.TYPE_CLASS_TEXT);
                 additional.setHint(R.string.universityHint);
             }
@@ -103,11 +105,25 @@ public class SignupFragment extends Fragment {
                 } else {
                     userViewModel.insertTeacher(new Teacher(username, password, Name, addition));
                 }
+                refresh();
             }
         });
 
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> QueraSnackbar.showTopSnackBar(view, userViewModel.getMessage().getValue()));
 
         return view;
+    }
+    
+
+    public void refresh(){
+        signupUserInput.setErrorEnabled(false);
+        signupPassInput.setErrorEnabled(false);
+        name.setErrorEnabled(false);
+        additional.setErrorEnabled(false);
+        Objects.requireNonNull(signupUserInput.getEditText()).setText("");
+        Objects.requireNonNull(signupPassInput.getEditText()).setText("");
+        Objects.requireNonNull(name.getEditText()).setText("");
+        Objects.requireNonNull(additional.getEditText()).setText("");
+        studentButton.setChecked(true);
     }
 }
