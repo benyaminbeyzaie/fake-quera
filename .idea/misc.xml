@@ -9,8 +9,13 @@
         <entry key="app/src/main/res/layout/activity_student.xml" value="0.20217588395285585" />
         <entry key="app/src/main/res/layout/activity_student_main.xml" value="0.20217588395285585" />
         <entry key="app/src/main/res/layout/activity_teacher_main.xml" value="0.20217588395285585" />
+        <entry key="app/src/main/res/layout/fragment_add_quesion_dialog.xml" value="0.20217588395285585" />
+        <entry key="app/src/main/res/layout/fragment_dialog.xml" value="0.12740487387772553" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.17905711695376247" />
+        <entry key="app/src/main/res/layout/fragment_rename_dialog.xml" value="0.12740487387772553" />
+        <entry key="app/src/main/res/layout/fragment_score_dialoge.xml" value="0.12740487387772553" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.20217588395285585" />
+        <entry key="app/src/main/res/layout/score_dialoge.xml" value="0.12740487387772553" />
         <entry key="app/src/main/res/menu/add_new_question_menu.xml" value="0.2543822146216332" />
         <entry key="app/src/main/res/menu/my_menu.xml" value="0.2543822146216332" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2085" />

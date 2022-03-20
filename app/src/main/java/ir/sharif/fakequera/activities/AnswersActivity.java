@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ir.sharif.fakequera.R;
-import ir.sharif.fakequera.Fragments.ScoreDialog;
+import ir.sharif.fakequera.fragments.ScoreDialog;
 import ir.sharif.fakequera.entities.Answer;
 import ir.sharif.fakequera.utils.AnswerAdapter;
 import ir.sharif.fakequera.viewModels.AnswerViewModel;
@@ -78,7 +78,7 @@ public class AnswersActivity extends AppCompatActivity {
         bundle.putString("content", answer.content);
         ScoreDialog scoreDialog = new ScoreDialog();
         scoreDialog.setArguments(bundle);
-        scoreDialog.show(fragmentManager, "ScoreDialoge");
+        scoreDialog.show(fragmentManager, "ScoreDialog");
     }
 
     public void takeData(double score, int position) {

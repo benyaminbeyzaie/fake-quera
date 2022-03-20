@@ -18,13 +18,13 @@ import ir.sharif.fakequera.activities.ClassManagmentActivity;
 import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Question;
 
-public class ClassManagmentAdapter extends RecyclerView.Adapter<ClassManagmentAdapter.QuestionHolder> {
+public class ClassManagementAdapter extends RecyclerView.Adapter<ClassManagementAdapter.QuestionHolder> {
 
     private List<Question> questions;
     private final ClassManagmentActivity context;
 
 
-    public ClassManagmentAdapter(ClassManagmentActivity context) {
+    public ClassManagementAdapter(ClassManagmentActivity context) {
         this.context = context;
         questions = new ArrayList<>();
     }
@@ -52,7 +52,6 @@ public class ClassManagmentAdapter extends RecyclerView.Adapter<ClassManagmentAd
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
         notifyDataSetChanged();
-        Log.d("mym", "questionset changed");
     }
 
     @Override

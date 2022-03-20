@@ -63,7 +63,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerHold
 //        notifyDataSetChanged();
     }
 
-    class AnswerHolder extends RecyclerView.ViewHolder {
+    static class AnswerHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
         TextView textViewDes;
         TextView scoreView;

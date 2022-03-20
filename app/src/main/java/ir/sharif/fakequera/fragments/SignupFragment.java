@@ -1,4 +1,4 @@
-package ir.sharif.fakequera.Fragments;
+package ir.sharif.fakequera.fragments;
 
 import android.os.Bundle;
 import android.text.InputType;

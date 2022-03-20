@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
-import ir.sharif.fakequera.Fragments.AddQuestionDialogFragment;
+import ir.sharif.fakequera.fragments.AddQuestionDialogFragment;
 import ir.sharif.fakequera.R;
-import ir.sharif.fakequera.Fragments.RenameDialogFragment;
+import ir.sharif.fakequera.fragments.RenameDialogFragment;
 import ir.sharif.fakequera.entities.Question;
-import ir.sharif.fakequera.utils.ClassManagmentAdapter;
+import ir.sharif.fakequera.utils.ClassManagementAdapter;
 import ir.sharif.fakequera.viewModels.QuestionViewModel;
 
 public class ClassManagmentActivity extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class ClassManagmentActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private QuestionViewModel questionViewModel;
     private int classUid;
-    ClassManagmentAdapter classManagmentAdapter;
+    ClassManagementAdapter classManagementAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +41,15 @@ public class ClassManagmentActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recylcer2);
         recyclerView.setLayoutManager(new LinearLayoutManager(ClassManagmentActivity.this));
 
-        classManagmentAdapter = new ClassManagmentAdapter(ClassManagmentActivity.this);
-        recyclerView.setAdapter(classManagmentAdapter);
+        classManagementAdapter = new ClassManagementAdapter(ClassManagmentActivity.this);
+        recyclerView.setAdapter(classManagementAdapter);
 
         questionViewModel = new QuestionViewModel(getApplication());
 
 
         questionViewModel.getQuestionList().observe(this, questions -> {
             Log.d("mym", "set changed");
-            classManagmentAdapter.setQuestions(questions);
+            classManagementAdapter.setQuestions(questions);
         });
         questionViewModel.getClassQuestions(this.classUid);
 
@@ -103,7 +103,7 @@ public class ClassManagmentActivity extends AppCompatActivity {
     }
 
     public void rename(String input, int position) {
-        Question question = classManagmentAdapter.getQuestion(position);
+        Question question = classManagementAdapter.getQuestion(position);
         question.setQuestionName(input);
         questionViewModel.update(question);
     }
