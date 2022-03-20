@@ -2,7 +2,6 @@ package ir.sharif.fakequera.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -13,15 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import ir.sharif.fakequera.Fragments.AddClassDialogFragment;
+import ir.sharif.fakequera.fragments.AddClassDialogFragment;
 import ir.sharif.fakequera.R;
 import ir.sharif.fakequera.entities.Class;
 import ir.sharif.fakequera.entities.Teacher;
@@ -52,7 +48,6 @@ public class TeacherMainActivity extends AppCompatActivity {
         uid = i.getIntExtra("uid", 0);
 
         userViewModel = new UserViewModel(getApplication());
-//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.authenticateWithSavedCredentials();
         cardView = findViewById(R.id.answerCardView);
         username = cardView.findViewById(R.id.textViewStuName);
@@ -104,16 +99,15 @@ public class TeacherMainActivity extends AppCompatActivity {
     }
 
     public void goToQuestion(int uid) {
-        Intent i2 = new Intent(TeacherMainActivity.this, ClassManagmentActivity.class);
-        i2.putExtra("uid", uid);
-        startActivity(i2);
+        Intent intent = new Intent(TeacherMainActivity.this, ClassManagmentActivity.class);
+        intent.putExtra("uid", uid);
+        startActivity(intent);
     }
 
 
     public void takeDate(String name) {
-        Class classs = new Class(uid, name);
-        Log.d("mym", classs.toString());
-        classViewModel.insert(classs);
+        Class c = new Class(uid, name);
+        classViewModel.insert(c);
         userViewModel.requestTeacher(uid);
     }
 

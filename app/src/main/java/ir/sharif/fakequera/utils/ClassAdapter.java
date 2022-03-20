@@ -60,7 +60,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassHolder>
         notifyDataSetChanged();
     }
 
-    class ClassHolder extends RecyclerView.ViewHolder {
+    static class ClassHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
         TextView textViewDes;
         private final CardView cardView;

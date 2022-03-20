@@ -25,9 +25,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-import ir.sharif.fakequera.Fragments.LoginFragment;
+import ir.sharif.fakequera.fragments.LoginFragment;
 import ir.sharif.fakequera.R;
-import ir.sharif.fakequera.Fragments.SignupFragment;
+import ir.sharif.fakequera.fragments.SignupFragment;
 import ir.sharif.fakequera.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {

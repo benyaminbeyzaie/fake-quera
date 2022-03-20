@@ -39,9 +39,9 @@ public class AnswerActivity extends AppCompatActivity {
 
         questionViewModel.getQuestionLiveData().observe(this, question -> {
             if (question == null) {
-                txtQuestion.setText("Question Not Found !");
+                txtQuestion.setText("Question Not Found!");
             } else {
-                txtQuestion.setText("Question : " + question.content);
+                txtQuestion.setText("Question: " + question.content);
             }
         });
 
@@ -49,9 +49,9 @@ public class AnswerActivity extends AppCompatActivity {
             edtAnswer.setText(answer.content);
 
             if (answer.score == -1) {
-                txtScore.setText("Score :  Not Registered");
+                txtScore.setText("Score:  Not Registered");
             } else {
-                txtScore.setText("Score : " + answer.score);
+                txtScore.setText("Score: " + answer.score);
             }
         });
 

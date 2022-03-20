@@ -41,7 +41,7 @@ public class QuestionRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             List<Question> list = questionDao.getQuestionsOfClass2(classId);
             if (list == null || list.isEmpty()) {
-                message.postValue("Question Not Found In This Class !");
+                message.postValue("Question Not Found In This Class!");
                 return;
             }
             questionList.postValue(list);
